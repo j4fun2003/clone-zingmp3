@@ -1,0 +1,30 @@
+package com.m2m.zing.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "playlists")
+public class Playlist {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private String playlistName;
+    private LocalDateTime createDate;
+
+    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
+    private List<PlaylistSong> playlistSongs;
+}
