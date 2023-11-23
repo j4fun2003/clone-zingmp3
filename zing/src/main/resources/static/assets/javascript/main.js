@@ -66,115 +66,115 @@ const app = {
     // sliderIndex: 0,
     songsData : [
         {
-            background: '../static/assets/img/songs/0.webp',
+            background: '/assets/img/songs/0.webp',
             name: 'Anh Đã Lạc Vào',
             singer: 'Green, Đại Mèo Remix',
-            pathSong: '../static/assets/music/list-song/0.mp3',
+            pathSong: '/assets/music/list-song/0.mp3',
             duration : '04:27',
         },
         {
-            background: '../static/assets/img/songs/1.webp',
+            background: '/assets/img/songs/1.webp',
             name: 'Chạy Về Khóc Với Anh',
             singer: 'Erik, Duzme Remix',
-            pathSong: '../static/assets/music/list-song/1.mp3',
+            pathSong: '/assets/music/list-song/1.mp3',
             duration : '04:05',
         },
         {
-            background: '../static/assets/img/songs/2.jpeg',
+            background: '/assets/img/songs/2.jpeg',
             name: 'Sẵn Sàng Yêu Em Đi Thôi',
             singer: 'Woni, Minh Tú, Đại Mèo Remix',
-            pathSong: '../static/assets/music/list-song/2.mp3',
+            pathSong: '/assets/music/list-song/2.mp3',
             duration : '03:51',
         },
         {
-            background: '../static/assets/img/songs/3.webp',
+            background: '/assets/img/songs/3.webp',
             name: 'Gieo Quẻ',
             singer: 'Hoàng Thuỳ Linh, ĐEN, Orinn Remix',
-            pathSong: '../static/assets/music/list-song/3.mp3',
+            pathSong: '/assets/music/list-song/3.mp3',
             duration : '04:27',
         },
         {
-            background: '../static/assets/img/songs/4.webp',
+            background: '/assets/img/songs/4.webp',
             name: 'Vui Lắm Nha',
             singer: 'Hương Ly, Jombie, RIN Music Remix',
-            pathSong: '../static/assets/music/list-song/4.m4a',
+            pathSong: '/assets/music/list-song/4.m4a',
             duration : '05:16',
         },
         {
-            background: '../static/assets/img/songs/5.webp',
+            background: '/assets/img/songs/5.webp',
             name: 'Lưu Số Em Đi',
             singer: 'Huỳnh Văn, V.P. Tiên, Đại Mèo Remix',
-            pathSong: '../static/assets/music/list-song/5.m4a',
+            pathSong: '/assets/music/list-song/5.m4a',
             duration : '04:10',
         },
         {
-            background: '../static/assets/img/songs/6.webp',
+            background: '/assets/img/songs/6.webp',
             name: 'Như Một Người Dưng',
             singer: 'Nguyễn Thạc Bảo Ngọc, Remix',
-            pathSong: '../static/assets/music/list-song/6.mp3',
+            pathSong: '/assets/music/list-song/6.mp3',
             duration : '05:05',
         },
         {
-            background: '../static/assets/img/songs/7.webp',
+            background: '/assets/img/songs/7.webp',
             name: 'Ôm Nhiều Mộng Mơ',
             singer: 'Phát Huy T4, Đại Mèo Remix',
-            pathSong: '../static/assets/music/list-song/7.m4a',
+            pathSong: '/assets/music/list-song/7.m4a',
             duration : '03:16',
         },
         {
-            background: '../static/assets/img/songs/8.jpg',
+            background: '/assets/img/songs/8.jpg',
             name: 'Tình Yêu Ngủ Quên',
             singer: 'Hoàng Tôn, LyHan, Orinn Remix',
-            pathSong: '../static/assets/music/list-song/8.mp3',
+            pathSong: '/assets/music/list-song/8.mp3',
             duration : '04:27',
         },
         {
-            background: '../static/assets/img/songs/9.webp',
+            background: '/assets/img/songs/9.webp',
             name: 'Không Bằng',
             singer: 'Na, RIN Music Remix',
-            pathSong: '../static/assets/music/list-song/9.m4a',
+            pathSong: '/assets/music/list-song/9.m4a',
             duration : '03:23',
         },
         {
-            background: '../static/assets/img/songs/10.webp',
+            background: '/assets/img/songs/10.webp',
             name: 'Ai Chung Tình Được Mãi',
             singer: 'Đinh Tùng Huy, ACV Remix',
-            pathSong: '../static/assets/music/list-song/10.m4a',
+            pathSong: '/assets/music/list-song/10.m4a',
             duration : '03:55',
         },
         {
-            background: '../static/assets/img/songs/11.webp',
+            background: '/assets/img/songs/11.webp',
             name: 'Cô Đơn Dành Cho Ai',
             singer: 'NAL, LEE KEN, Orinn Remix',
-            pathSong: '../static/assets/music/list-song/11.m4a',
+            pathSong: '/assets/music/list-song/11.m4a',
             duration : '04:45',
         },
         {
-            background: '../static/assets/img/songs/12.webp',
+            background: '/assets/img/songs/12.webp',
             name: 'Ánh mắt ta chạm nhau',
             singer: 'Ngô Lan Hương, Đại Mèo remix',
-            pathSong: '../static/assets/music/list-song/12.m4a',
+            pathSong: '/assets/music/list-song/12.m4a',
             duration : '06:01',
         },
         {
-            background: '../static/assets/img/songs/13.webp',
+            background: '/assets/img/songs/13.webp',
             name: '2 Phút Hơn',
             singer: 'Phao, KAIZ Remix',
-            pathSong: '../static/assets/music/list-song/13.m4a',
+            pathSong: '/assets/music/list-song/13.m4a',
             duration : '05:02',
         },
         {
-            background: '../static/assets/img/songs/14.webp',
+            background: '/assets/img/songs/14.webp',
             name: 'Là Ai Từ Bỏ Là Ai Vô Tình',
             singer: 'Hương Ly, Jombie (G5R), RIN Music Remix',
-            pathSong: '../static/assets/music/list-song/14.m4a',
+            pathSong: '/assets/music/list-song/14.m4a',
             duration : '03:25',
         },
         {
-            background: '../static/assets/img/songs/2.jpeg',
+            background: '/assets/img/songs/2.jpeg',
             name: 'Yêu Đừng Sợ Đau',
             singer: 'Ngô Lan Hương, Cukak Remix',
-            pathSong: '../static/assets/music/list-song/15.m4a',
+            pathSong: '/assets/music/list-song/15.m4a',
             duration : '03:51',
         },
     ],
@@ -221,7 +221,7 @@ const app = {
                     $('.header').style.boxShadow = '0 3px 5px rgba(0,0,0,0.1)';
                     $('.header').style.backgroundColor = `var(--header-color-${backgroundIndex})`;
                     $('.header').style.boxShadow = '0 3px 5px rgba(0,0,0,0.1)';
-                    $('.main').style.backgroundImage = 'url(../static/assets/img/background-theme/backroundThemes/0.svg)';
+                    $('.main').style.backgroundImage = 'url(/assets/img/background-theme/backroundThemes/0.svg)';
                     $('.main-music-control').style.backgroundImage = '';
                     $('.main-music-control').style.backgroundColor = '#37075D';
                     $('.mobile-tab').style.backgroundColor = '#37075D';
@@ -261,7 +261,7 @@ const app = {
                     backgroundIndex = 1;
                     $('.header').style.backgroundColor = `var(--header-color-${backgroundIndex})`;
                     $('.header').style.boxShadow = '0 3px 5px rgba(0,0,0,0.1)';
-                    $('.main').style.backgroundImage = 'url(../static/assets/img/background-theme/backroundThemes/1.jpg)';
+                    $('.main').style.backgroundImage = 'url(/assets/img/background-theme/backroundThemes/1.jpg)';
                     $('.main-music-control').style.backgroundImage = 'none';
                     $('.main-music-control').style.backgroundColor = '#202020';
                     $('.mobile-tab').style.backgroundColor = '#202020';
@@ -301,7 +301,7 @@ const app = {
                     backgroundIndex = 2;
                     $('.header').style.backgroundColor = `var(--header-color-${backgroundIndex})`;
                     $('.header').style.boxShadow = '0 3px 5px rgba(0,0,0,0.1)';
-                    $('.main').style.backgroundImage = 'url(../static/assets/img/background-theme/backroundThemes/2.jpg)';
+                    $('.main').style.backgroundImage = 'url(/assets/img/background-theme/backroundThemes/2.jpg)';
                     $('.main-music-control').style.backgroundImage = 'none';
                     $('.main-music-control').style.backgroundColor = '#051740';
                     $('.mobile-tab').style.backgroundColor = '#051740';
@@ -341,7 +341,7 @@ const app = {
                     backgroundIndex = 3;
                     $('.header').style.backgroundColor = `var(--header-color-${backgroundIndex})`;
                     $('.header').style.boxShadow = '0 3px 5px rgba(0,0,0,0.1)';
-                    $('.main').style.backgroundImage = 'url(../static/assets/img/background-theme/backroundThemes/3.jpg)';
+                    $('.main').style.backgroundImage = 'url(/assets/img/background-theme/backroundThemes/3.jpg)';
                     $('.main-music-control').style.backgroundImage = 'none';
                     $('.main-music-control').style.backgroundColor = '#D0CCC5';
                     $('.mobile-tab').style.backgroundColor = '#D0CCC5';
@@ -380,7 +380,7 @@ const app = {
                     backgroundIndex = 4;
                     $('.header').style.backgroundColor = `var(--header-color-${backgroundIndex})`;
                     $('.header').style.boxShadow = '0 3px 5px rgba(0,0,0,0.1)';
-                    $('.main').style.backgroundImage = 'url(../static/assets/img/background-theme/backroundThemes/4.jpg)';
+                    $('.main').style.backgroundImage = 'url(/assets/img/background-theme/backroundThemes/4.jpg)';
                     $('.main-music-control').style.backgroundImage = 'none';
                     $('.main-music-control').style.backgroundColor = '#B4D0D0';
                     $('.mobile-tab').style.backgroundColor = '#B4D0D0';
@@ -420,7 +420,7 @@ const app = {
                     backgroundIndex = 5;
                     $('.header').style.backgroundColor = `var(--header-color-${backgroundIndex})`;
                     $('.header').style.boxShadow = '0 3px 5px rgba(0,0,0,0.1)';
-                    $('.main').style.backgroundImage = 'url(../static/assets/img/background-theme/backroundThemes/5.jpg)';
+                    $('.main').style.backgroundImage = 'url(/assets/img/background-theme/backroundThemes/5.jpg)';
                     $('.main-music-control').style.backgroundImage = 'none';
                     $('.main-music-control').style.backgroundColor = '#F9C6C5';
                     $('.mobile-tab').style.backgroundColor = '#F9C6C5';
@@ -460,7 +460,7 @@ const app = {
                     backgroundIndex = 6;
                     $('.header').style.backgroundColor = `var(--header-color-${backgroundIndex})`;
                     $('.header').style.boxShadow = '0 3px 5px rgba(0,0,0,0.1)';
-                    $('.main').style.backgroundImage = 'url(../static/assets/img/background-theme/backroundThemes/6.jpg)';
+                    $('.main').style.backgroundImage = 'url(/assets/img/background-theme/backroundThemes/6.jpg)';
                     $('.main-music-control').style.backgroundImage = 'none';
                     $('.main-music-control').style.backgroundColor = '#C6C4D1';
                     $('.mobile-tab').style.backgroundColor = '#C6C4D1';
@@ -500,7 +500,7 @@ const app = {
                     backgroundIndex = 7;
                     $('.header').style.backgroundColor = `var(--header-color-${backgroundIndex})`;
                     $('.header').style.boxShadow = '0 3px 5px rgba(0,0,0,0.1)';
-                    $('.main').style.backgroundImage = 'url(../static/assets/img/background-theme/backroundThemes/7.jpg)';
+                    $('.main').style.backgroundImage = 'url(/assets/img/background-theme/backroundThemes/7.jpg)';
                     $('.main-music-control').style.backgroundImage = 'none';
                     $('.main-music-control').style.backgroundColor = '#FFFFFF';
                     $('.mobile-tab').style.backgroundColor = '#FFFFFF';
@@ -553,7 +553,7 @@ const app = {
                         <div style="background-image: url(${song.background});" class="songs-item-left-img js__songs-item-left-img-0">
                             <div class="songs-item-left-img-playbtn"><i class="fas fa-play"></i></div>
                             <div class="songs-item-left-img-playing-box">
-                                <img class = "songs-item-left-img-playing" src="../static/assets/img/songs/icon-playing.gif" alt="playing">
+                                <img class = "songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">
                             </div>
                         </div>
 
@@ -590,7 +590,7 @@ const app = {
                         <div style="background-image: url(${song.background});" class="songs-item-left-img js__songs-item-left-img-1">
                             <div class="songs-item-left-img-playbtn"><i class="fas fa-play"></i></div>
                             <div class="songs-item-left-img-playing-box">
-                                <img class = "songs-item-left-img-playing" src="../static/assets/img/songs/icon-playing.gif" alt="playing">
+                                <img class = "songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">
                             </div>
                         </div>
 
@@ -629,7 +629,7 @@ const app = {
                         <div style="background-image: url(${song.background});" class="songs-item-left-img">
                             <div class="songs-item-left-img-playbtn"><i class="fas fa-play"></i></div>
                             <div class="songs-item-left-img-playing-box">
-                                <img class = "songs-item-left-img-playing" src="../static/assets/img/songs/icon-playing.gif" alt="playing">
+                                <img class = "songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">
                             </div>
                         </div>
 
@@ -668,7 +668,7 @@ const app = {
                         <div style="background-image: url(${song.background});" class="songs-item-left-img">
                             <div class="songs-item-left-img-playbtn"><i class="fas fa-play"></i></div>
                             <div class="songs-item-left-img-playing-box">
-                                <img class = "songs-item-left-img-playing" src="../static/assets/img/songs/icon-playing.gif" alt="playing">
+                                <img class = "songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">
                             </div>
                         </div>
 
@@ -704,7 +704,7 @@ const app = {
                 <div class="nextsong__item-img" style="background-image: url(${song.background});">
                     <div class="nextsong__item-playbtn"><i class="fas fa-play"></i></div>
                     <div class="songs-item-left-img-playing-box">
-                        <img class = "songs-item-left-img-playing" src="../static/assets/img/songs/icon-playing.gif" alt="playing">
+                        <img class = "songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">
                     </div>
                 </div>
                 <div class="nextsong__item-body">
@@ -734,7 +734,7 @@ const app = {
                 <div class="nextsong__item-img" style="background-image: url(${song.background});">
                     <div class="nextsong__item-playbtn"><i class="fas fa-play"></i></div>
                     <div class="songs-item-left-img-playing-box">
-                        <img class = "songs-item-left-img-playing" src="../static/assets/img/songs/icon-playing.gif" alt="playing">
+                        <img class = "songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">
                     </div>
                 </div>
                 <div class="nextsong__item-body">

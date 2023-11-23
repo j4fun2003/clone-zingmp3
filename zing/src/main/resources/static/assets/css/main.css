@@ -21,7 +21,7 @@
 .sidebar__logo {
     width: 240px;
     height: 70px;
-    background-image: url(logo-dark.svg);
+    background-image: url(static/assets/img/sidebar-icon/logo/logo-dark.svg);
     background-size: 50%;
     background-repeat: no-repeat;
     background-position-x: 28px;
@@ -1886,7 +1886,7 @@
     left: 0;
     bottom: 0;
     right: 0; 
-    background-image: url(theme1.png);
+    background-image: url(/static/assets/img/cntrl-player/playerThemes/theme1.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50%;

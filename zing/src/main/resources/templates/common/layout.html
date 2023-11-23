@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(view)" >
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Zing Mp3</title>
+    <link th:href="@{|/assets/img/icon-home/small-logo.svg|}" rel="icon" sizes="16x16" type="image/gif">
+    <!-- reset css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <!-- css grid để kết hợp chia khung và responsive -->
+    <link th:href="@{|/assets/css/grid.css|}" rel="stylesheet">
+    <!-- css mấy cái chung ban đầu -->
+    <link th:href="@{|/assets/css/base.css|}" rel="stylesheet">
+    <!-- css chính -->
+    <link th:href="@{|/assets/css/main.css|}" rel="stylesheet">
+    <!-- css để responsive trên các thiết bị -->
+    <link th:href="@{|/assets/css/responsive.css|}" rel="stylesheet">
+    <!-- nếu trình duyệt IE < 9 thì comment dưới sẽ thành code chạy dc, code scrip dước có chức năng để chạy dc media-query để responsive trên trình chuyệt thấp IE < 9 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.1/respond.js"></script>
+    <![endif]-->
+    <!-- dùng google font roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- icon fontawesome -->
+    <link th:href="@{|/assets/fonts/fontawesome-free-5.15.3-web/css/all.min.css|}" rel="stylesheet">
+</head>
+<body>
+<div class="main" style="background-image: url(/assets/img/background-theme/backroundThemes/0.svg)">
+    <div class="grid">
+        <aside th:replace="~{/common/_sidebar.html :: sidebar}"></aside>
+        <main th:replace="${view}"></main>
+        <div th:replace="~{/common/_aside.html :: aside}"></div>
+        <footer th:replace="~{/common/_footer.html :: footer}"></footer>
+        <div class="mobile-player">
+            <div class="mobile-player__headding">
+                <img alt="icon-home" class="mobile-player__headding-img"
+                     src="../static/assets/img/icon-home/small-logo.svg">
+                <div class="mobile-player__headding-option">
+                    <span class="mobile-player__headding-option-item">ĐANG PHÁT</span>
+                    <span class="mobile-player__headding-option-item">LYRIC</span>
+                </div>
+                <div class="mobile-player__headding-close"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="mobile-player__body">
+                <div class="mobile-player__body-thumb"
+                     style="background-image: url(./static/assets/img/songs/0.webp);"></div>
+                <div class="mobile-player__body-now">
+                    <span class="mobile-player__body-now-name">Tình Yêu Ngủ Quên</span>
+                    <span class="mobile-player__body-now-singer">Hoàng Tôn, LyHan, Orinn Remix</span>
+                    <span class="mobile-player__body-now-extra">Remix Version</span>
+                </div>
+            </div>
+            <div class="mobile-player__ctrl">
+                <div class="music-control__center-action music-control__icon">
+                    <!-- music-control__icon-random--active -->
+                    <i class="fas fa-random music-control__icon1 mobile-player__ctrl-icon js__mobile-player__ctrl-icon1"></i>
+                    <i class="fas fa-caret-left music-control__icon2 mobile-player__ctrl-icon js__mobile-player__ctrl-icon2"></i>
+                    <!-- music-control__icon-play--active -->
+                    <div class="music-control__icon-play mobile-player__ctrl-icon js__mobile-player__ctrl-icon">
+                        <i class="fas fa-play music-control__icon3"></i>
+                        <i class="fas fa-pause music-control__icon33"></i>
+                    </div>
+                    <i class="fas fa-caret-right music-control__icon4 mobile-player__ctrl-icon js__mobile-player__ctrl-icon4"></i>
+                    <!-- music-control__icon-repeat--active -->
+                    <i class="fas fa-redo music-control__icon5 mobile-player__ctrl-icon js__mobile-player__ctrl-icon5"></i>
+                </div>
+                <div class="music-control__progress mobile-player__ctrl-progress">
+                    <span class="music-control__progress-time-start mobile-player__ctrl-progress-time-start">00:00</span>
+                    <input class="music-control__progress-input mobile-player__ctrl-progress-input" id="progress2"
+                           max="100" min="0" step="1" type="range" value="0">
+                    <span class="music-control__progress-time-duration mobile-player__ctrl-progress-time-duration">00:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{|/assets/javascript/main.js|}"></script>
+</body>
+
+</html>
