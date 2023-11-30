@@ -7,6 +7,7 @@ import com.m2m.zing.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,6 +25,7 @@ public class PlaylistServiceImpl implements PlaylistService {
         Playlist playlist = new Playlist();
         playlist.setUser(user);
         playlist.setPlaylistName(playlistName);
+        playlist.setCreateDate(LocalDateTime.now());
         return playlistRepository.save(playlist);
     }
 

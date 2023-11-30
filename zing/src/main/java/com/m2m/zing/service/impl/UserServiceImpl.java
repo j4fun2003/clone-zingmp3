@@ -6,6 +6,7 @@ import com.m2m.zing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) throws Exception {
+        user.setActive(true);
+        user.setCreateDate(LocalDateTime.now());
         return userRepository.save(user);
     }
 

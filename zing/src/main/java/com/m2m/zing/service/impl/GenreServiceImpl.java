@@ -11,12 +11,8 @@ import java.util.Optional;
 @Service
 public class GenreServiceImpl implements GenreService {
 
-    private final GenreRepository genreRepository;
-
-    @Autowired
-    public GenreServiceImpl(GenreRepository genreRepository) {
-        this.genreRepository = genreRepository;
-    }
+   @Autowired
+   GenreRepository  genreRepository;
 
     @Override
     public Genre createGenre(Genre genre) throws Exception {

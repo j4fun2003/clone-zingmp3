@@ -44,6 +44,7 @@ public class UserAPI {
 
 
 
+
     @GetMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
         Map<String, Object> result = new HashMap<>();
@@ -97,12 +98,11 @@ public class UserAPI {
             user.setUsername(registerRequest.getUsername());
             user.setPassword(registerRequest.getPassword());
             user.setEmail(registerRequest.getEmail());
-            user.setCreateDate(LocalDateTime.now());
             user.setAvatar(registerRequest.getAvatar());
             user.setFullName(registerRequest.getFullName());
             user.setProvider(registerRequest.getProvider());
             user.setGenders(registerRequest.isGenders());
-            user.setActive(true);
+            user.setRole("user");
             result.put("status", "Success");
         } catch (Exception e) {
             result.put("status", "Error");
