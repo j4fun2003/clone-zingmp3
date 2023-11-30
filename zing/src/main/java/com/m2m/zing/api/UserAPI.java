@@ -3,10 +3,13 @@ package com.m2m.zing.api;
 import com.m2m.zing.constant.ModelAttributes;
 import com.m2m.zing.dto.LoginRequest;
 import com.m2m.zing.dto.RegisterRequest;
+import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
+import com.m2m.zing.service.SongService;
 import com.m2m.zing.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +23,8 @@ import java.util.Map;
 public class UserAPI {
     @Autowired
     UserService userService;
+    @Autowired
+    SongService songService;
     @Autowired
     HttpSession httpSession;
     @GetMapping
@@ -111,6 +116,31 @@ public class UserAPI {
         return ResponseEntity.ok(result);
 
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> doGetUser(@PathVariable("userId") Long userId){
+        Map<String, Object> result = new HashMap<>();
+        try {
+            User userFind = userService.getUserById(userId);
+            List<Song> songs = songService.getSongsByAuthorId(userId, PageRequest.of(0, 6));
+            if(userFind != null){
+                result.put("status", "Success");
+                result.put("authors", userFind);
+                result.put("songs", songs);
+            } else {
+                result.put("status", "Failed");
+                result.put("detail", "Không tồn tại người dùng");
+            }
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            result.put("status", "Error");
+            result.put("detail", e.toString());
+            return ResponseEntity.ok(result);
+        }
+    }
+
+
+
     @PutMapping("/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable("userId") Long userId, @RequestBody User user) {
         Map<String, Object> result = new HashMap<>();
@@ -129,6 +159,8 @@ public class UserAPI {
             return ResponseEntity.ok(result);
         }
     }
+
+
     @DeleteMapping("/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId){
         Map<String, Object> result =  new HashMap<>();;

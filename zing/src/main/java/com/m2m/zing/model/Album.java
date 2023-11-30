@@ -1,5 +1,6 @@
 package com.m2m.zing.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,8 +24,10 @@ public class Album {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
+    @JsonIgnore
     private User author;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Song> songs;
 }

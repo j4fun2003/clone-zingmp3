@@ -1444,10 +1444,12 @@
     font-size: 1.4rem;
     font-weight: 600;
     padding: 10px 0 2px 0;
+    text-decoration: none;
 }
 
 .option-all__playlist-item-content-singer-name1:hover {
     color: var(--primary-color);
+    text-decoration: none;
 }
 
 .option-all__playlist-item-content-singer-name2 {

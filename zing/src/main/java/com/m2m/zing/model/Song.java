@@ -1,5 +1,6 @@
 package com.m2m.zing.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class Song {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
+    @JsonIgnore
     private User author;
 
     @ManyToOne
@@ -37,14 +39,18 @@ public class Song {
     private Album album;
 
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<GenreDetail> genreDetails;
 
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<PlaylistSong> playlistSongs;
 
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Favorite> favorites;
 
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<History> histories;
 }
