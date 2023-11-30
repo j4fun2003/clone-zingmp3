@@ -16,7 +16,7 @@ import java.util.List;
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long songId;
 
     private String title;
     private String description;

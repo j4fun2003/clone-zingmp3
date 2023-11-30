@@ -10,9 +10,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface HistoryService {
-    History addToHistory(User user, Song song);
-    List<History> getHistoryByUser(User user);
-    void clearUserHistory(User user);
-    // Other methods as needed
+    History addToHistory(User user, Song song) throws Exception;
+    List<History> getHistoryByUser(User user) throws Exception;
+    void clearUserHistory(User user) throws Exception;
 }
 

@@ -16,7 +16,7 @@ import java.util.List;
 public class Playlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long playlistId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

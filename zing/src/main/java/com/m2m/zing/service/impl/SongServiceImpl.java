@@ -1,55 +1,64 @@
 package com.m2m.zing.service.impl;
 
 import com.m2m.zing.model.Song;
+import com.m2m.zing.model.User;
 import com.m2m.zing.repository.SongRepository;
 import com.m2m.zing.service.SongService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SongServiceImpl implements SongService {
 
     private final SongRepository songRepository;
 
+    @Autowired
     public SongServiceImpl(SongRepository songRepository) {
         this.songRepository = songRepository;
     }
 
     @Override
-    public List<Song> getAllSong(){
+    public List<Song> getAllSong() throws Exception {
         return songRepository.findAll();
-    };
+    }
+
     @Override
-    public Song createSong(Song song) {
-        // Perform any validation or business logic before saving
+    public Song createSong(Song song) throws Exception {
         return songRepository.save(song);
     }
 
     @Override
     public Song getSongById(Long songId) throws Exception {
-        System.out.println(">>> songId [SV] = "+ songId);
-        return songRepository.findById(songId).orElse(null);
+        Optional<Song> optionalSong = songRepository.findById(songId);
+        return optionalSong.orElse(null);
     }
 
     @Override
-    public Song updateSong(Long songId, Song songDetails) {
-        Song existingSong = songRepository.findById(songId).orElse(null);
-        if (existingSong != null) {
-            // Update song details
-            existingSong.setTitle(songDetails.getTitle());
-            existingSong.setDescription(songDetails.getDescription());
-            existingSong.setImage(songDetails.getImage());
-            // Set other fields as needed
-
-            return songRepository.save(existingSong);
+    public Song updateSong(Long songId, Song songDetails) throws Exception {
+        Optional<Song> optionalSong = songRepository.findById(songId);
+        if (optionalSong.isPresent()) {
+            songDetails.setSongId(songId);
+            return songRepository.save(songDetails);
         }
-        return null;
+        return null; // Song not found
     }
 
     @Override
-    public void deleteSong(Long songId) {
-        songRepository.deleteById(songId);
+    public Song deleteSong(Long songId) throws Exception {
+        Optional<Song> optionalSong = songRepository.findById(songId);
+        if (optionalSong.isPresent()) {
+            Song song = optionalSong.get();
+            songRepository.delete(song);
+            return song;
+        }
+        return null; // Song not found
+    }
+
+    @Override
+    public List<Song> getSongByAuthor(User user) {
+        return songRepository.findByAuthor(user);
     }
 }

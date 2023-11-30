@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long historyId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
