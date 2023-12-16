@@ -25,24 +25,29 @@ public class User {
     private String fullName;
     private LocalDateTime createDate;
     private String provider;
-    private boolean active;
+    private boolean active = true;
     private String role;
     private boolean genders;
 
 
     @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Album> albums;
     @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Song> songs;
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Playlist> playlists;
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Favorite> favorites;
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<History> histories;
 }

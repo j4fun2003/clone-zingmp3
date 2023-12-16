@@ -3,6 +3,7 @@ package com.m2m.zing.service;
 
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
+import org.springframework.data.domain.Pageable;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,4 +15,8 @@ public interface SongService {
     Song updateSong(Long songId, Song songDetails) throws Exception;
     Song deleteSong(Long songId) throws Exception;
     List<Song> getSongByAuthor(User user);
+
+    List<Song> getSongsByAuthorId(Long id,Pageable page);
+
+    List<Song> getAllCurrent(Pageable page);
 }

@@ -3,17 +3,23 @@ package com.m2m.zing.api;
 import com.m2m.zing.constant.ModelAttributes;
 import com.m2m.zing.dto.LoginRequest;
 import com.m2m.zing.dto.RegisterRequest;
+import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
+import com.m2m.zing.repository.UserRepository;
+import com.m2m.zing.service.SongService;
 import com.m2m.zing.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -21,7 +27,13 @@ public class UserAPI {
     @Autowired
     UserService userService;
     @Autowired
+    SongService songService;
+    @Autowired
     HttpSession httpSession;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
     @GetMapping
     public ResponseEntity<?> getAll() {
@@ -49,6 +61,27 @@ public class UserAPI {
         Map<String, Object> result = new HashMap<>();
         try {
             User existUser;
+           if(loginRequest.getUsername() != null){
+               existUser =  (User) userService.getByUserName(loginRequest.getUsername());
+           }else{
+               existUser = userService.getByEmail(loginRequest.getEmail());
+           }
+           if(existUser != null){
+               if((existUser.getPassword()).equals(passwordEncoder.encode(loginRequest.getPassword()))){
+                   result.put("status", "Thành Công");
+                   httpSession.setAttribute(ModelAttributes.CURRENT_USER, existUser);
+               }else{
+                   result.put("status", "Đăng Nhập Thất Bại");
+                   result.put("detail", "Mật Khẩu Không Chính Xác");
+               }
+           }else{
+               result.put("status", "Đăng Nhập Thất Bại");
+               result.put("detail", "Sai Tên Tài Khoản Hoặc Mật Khẩu");
+           }
+       }catch (Exception e){
+           result.put("status","error");
+           result.put("detail",e.toString());
+       }
             if (loginRequest.getUsername() != null) {
                 existUser = userService.getByUserName(loginRequest.getUsername());
             } else {
@@ -92,7 +125,7 @@ public class UserAPI {
 //  tạo account khi không phát sinh lỗi
             User user = new User();
             user.setUsername(registerRequest.getUsername());
-            user.setPassword(registerRequest.getPassword());
+            user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
             user.setEmail(registerRequest.getEmail());
             user.setAvatar(registerRequest.getAvatar());
             user.setFullName(registerRequest.getFullName());
@@ -107,6 +140,29 @@ public class UserAPI {
         }
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> doGetUser(@PathVariable("userId") Long userId){
+        Map<String, Object> result = new HashMap<>();
+        try {
+            User userFind = userService.getUserById(userId);
+            List<Song> songs = songService.getSongsByAuthorId(userId, PageRequest.of(0, 6));
+            if(userFind != null){
+                result.put("status", "Success");
+                result.put("authors", userFind);
+                result.put("songs", songs);
+            } else {
+                result.put("status", "Failed");
+                result.put("detail", "Không tồn tại người dùng");
+            }
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            result.put("status", "Error");
+            result.put("detail", e.toString());
+            return ResponseEntity.ok(result);
+        }
+    }
+
 
     @PutMapping("/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable("userId") Long userId, @RequestBody User updatedUserInfo) {
@@ -137,6 +193,7 @@ public class UserAPI {
             return ResponseEntity.ok(result);
         }
     }
+
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) {

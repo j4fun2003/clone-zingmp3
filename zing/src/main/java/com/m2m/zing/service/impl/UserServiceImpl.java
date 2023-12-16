@@ -1,9 +1,14 @@
 package com.m2m.zing.service.impl;
 
+import com.m2m.zing.dto.UserDetail;
 import com.m2m.zing.model.User;
 import com.m2m.zing.repository.UserRepository;
 import com.m2m.zing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,12 +16,21 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
+
+    public String createUser(User user) throws Exception {
+        user.setPassword(user.getPassword());
+        userRepository.save(user);
+        return "Đã tạo tài khoản thành công";
+
     public User createUser(User user) throws Exception {
         user.setActive(true);
         user.setCreateDate(LocalDateTime.now());
@@ -58,5 +72,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUser() throws Exception {
         return userRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> userInfo = Optional.ofNullable(userRepository.findByUsername(username));
+        return userInfo.map(UserDetail::new)
+                .orElseThrow(() -> new UsernameNotFoundException("user not found " + username));
     }
 }

@@ -5,6 +5,7 @@ import com.m2m.zing.model.User;
 import com.m2m.zing.repository.SongRepository;
 import com.m2m.zing.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,5 +61,16 @@ public class SongServiceImpl implements SongService {
     @Override
     public List<Song> getSongByAuthor(User user) {
         return songRepository.findByAuthor(user);
+    }
+
+    @Override
+    public List<Song> getSongsByAuthorId(Long id, Pageable page) {
+        return songRepository.getSongsByAuthor(id,page);
+    }
+
+
+    @Override
+    public List<Song> getAllCurrent(Pageable page) {
+        return songRepository.getAllCurrent(page);
     }
 }

@@ -185,31 +185,31 @@ const app = {
     isMute: false,
     volume: 100,
 
-    defineProperties: function() {
-        Object.defineProperty(this, 'currentSong', {
-            get: function() {
-                return this.songsData[this.currentIndex];
-            }
-        })
-    },
+    // defineProperties: function() {
+    //     Object.defineProperty(this, 'currentSong', {
+    //         get: function() {
+    //             return this.songsData[this.currentIndex];
+    //         }
+    //     })
+    // },
 
-    toastSlide: function() {
-        const toatMain = $('#toast');
-        if (toatMain) {
-            const toast = document.createElement('div');
-            toast.classList.add('toast');
-            toast.innerHTML = `
-                <div class="toast__item">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <span>Chức năng này đang được phát triển, bạn vui lòng thử lại sau !</span>
-                </div>
-            `;
-            toatMain.appendChild(toast);
-            setTimeout(function() {
-                toatMain.removeChild(toast);
-            }, 3000)
-        }
-    },
+    // toastSlide: function() {
+    //     const toatMain = $('#toast');
+    //     if (toatMain) {
+    //         const toast = document.createElement('div');
+    //         toast.classList.add('toast');
+    //         toast.innerHTML = `
+    //             <div class="toast__item">
+    //                 <i class="fa-solid fa-circle-exclamation"></i>
+    //                 <span>Chức năng này đang được phát triển, bạn vui lòng thử lại sau !</span>
+    //             </div>
+    //         `;
+    //         toatMain.appendChild(toast);
+    //         setTimeout(function() {
+    //             toatMain.removeChild(toast);
+    //         }, 3000)
+    //     }
+    // },
 
     // THEME APPLY SKIN
     applyTheme: function() {
@@ -401,7 +401,7 @@ const app = {
                     $('.header__width-search-input').classList.remove('header__width-search-input--dark');
                     $('.music-control__volume-input').style.backgroundColor = "rgba(0, 0, 0, 0.3)";
                     $('.music-control__progress-input').style.backgroundColor = "rgba(0, 0, 0, 0.3)";
-                    
+
                     $$('.js__main-color').forEach((item) => {
                         item.style.color = '#000';
                     })
@@ -537,7 +537,7 @@ const app = {
                         item.style.border = "2px solid #000";
                     })
                 }
-                
+
                 app.verifyOptionTextColor();
             }
         });

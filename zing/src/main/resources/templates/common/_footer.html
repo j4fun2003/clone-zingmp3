@@ -71,7 +71,47 @@
             </div>
         </div>
     </div>
+    <div class="modal-zone">
+        <div id="loginModal" class="loginModal">
+            <div class="loginModal-content">
+                <span class="loginModal-close" id="closeModalBtn">&times;</span>
+                <h2>Đăng nhập</h2>
+                <form id="loginForm">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <input type="checkbox" name="remember"><label>Nhớ mật khẩu?</label>
+                    <label>Nếu chưa có tài khoản? <i style="color:blue" id="openRegisterModal">Đăng ký</i></label>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+        <div id="registerModal" class="registerModal">
+            <div class="registerModal-content">
+                <span class="registerModal-close" id="closeRegisterModalBtn">&times;</span>
+                <h2>Đăng ký</h2>
+                <form id="regisForm">
+                    <label>Họ và tên:</label>
+                    <input type="text" name="fullname" required>
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                    <label>Tài khoản:</label>
+                    <input type="text"  name="username" required>
+                    <label>Mật khẩu:</label>
+                    <input type="password" name="password" required>
+                    <label>Đã có tài khoản? <i style="color:blue" id="openLoginModal">Đăng nhập</i></label>
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
 </div>
+
+<!-- The login modal -->
+
 <!-- END MUSIC CONTROL -->
 </body>
 </html>
