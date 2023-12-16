@@ -1,5 +1,6 @@
 package com.m2m.zing.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Playlist {
     private String playlistName;
     private LocalDateTime createDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
     private List<PlaylistSong> playlistSongs;
 }

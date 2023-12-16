@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +25,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Override
+
     public String createUser(User user) throws Exception {
         user.setPassword(user.getPassword());
         userRepository.save(user);
         return "Đã tạo tài khoản thành công";
+
+    public User createUser(User user) throws Exception {
+        user.setActive(true);
+        user.setCreateDate(LocalDateTime.now());
+        return userRepository.save(user);
     }
 
     @Override

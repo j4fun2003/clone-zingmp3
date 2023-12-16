@@ -1,5 +1,6 @@
 package com.m2m.zing.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class Genre {
     private Long genreId;
 
     private String title;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
     private List<GenreDetail> genreDetails;
 }

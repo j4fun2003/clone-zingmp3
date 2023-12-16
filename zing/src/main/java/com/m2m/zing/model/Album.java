@@ -27,6 +27,7 @@ public class Album {
     @JsonIgnore
     private User author;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Song> songs;

@@ -14,12 +14,8 @@ import java.util.List;
 @Service
 public class HistoryServiceImpl implements HistoryService {
 
-    private final HistoryRepository historyRepository;
-
     @Autowired
-    public HistoryServiceImpl(HistoryRepository historyRepository) {
-        this.historyRepository = historyRepository;
-    }
+    HistoryRepository historyRepository;
 
     @Override
     public History addToHistory(User user, Song song) throws Exception {

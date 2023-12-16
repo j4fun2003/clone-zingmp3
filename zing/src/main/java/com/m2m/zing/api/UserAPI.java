@@ -30,20 +30,22 @@ public class UserAPI {
     SongService songService;
     @Autowired
     HttpSession httpSession;
+
     @Autowired
     PasswordEncoder passwordEncoder;
 
+
     @GetMapping
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity<?> getAll() {
         Map<String, Object> result = new HashMap<>();
         try {
             List<User> users = userService.getAllUser();
-            if( !users.isEmpty()){
-                result.put("status","Success");
-                result.put("data",users);
-            }else{
-                result.put("status","Failed");
-                result.put("detail","Không Có Bất Kỳ Người Dùng Nào");
+            if (!users.isEmpty()) {
+                result.put("status", "Success");
+                result.put("data", users);
+            } else {
+                result.put("status", "Failed");
+                result.put("detail", "Không Có Bất Kỳ Người Dùng Nào");
             }
         } catch (Exception e) {
             result.put("status", "Error");
@@ -54,9 +56,8 @@ public class UserAPI {
     }
 
 
-
-    @GetMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         Map<String, Object> result = new HashMap<>();
         try {
             User existUser;
@@ -81,9 +82,29 @@ public class UserAPI {
            result.put("status","error");
            result.put("detail",e.toString());
        }
+            if (loginRequest.getUsername() != null) {
+                existUser = userService.getByUserName(loginRequest.getUsername());
+            } else {
+                existUser = userService.getByEmail(loginRequest.getEmail());
+            }
+            if (existUser != null) {
+                if (existUser.getPassword().equals(loginRequest.getPassword())) {
+                    result.put("status", "success");
+                    httpSession.setAttribute(ModelAttributes.CURRENT_USER, existUser);
+                } else {
+                    result.put("status", "failed");
+                    result.put("detail", "Mật Khẩu Không Chính Xác");
+                }
+            } else {
+                result.put("status", "failed");
+                result.put("detail", "Sai Tên Tài Khoản Hoặc Mật Khẩu");
+            }
+        } catch (Exception e) {
+            result.put("status", "error");
+            result.put("detail", e.toString());
+        }
         return ResponseEntity.ok(result);
     }
-
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
@@ -106,19 +127,18 @@ public class UserAPI {
             user.setUsername(registerRequest.getUsername());
             user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
             user.setEmail(registerRequest.getEmail());
-            user.setCreateDate(LocalDateTime.now());
             user.setAvatar(registerRequest.getAvatar());
             user.setFullName(registerRequest.getFullName());
             user.setProvider(registerRequest.getProvider());
             user.setGenders(registerRequest.isGenders());
-            user.setActive(true);
+            user.setRole("user");
+            userService.createUser(user);
             result.put("status", "Success");
         } catch (Exception e) {
             result.put("status", "Error");
             result.put("detail", e.toString());
         }
         return ResponseEntity.ok(result);
-
     }
 
     @GetMapping("/{userId}")
@@ -144,17 +164,27 @@ public class UserAPI {
     }
 
 
-
     @PutMapping("/{userId}")
-    public ResponseEntity<?> updateUser(@PathVariable("userId") Long userId, @RequestBody User user) {
+    public ResponseEntity<?> updateUser(@PathVariable("userId") Long userId, @RequestBody User updatedUserInfo) {
         Map<String, Object> result = new HashMap<>();
         try {
-            User updateUser = userService.updateUser(userId, user);
-            if(updateUser != null){
+            User existingUser = userService.getUserById(userId);
+            if (existingUser != null) {
+                // Cập nhật thông tin người dùng với dữ liệu mới
+                existingUser.setUsername(updatedUserInfo.getUsername());
+                existingUser.setPassword(updatedUserInfo.getPassword());
+                existingUser.setEmail(updatedUserInfo.getEmail());
+                existingUser.setAvatar(updatedUserInfo.getAvatar());
+                existingUser.setFullName(updatedUserInfo.getFullName());
+                existingUser.setProvider(updatedUserInfo.getProvider());
+                existingUser.setGenders(updatedUserInfo.isGenders());
+                // Cập nhật thông tin người dùng vào cơ sở dữ liệu
+                User updatedUser = userService.updateUser(userId, existingUser);
                 result.put("status", "Success");
-            }else{
+                result.put("data", updatedUser);
+            } else {
                 result.put("status", "Failed");
-                result.put("detail","Không tồn tại người dùng");
+                result.put("detail", "Không tồn tại người dùng");
             }
             return ResponseEntity.ok(result);
         } catch (Exception e) {
@@ -166,17 +196,17 @@ public class UserAPI {
 
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId){
-        Map<String, Object> result =  new HashMap<>();;
+    public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) {
+        Map<String, Object> result = new HashMap<>();
         try {
             User deleteUser = userService.getUserById(userId);
-            if(deleteUser !=null){
+            if (deleteUser != null) {
                 deleteUser.setActive(false);
                 userService.updateUser(deleteUser.getUserId(), deleteUser);
                 result.put("status", "Success");
-            }else{
+            } else {
                 result.put("status", "Failed");
-                result.put("detail","Không tồn tại người dùng");
+                result.put("detail", "Không tồn tại người dùng");
             }
             return ResponseEntity.ok(result);
         } catch (Exception e) {
@@ -186,3 +216,4 @@ public class UserAPI {
         }
     }
 }
+
