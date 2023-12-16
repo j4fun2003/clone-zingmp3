@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Song {
     private String title;
     private String description;
     private String image;
-    private LocalDateTime duration;
+    private Time duration;
     private Long download;
     private String url;
     private LocalDateTime createDate;
@@ -36,6 +37,10 @@ public class Song {
     @ManyToOne
     @JoinColumn(name = "album_id")
     private Album album;
+
+
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
     private List<GenreDetail> genreDetails;

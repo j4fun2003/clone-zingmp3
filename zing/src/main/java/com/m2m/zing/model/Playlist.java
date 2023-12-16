@@ -25,6 +25,7 @@ public class Playlist {
 
     private String playlistName;
     private LocalDateTime createDate;
+
     @JsonIgnore
     @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
     private List<PlaylistSong> playlistSongs;

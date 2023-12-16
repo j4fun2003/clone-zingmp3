@@ -24,7 +24,7 @@ public class PlaylistAPI {
 
     // Endpoint tạo playlist
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createPlaylist(@RequestBody String playlistName) {
+    public ResponseEntity<Map<String, Object>> createPlaylist(@RequestParam String playlistName) {
         Map<String, Object> result = new HashMap<>();
         try {
             User user = (User) httpSession.getAttribute(ModelAttributes.CURRENT_USER);
