@@ -116,10 +116,28 @@
 
 
           </div>
-          <div class="header__user hover">
-            <a href="https://www.facebook.com/sona7ns">
+          <div class="header__user">
+            <ul class="header__user-list">
+              <li class="header__user-item">
+                <i class="fas fa-ban"></i>
+                Thông tin
+              </li>
+              <li class="header__user-item"  id="registerModalBtn">
+                <i class="far fa-play-circle"></i>
+                Đăng ký
+              </li>
+              <li id="loginModalBtn" class="header__user-item">
+                <i class="fas fa-external-link-square-alt"></i>
+                Đăng nhập
+              </li>
+              <li class="header__user-item">
+                <i class="fas fa-info-circle"></i>
+                Đăng xuất
+              </li>
+            </ul>
+            <div href="https://www.facebook.com/sona7ns">
               <img alt="user" class="header__user-img" th:src="@{|/assets/img/header/user/0.ipg|}">
-            </a>
+            </div>
           </div>
         </div>
       </div>
@@ -1360,5 +1378,6 @@
   </div>
   <!-- END CONTAINER -->
 </div>
+
 </body>
 </html>

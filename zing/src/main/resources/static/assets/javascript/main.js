@@ -185,31 +185,31 @@ const app = {
     isMute: false,
     volume: 100,
 
-    defineProperties: function() {
-        Object.defineProperty(this, 'currentSong', {
-            get: function() {
-                return this.songsData[this.currentIndex];
-            }
-        })
-    },
+    // defineProperties: function() {
+    //     Object.defineProperty(this, 'currentSong', {
+    //         get: function() {
+    //             return this.songsData[this.currentIndex];
+    //         }
+    //     })
+    // },
 
-    toastSlide: function() {
-        const toatMain = $('#toast');
-        if (toatMain) {
-            const toast = document.createElement('div');
-            toast.classList.add('toast');
-            toast.innerHTML = `
-                <div class="toast__item">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <span>Chức năng này đang được phát triển, bạn vui lòng thử lại sau !</span>
-                </div>
-            `;
-            toatMain.appendChild(toast);
-            setTimeout(function() {
-                toatMain.removeChild(toast);
-            }, 3000)
-        }
-    },
+    // toastSlide: function() {
+    //     const toatMain = $('#toast');
+    //     if (toatMain) {
+    //         const toast = document.createElement('div');
+    //         toast.classList.add('toast');
+    //         toast.innerHTML = `
+    //             <div class="toast__item">
+    //                 <i class="fa-solid fa-circle-exclamation"></i>
+    //                 <span>Chức năng này đang được phát triển, bạn vui lòng thử lại sau !</span>
+    //             </div>
+    //         `;
+    //         toatMain.appendChild(toast);
+    //         setTimeout(function() {
+    //             toatMain.removeChild(toast);
+    //         }, 3000)
+    //     }
+    // },
 
     // THEME APPLY SKIN
     applyTheme: function() {
@@ -401,7 +401,7 @@ const app = {
                     $('.header__width-search-input').classList.remove('header__width-search-input--dark');
                     $('.music-control__volume-input').style.backgroundColor = "rgba(0, 0, 0, 0.3)";
                     $('.music-control__progress-input').style.backgroundColor = "rgba(0, 0, 0, 0.3)";
-                    
+
                     $$('.js__main-color').forEach((item) => {
                         item.style.color = '#000';
                     })
@@ -537,7 +537,7 @@ const app = {
                         item.style.border = "2px solid #000";
                     })
                 }
-                
+
                 app.verifyOptionTextColor();
             }
         });
@@ -566,6 +566,43 @@ const app = {
                         <span>${song.name} (Remix)</span>
                     </div>
                     <div class="songs-item-right mobile-hiden ">
+                        <span class="songs-item-right-mv ipad-air-hiden"><i class="fas fa-photo-video js__main-color"></i></span>
+                        <span class="songs-item-right-lyric ipad-air-hiden"><i class="fas fa-microphone js__main-color"></i></span>
+                        <span class="songs-item-right-tym">
+                            <i class="fas fa-heart songs-item-right-tym-first"></i>
+                            <i class="far fa-heart songs-item-right-tym-last"></i>
+                        </span>
+                        <span class="songs-item-right-duration js__sub-color">${song.duration}</span>
+                        <span class="songs-item-right-more js__main-color"><i class="fas fa-ellipsis-h"></i></span>
+                    </div>
+                </li>`
+        })
+        playListElement.innerHTML = htmls.join('');
+    },
+
+    // RENDER LIST MUSIC ITEM OPTION1
+    renderPlayList1 : function (playListElement, songsData) {
+        const htmls = songsData.map((song, index) => {
+            return `
+                <!-- songs-item-playing--active-onplay songs-item--active songs-item-playbtn--active -->
+                <li class="songs-item js__song-item1 ${index == this.currentIndex ? 'songs-item--active songs-item-playbtn--active' : ''} " data-index="${index}">
+                    <div class="songs-item-left">
+                        <div style="background-image: url(${song.background});" class="songs-item-left-img js__songs-item-left-img-1">
+                            <div class="songs-item-left-img-playbtn"><i class="fas fa-play"></i></div>
+                            <div class="songs-item-left-img-playing-box">
+                                <img class = "songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">
+                            </div>
+                        </div>
+
+                        <div class="songs-item-left-body">
+                            <h3 class="songs-item-left-body-name js__main-color">${song.name}</h3>
+                            <span class="songs-item-left-body-singer js__sub-color">${song.singer}</span>
+                        </div>
+                    </div>
+                    <div class="songs-item-center tablet-hiden mobile-hiden js__sub-color">
+                        <span>${song.name} (Remix)</span>
+                    </div>
+                    <div class="songs-item-right mobile-hiden">
                         <span class="songs-item-right-mv ipad-air-hiden"><i class="fas fa-photo-video js__main-color"></i></span>
                         <span class="songs-item-right-lyric ipad-air-hiden"><i class="fas fa-microphone js__main-color"></i></span>
                         <span class="songs-item-right-tym">
@@ -997,30 +1034,30 @@ const app = {
         cdThumbAnimateMobile.pause();
 
         //   LÀM SLIDER BÊN TAP CÁ NHÂN
-        // changeImage = function() {
-        //     sliderItems.forEach((item,index) => {
-        //             // index == sliderIndex ? sliderItems[index].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-first') : index == sliderIndex + 1 ?  sliderItems[index].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-second'):sliderItems[index].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-third');
-        //         if (index == sliderIndex) {
-        //             sliderItems[index].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-first');
-        //             sliderItems[index].classList.replace('option-all__song-slider-img-second','option-all__song-slider-img-first');
-        //         } else if (index == sliderIndex + 1) {
-        //             sliderItems[index].classList.replace('option-all__song-slider-img-first','option-all__song-slider-img-second');
-        //             sliderItems[index].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-second');
-        //         } else {
-        //             sliderItems[index].classList.replace('option-all__song-slider-img-first','option-all__song-slider-img-third');
-        //             sliderItems[index].classList.replace('option-all__song-slider-img-second','option-all__song-slider-img-third');
-        //         }
-        //         if (sliderIndex == sliderLenght - 1) {
-        //             sliderItems[0].classList.replace('option-all__song-slider-img-first','option-all__song-slider-img-second');
-        //             sliderItems[0].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-second');
-        //         }
-        //     })
-        //     sliderIndex++;
-        //     if (sliderIndex >= sliderLenght) {
-        //         sliderIndex = 0;
-        //     }
-        // }
-        // setInterval(changeImage,2000);
+        changeImage = function() {
+            sliderItems.forEach((item,index) => {
+                    // index == sliderIndex ? sliderItems[index].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-first') : index == sliderIndex + 1 ?  sliderItems[index].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-second'):sliderItems[index].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-third');
+                if (index == sliderIndex) {
+                    sliderItems[index].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-first');
+                    sliderItems[index].classList.replace('option-all__song-slider-img-second','option-all__song-slider-img-first');
+                } else if (index == sliderIndex + 1) {
+                    sliderItems[index].classList.replace('option-all__song-slider-img-first','option-all__song-slider-img-second');
+                    sliderItems[index].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-second');
+                } else {
+                    sliderItems[index].classList.replace('option-all__song-slider-img-first','option-all__song-slider-img-third');
+                    sliderItems[index].classList.replace('option-all__song-slider-img-second','option-all__song-slider-img-third');
+                }
+                if (sliderIndex == sliderLenght - 1) {
+                    sliderItems[0].classList.replace('option-all__song-slider-img-first','option-all__song-slider-img-second');
+                    sliderItems[0].classList.replace('option-all__song-slider-img-third','option-all__song-slider-img-second');
+                }
+            })
+            sliderIndex++;
+            if (sliderIndex >= sliderLenght) {
+                sliderIndex = 0;
+            }
+        }
+        setInterval(changeImage,2000);
 
         //   LÀM SLIDER BÊN TAP KHÁM PHÁ
         changeImage1Replate = function() {
@@ -1644,7 +1681,7 @@ const app = {
         // render ra danh sách nhạc ở phần tổng quan
         this.renderPlayList(optionAllSongList,this.songsData);
         // render ra danh sách nhạc ở phần tab music
-        // this.renderPlayList1($('.option-music-list'),this.songsData);
+        this.renderPlayList1($('.option-music-list'),this.songsData);
         // render next song
         this.renderNexrSong();
         // render next song start
