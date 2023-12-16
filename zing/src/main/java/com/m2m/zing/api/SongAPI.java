@@ -5,6 +5,7 @@ import com.m2m.zing.dto.SongRequest;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
 import com.m2m.zing.service.SongService;
+import com.m2m.zing.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,8 @@ public class SongAPI {
     private SongService songService;
     @Autowired
     HttpSession httpSession;
+    @Autowired
+    UserService userService;
 
     @GetMapping
     public ResponseEntity<?> getAllSongs() {
@@ -43,8 +46,8 @@ public class SongAPI {
     public ResponseEntity<?> createSong(@RequestBody SongRequest songRequest) {
         Map<String, Object> result = new HashMap<>();
         try {
-//            set information from data
             Song song = new Song();
+//            set information from data
             song.setTitle(songRequest.getTitle());
             song.setDescription(songRequest.getDescription());
             song.setImage(songRequest.getImage());
@@ -54,6 +57,7 @@ public class SongAPI {
 //            default value
             song.setCreateDate(LocalDateTime.now());
             song.setAuthor((User) httpSession.getAttribute(ModelAttributes.CURRENT_USER));
+            song.setDownload((long) 0 );
 //          create song
             Song createdSong = songService.createSong(song);
 //            set result
@@ -126,12 +130,18 @@ public class SongAPI {
     public ResponseEntity<?> getSongsByAuthor(@RequestParam Long userId) {
         Map<String, Object> result = new HashMap<>();
         try {
-            User author = new User(); // Get user object using userId (from service or repository)
-            List<Song> songs = songService.getSongByAuthor(author);
-            result.put("status", "Success");
-            result.put("data", songs);
+            User author = userService.getUserById(userId);
+            if(author != null){
+                List<Song> songs = songService.getSongByAuthor(author);
+                result.put("status", "success");
+                result.put("data", songs);
+            }else{
+                result.put("status", "failed");
+                result.put("detail", "not found author with id : " + userId );
+            }
+
         } catch (Exception e) {
-            result.put("status", "Error");
+            result.put("status", "error");
             result.put("detail", e.toString());
         }
         return ResponseEntity.ok(result);

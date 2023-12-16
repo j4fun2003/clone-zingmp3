@@ -21,24 +21,27 @@ function deleteSong(songId) {
 function getSongsByAuthor(userId) {
     return callAPI(`/api/songs/byAuthor?userId=${userId}`, 'GET', null);
 }
-// Tạo một đối tượng newSong mới có kiểu dữ liệu phù hợp
-const newSong = {
-    title: 'Tên bài hát',
-    description: 'Mô tả bài hát',
-    image: 'URL',
-    duration: moment.duration('10:10').toISOString(), // Chuyển đổi chuỗi thời gian sang định dạng phù hợp
-    download: 1, // Kiểu dữ liệu số thay vì chuỗi số
-    url: 'url',
-    quantity: 1 // Kiểu dữ liệu số thay vì chuỗi số
-};
 
-createSong(newSong)
-    .then(response => {
-        console.log('Đã tạo bài hát:', response);
-        // Xử lý khi tạo bài hát thành công
-    })
-    .catch(error => {
-        console.error('Lỗi khi tạo bài hát:', error);
-        // Xử lý khi gặp lỗi
-    });
+// getSongsByAuthor(1).then(data => console.log(data));
+// const newSong = {
+//     title: 'Tên bài hát',
+//     description: 'Mô tả bài hát',
+//     image: 'URL',
+//     duration: '00:10:10', // Định dạng thời lượng là 'HH:mm:ss'
+//     download: 1, // Kiểu dữ liệu số thay vì chuỗi số
+//     url: 'URL bài hát',
+//     quantity: 1,// Kiểu dữ liệu số thay vì chuỗi số
+//     nation: "Viet Nam"
+// };
+//
+// createSong(newSong)
+//     .then(response => {
+//         console.log('Đã tạo bài hát:', response);
+//         // Xử lý khi tạo bài hát thành công
+//     })
+//     .catch(error => {
+//         console.error('Lỗi khi tạo bài hát:', error);
+//         // Xử lý khi gặp lỗi
+//     });
+
 
