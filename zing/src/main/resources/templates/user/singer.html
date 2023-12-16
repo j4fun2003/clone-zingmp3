@@ -8,7 +8,7 @@
 <div th:fragment="main">
     <div class="main-container">
         <div class="profile">
-            <img alt="avata" class="profile__img" th:src="@{|/assets/img/mv/${(authors.avatar) == null ? '1.webp' : authors.avatar|}">
+            <img alt="avata" class="profile__img" th:src="@{|/assets/img/mv/${(authors.avatar) == null ? '1.webp' : authors.avatar}|}">
             <span class="profile__name js__main-color" th:text="${authors.fullName}"></span>
             <div class="grid row">
                 <!--            san pham-->

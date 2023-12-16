@@ -5,18 +5,21 @@ import com.m2m.zing.dto.LoginRequest;
 import com.m2m.zing.dto.RegisterRequest;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
+import com.m2m.zing.repository.UserRepository;
 import com.m2m.zing.service.SongService;
 import com.m2m.zing.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -27,6 +30,9 @@ public class UserAPI {
     SongService songService;
     @Autowired
     HttpSession httpSession;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @GetMapping
     public ResponseEntity<?> getAll(){
         Map<String, Object> result = new HashMap<>();
@@ -53,14 +59,14 @@ public class UserAPI {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
         Map<String, Object> result = new HashMap<>();
         try {
-           User existUser;
+            User existUser;
            if(loginRequest.getUsername() != null){
-               existUser =  userService.getByUserName(loginRequest.getUsername());
+               existUser =  (User) userService.getByUserName(loginRequest.getUsername());
            }else{
                existUser = userService.getByEmail(loginRequest.getEmail());
            }
            if(existUser != null){
-               if(existUser.getPassword().equals(loginRequest.getPassword())){
+               if((existUser.getPassword()).equals(passwordEncoder.encode(loginRequest.getPassword()))){
                    result.put("status", "Thành Công");
                    httpSession.setAttribute(ModelAttributes.CURRENT_USER, existUser);
                }else{
@@ -95,12 +101,10 @@ public class UserAPI {
                 result.put("detail", "Username Đã Tồn Tại");
                 return ResponseEntity.ok(result);
             }
-
-
 //  tạo account khi không phát sinh lỗi
             User user = new User();
             user.setUsername(registerRequest.getUsername());
-            user.setPassword(registerRequest.getPassword());
+            user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
             user.setEmail(registerRequest.getEmail());
             user.setCreateDate(LocalDateTime.now());
             user.setAvatar(registerRequest.getAvatar());

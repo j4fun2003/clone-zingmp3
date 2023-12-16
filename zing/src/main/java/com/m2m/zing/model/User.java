@@ -25,7 +25,7 @@ public class User {
     private String fullName;
     private LocalDateTime createDate;
     private String provider;
-    private boolean active;
+    private boolean active = true;
     private String role;
     private boolean genders;
 
