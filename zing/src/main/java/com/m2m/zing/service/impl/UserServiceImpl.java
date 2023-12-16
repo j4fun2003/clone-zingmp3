@@ -30,12 +30,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setPassword(user.getPassword());
         userRepository.save(user);
         return "Đã tạo tài khoản thành công";
-
-    public User createUser(User user) throws Exception {
-        user.setActive(true);
-        user.setCreateDate(LocalDateTime.now());
-        return userRepository.save(user);
     }
+
+//    public User createUser(User user) throws Exception {
+//        user.setActive(true);
+//        user.setCreateDate(LocalDateTime.now());
+//        return userRepository.save(user);
+//    }
 
     @Override
     public User getUserById(Long userId) throws Exception {

@@ -44,18 +44,14 @@ public class Song {
 
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<GenreDetail> genreDetails;
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<PlaylistSong> playlistSongs;
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Favorite> favorites;
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<History> histories;
 }

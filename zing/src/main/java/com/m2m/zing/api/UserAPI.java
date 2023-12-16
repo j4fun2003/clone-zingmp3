@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -31,8 +31,8 @@ public class UserAPI {
     @Autowired
     HttpSession httpSession;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+//    @Autowired
+//    PasswordEncoder passwordEncoder;
 
 
     @GetMapping
@@ -61,27 +61,6 @@ public class UserAPI {
         Map<String, Object> result = new HashMap<>();
         try {
             User existUser;
-           if(loginRequest.getUsername() != null){
-               existUser =  (User) userService.getByUserName(loginRequest.getUsername());
-           }else{
-               existUser = userService.getByEmail(loginRequest.getEmail());
-           }
-           if(existUser != null){
-               if((existUser.getPassword()).equals(passwordEncoder.encode(loginRequest.getPassword()))){
-                   result.put("status", "Thành Công");
-                   httpSession.setAttribute(ModelAttributes.CURRENT_USER, existUser);
-               }else{
-                   result.put("status", "Đăng Nhập Thất Bại");
-                   result.put("detail", "Mật Khẩu Không Chính Xác");
-               }
-           }else{
-               result.put("status", "Đăng Nhập Thất Bại");
-               result.put("detail", "Sai Tên Tài Khoản Hoặc Mật Khẩu");
-           }
-       }catch (Exception e){
-           result.put("status","error");
-           result.put("detail",e.toString());
-       }
             if (loginRequest.getUsername() != null) {
                 existUser = userService.getByUserName(loginRequest.getUsername());
             } else {
@@ -125,7 +104,7 @@ public class UserAPI {
 //  tạo account khi không phát sinh lỗi
             User user = new User();
             user.setUsername(registerRequest.getUsername());
-            user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+//            user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
             user.setEmail(registerRequest.getEmail());
             user.setAvatar(registerRequest.getAvatar());
             user.setFullName(registerRequest.getFullName());
