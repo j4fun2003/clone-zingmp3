@@ -82,27 +82,7 @@ public class UserAPI {
            result.put("status","error");
            result.put("detail",e.toString());
        }
-            if (loginRequest.getUsername() != null) {
-                existUser = userService.getByUserName(loginRequest.getUsername());
-            } else {
-                existUser = userService.getByEmail(loginRequest.getEmail());
-            }
-            if (existUser != null) {
-                if (existUser.getPassword().equals(loginRequest.getPassword())) {
-                    result.put("status", "success");
-                    httpSession.setAttribute(ModelAttributes.CURRENT_USER, existUser);
-                } else {
-                    result.put("status", "failed");
-                    result.put("detail", "Mật Khẩu Không Chính Xác");
-                }
-            } else {
-                result.put("status", "failed");
-                result.put("detail", "Sai Tên Tài Khoản Hoặc Mật Khẩu");
-            }
-        } catch (Exception e) {
-            result.put("status", "error");
-            result.put("detail", e.toString());
-        }
+
         return ResponseEntity.ok(result);
     }
 
