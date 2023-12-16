@@ -29,12 +29,4 @@ public class UserController {
         return "user/singer";
     }
 
-    @PostMapping("/add")
-    public String doPostAddUser(@RequestBody User user){
-        try {
-            return userService.createUser(user);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

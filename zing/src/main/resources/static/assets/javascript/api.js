@@ -1,3 +1,36 @@
+
+function handleLoginFormSubmit(event) {
+    event.preventDefault();
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+
+    var loginData = {
+        username: username,
+        password: password
+    };
+    login(loginData);
+}
+
+
+function handleRegisterFormSubmit(event) {
+    event.preventDefault();
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    var email = document.getElementById('email').value;
+    var fullName = document.getElementById('fullname').value;
+    var provider = 'Application';
+    var genders = true;
+
+    var registerData = {
+        username: username,
+        password: password,
+        email:email,
+        fullName:fullName,
+        provider: provider,
+        genders: genders
+    };
+    registerUser(registerData);
+}
 function loadSingerData(userId) {
 
     var url = '/api/users/' + userId;

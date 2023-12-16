@@ -5,10 +5,10 @@ import com.m2m.zing.model.User;
 import com.m2m.zing.repository.UserRepository;
 import com.m2m.zing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,20 +16,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService /*,UserDetailsService*/ {
 
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Override
-
-    public String createUser(User user) throws Exception {
+    public User createUser(User user) throws Exception {
         user.setPassword(user.getPassword());
-        userRepository.save(user);
-        return "Đã tạo tài khoản thành công";
+       return  userRepository.save(user);
     }
 
 //    public User createUser(User user) throws Exception {
@@ -75,10 +73,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findAll();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userInfo = Optional.ofNullable(userRepository.findByUsername(username));
-        return userInfo.map(UserDetail::new)
-                .orElseThrow(() -> new UsernameNotFoundException("user not found " + username));
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Optional<User> userInfo = Optional.ofNullable(userRepository.findByUsername(username));
+//        return userInfo.map(UserDetail::new)
+//                .orElseThrow(() -> new UsernameNotFoundException("user not found " + username));
+//    }
 }

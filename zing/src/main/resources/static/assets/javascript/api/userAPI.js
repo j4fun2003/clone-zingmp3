@@ -2,7 +2,7 @@ function getAllUser() {
     return callAPI('/api/users', 'GET', null);
 }
 
-function login(loginRequest) {
+function login(loginData) {
     return callAPI('/api/users/login', 'POST', loginData);
 }
 
