@@ -1,6 +1,6 @@
 package com.m2m.zing.service.impl;
 
-import com.m2m.zing.dto.UserDetail;
+//import com.m2m.zing.dto.UserDetail;
 import com.m2m.zing.model.User;
 import com.m2m.zing.repository.UserRepository;
 import com.m2m.zing.service.UserService;

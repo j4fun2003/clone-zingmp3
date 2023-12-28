@@ -5,23 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping("/api/ui")
 public class SongUIAPI {
 
-    @GetMapping("/song-add")
+    @GetMapping("/song")
     public String getAddSong(){
-        return "admin/song_add";
+        return "admin/song";
     }
 
-    @GetMapping("/song-edit")
-    public String getEditSong(){
-        return "admin/song_edit";
-    }
-
-    @GetMapping("/song-list")
-    public String getListSong(){
-        return "admin/song_list";
-    }
 
 }
