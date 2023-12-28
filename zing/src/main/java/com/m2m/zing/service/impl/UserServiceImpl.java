@@ -26,11 +26,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
 
-    public String createUser(User user) throws Exception {
-        user.setPassword(user.getPassword());
-        userRepository.save(user);
-        return "Đã tạo tài khoản thành công";
-
     public User createUser(User user) throws Exception {
         user.setActive(true);
         user.setCreateDate(LocalDateTime.now());

@@ -1,6 +1,7 @@
 package com.m2m.zing.controller;
 
 import com.m2m.zing.model.User;
+import com.m2m.zing.service.impl.HistoryServiceImpl;
 import com.m2m.zing.service.impl.SongServiceImpl;
 import com.m2m.zing.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class UserController {
     @Autowired
     UserServiceImpl userService;
 
+    @Autowired
+    HistoryServiceImpl historyService;
+
 
     @GetMapping("/{userId}")
     public String index(Model model, @PathVariable("userId") Long userId) throws Exception {
@@ -29,12 +33,4 @@ public class UserController {
         return "user/singer";
     }
 
-    @PostMapping("/add")
-    public String doPostAddUser(@RequestBody User user){
-        try {
-            return userService.createUser(user);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

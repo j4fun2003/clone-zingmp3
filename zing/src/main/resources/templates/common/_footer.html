@@ -76,10 +76,9 @@
             <div class="loginModal-content">
                 <span class="loginModal-close" id="closeModalBtn">&times;</span>
                 <h2>Đăng nhập</h2>
-                <form id="loginForm">
+                <form id="loginForm" onsubmit="handleLoginFormSubmit(event);">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
-
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                     <input type="checkbox" name="remember"><label>Nhớ mật khẩu?</label>
@@ -92,15 +91,15 @@
             <div class="registerModal-content">
                 <span class="registerModal-close" id="closeRegisterModalBtn">&times;</span>
                 <h2>Đăng ký</h2>
-                <form id="regisForm">
+                <form id="regisForm" onsubmit="handleRegisterFormSubmit(event)" >
                     <label>Họ và tên:</label>
-                    <input type="text" name="fullname" required>
+                    <input type="text" name="fullname" id="fullName"required>
                     <label>Email</label>
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" id="email"required>
                     <label>Tài khoản:</label>
-                    <input type="text"  name="username" required>
+                    <input type="text"  name="username" id="createUsername"required>
                     <label>Mật khẩu:</label>
-                    <input type="password" name="password" required>
+                    <input type="password" name="password" id="createPassword" required>
                     <label>Đã có tài khoản? <i style="color:blue" id="openLoginModal">Đăng nhập</i></label>
                     <button type="submit">Register</button>
                 </form>
@@ -109,9 +108,5 @@
 
     </div>
 </div>
-
-<!-- The login modal -->
-
-<!-- END MUSIC CONTROL -->
 </body>
 </html>

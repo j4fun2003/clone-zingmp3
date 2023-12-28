@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
+import lombok.ToString;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "songs")
+@ToString(exclude = {"author", "songs"})
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,18 +46,16 @@ public class Song {
 
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<GenreDetail> genreDetails;
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
-    @JsonIgnore
+
     private List<PlaylistSong> playlistSongs;
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
-    @JsonIgnore
+
     private List<Favorite> favorites;
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<History> histories;
 }

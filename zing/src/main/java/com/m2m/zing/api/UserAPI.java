@@ -61,15 +61,20 @@ public class UserAPI {
         Map<String, Object> result = new HashMap<>();
         try {
             User existUser;
+
            if(loginRequest.getUsername() != null){
                existUser =  (User) userService.getByUserName(loginRequest.getUsername());
+               System.out.println(existUser.getPassword());
+               System.out.println(passwordEncoder.encode(loginRequest.getPassword()));
            }else{
                existUser = userService.getByEmail(loginRequest.getEmail());
+
            }
            if(existUser != null){
-               if((existUser.getPassword()).equals(passwordEncoder.encode(loginRequest.getPassword()))){
+               if(passwordEncoder.matches(loginRequest.getPassword(), existUser.getPassword())){
                    result.put("status", "Thành Công");
                    httpSession.setAttribute(ModelAttributes.CURRENT_USER, existUser);
+                   result.put("user",existUser);
                }else{
                    result.put("status", "Đăng Nhập Thất Bại");
                    result.put("detail", "Mật Khẩu Không Chính Xác");
@@ -82,27 +87,7 @@ public class UserAPI {
            result.put("status","error");
            result.put("detail",e.toString());
        }
-            if (loginRequest.getUsername() != null) {
-                existUser = userService.getByUserName(loginRequest.getUsername());
-            } else {
-                existUser = userService.getByEmail(loginRequest.getEmail());
-            }
-            if (existUser != null) {
-                if (existUser.getPassword().equals(loginRequest.getPassword())) {
-                    result.put("status", "success");
-                    httpSession.setAttribute(ModelAttributes.CURRENT_USER, existUser);
-                } else {
-                    result.put("status", "failed");
-                    result.put("detail", "Mật Khẩu Không Chính Xác");
-                }
-            } else {
-                result.put("status", "failed");
-                result.put("detail", "Sai Tên Tài Khoản Hoặc Mật Khẩu");
-            }
-        } catch (Exception e) {
-            result.put("status", "error");
-            result.put("detail", e.toString());
-        }
+
         return ResponseEntity.ok(result);
     }
 
@@ -134,6 +119,7 @@ public class UserAPI {
             user.setRole("user");
             userService.createUser(user);
             result.put("status", "Success");
+            httpSession.setAttribute(ModelAttributes.CURRENT_USER, user);
         } catch (Exception e) {
             result.put("status", "Error");
             result.put("detail", e.toString());
@@ -172,7 +158,7 @@ public class UserAPI {
             if (existingUser != null) {
                 // Cập nhật thông tin người dùng với dữ liệu mới
                 existingUser.setUsername(updatedUserInfo.getUsername());
-                existingUser.setPassword(updatedUserInfo.getPassword());
+                existingUser.setPassword(passwordEncoder.encode(updatedUserInfo.getPassword()));
                 existingUser.setEmail(updatedUserInfo.getEmail());
                 existingUser.setAvatar(updatedUserInfo.getAvatar());
                 existingUser.setFullName(updatedUserInfo.getFullName());

@@ -2,12 +2,17 @@ function getAllUser() {
     return callAPI('/api/users', 'GET', null);
 }
 
-function login(loginRequest) {
+function login(loginData) {
     return callAPI('/api/users/login', 'POST', loginData);
 }
 
 function registerUser(registerData) {
     return callAPI('/api/users/register', 'POST', registerData);
+}
+
+function logout(){
+    window.location.reload();
+    return callAPI('/api/session/CURRENT_USER', 'POST', "");
 }
 
 

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    String createUser(User user) throws Exception;
+    User createUser(User user) throws Exception;
     User getUserById(Long userId) throws Exception;
     User updateUser(Long userId, User userDetails) throws Exception;
     void deleteUser(Long userId) throws Exception;

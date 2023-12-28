@@ -2,8 +2,10 @@ package com.m2m.zing.api;
 
 import com.m2m.zing.constant.ModelAttributes;
 import com.m2m.zing.dto.SongRequest;
+import com.m2m.zing.model.History;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
+import com.m2m.zing.service.HistoryService;
 import com.m2m.zing.service.SongService;
 import com.m2m.zing.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +29,8 @@ public class SongAPI {
     HttpSession httpSession;
     @Autowired
     UserService userService;
+    @Autowired
+    HistoryService historyService;
 
     @GetMapping
     public ResponseEntity<?> getAllSongs() {
@@ -75,9 +79,16 @@ public class SongAPI {
         Map<String, Object> result = new HashMap<>();
         try {
             Song song = songService.getSongById(songId);
+            User user = (User) httpSession.getAttribute(ModelAttributes.CURRENT_USER);
+            User author = userService.getUserById(song.getAuthor().getUserId());
             if (song != null) {
                 result.put("status", "Success");
-                result.put("data", song);
+                History addedHistory = historyService.addToHistory(user, song);
+                Map<String, Object> responseData = new HashMap<>();
+                responseData.put("songs", song);
+                responseData.put("authors", author);
+                responseData.put("history", addedHistory);
+                result.put("data", responseData);
             } else {
                 result.put("status", "Failed");
                 result.put("detail", "Song not found");

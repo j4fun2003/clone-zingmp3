@@ -120,9 +120,8 @@
             <ul class="header__user-list">
               <li class="header__user-item">
                 <i class="fas fa-ban"></i>
-                Thông tin
               </li>
-              <li class="header__user-item"  id="registerModalBtn">
+              <li class="header__user-item" id="registerModalBtn" >
                 <i class="far fa-play-circle"></i>
                 Đăng ký
               </li>
@@ -130,15 +129,16 @@
                 <i class="fas fa-external-link-square-alt"></i>
                 Đăng nhập
               </li>
-              <li class="header__user-item">
+              <li class="header__user-item" onclick="logout()">
                 <i class="fas fa-info-circle"></i>
                 Đăng xuất
               </li>
             </ul>
             <div href="https://www.facebook.com/sona7ns">
-              <img alt="user" class="header__user-img" th:src="@{|/assets/img/header/user/0.ipg|}">
+              <img alt="user" class="header__user-img" th:src="${current_user != null} ? '/assets/img/header/user/' + ${current_user.avatar} : '/assets/img/header/user/null.jpg'">
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -197,7 +197,7 @@
             <div class="col l-4 m-6 s-6" th:each="song:${currentSongs}">
               <div class="songs-item js__song-item1">
               <div  class="songs-item-left">
-                <div th:style="'background-image: url(/assets/img/songs/'+${song.getImage()}+');'" class="songs-item-left-img js__songs-item-left-img-1">
+                <div th:style="'background-image: url(/assets/img/songs/'+${song.getImage()}+');'" class="songs-item-left-img js__songs-item-left-img-1"  th:onclick="'getSongById(' + ${song.songId} + ')'">
                   <div class="songs-item-left-img-playbtn"><i class="fas fa-play"></i></div>
                   <div class="songs-item-left-img-playing-box">
                     <img class = "songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">
@@ -397,23 +397,27 @@
           </div>
         </div>
         <div class="grid row">
-          <div class="col l-3 m-3 s-3" >
-            <div th:each="song:${songs}" class="songs-item-left">
-              <div style="background-image: url(${song.background});" class="songs-item-left-img js__songs-item-left-img-1">
-                <div class="songs-item-left-img-playbtn"><i class="fas fa-play"></i></div>
-                <div class="songs-item-left-img-playing-box">
-                  <img class = "songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">
-                </div>
-              </div>
+          <div class="col l-3 m-3 s-3" th:each="song: ${songs}">
+            <div class="songs-item-left">
+              <div style="background-image: url(${song.background});"
+                   class="songs-item-left-img js__songs-item-left-img-1"
+                  ></div>
 
-              <div class="songs-item-left-body">
-                <h3 class="songs-item-left-body-name js__main-color">${song.title}</h3>
-                <span class="songs-item-left-body-singer js__sub-color">${song.author.userId}</span>
+              <div class="songs-item-left-img-playbtn"><i class="fas fa-play"></i></div>
+              <div class="songs-item-left-img-playing-box">
+                <img class="songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">
               </div>
+            </div>
+
+            <div class="songs-item-left-body">
+              <h3 class="songs-item-left-body-name js__main-color" th:text="${song.title}"></h3>
+              <span class="songs-item-left-body-singer js__sub-color" th:text="${song.author.userId}"></span>
             </div>
           </div>
         </div>
       </div>
+
+    </div>
       <!-- option 2 -->
       <div class="option-playlist panes-item">
         <div class="option-all__playlist option-all__margin_bot">

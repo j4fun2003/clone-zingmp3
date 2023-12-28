@@ -185,32 +185,6 @@ const app = {
     isMute: false,
     volume: 100,
 
-    // defineProperties: function() {
-    //     Object.defineProperty(this, 'currentSong', {
-    //         get: function() {
-    //             return this.songsData[this.currentIndex];
-    //         }
-    //     })
-    // },
-
-    // toastSlide: function() {
-    //     const toatMain = $('#toast');
-    //     if (toatMain) {
-    //         const toast = document.createElement('div');
-    //         toast.classList.add('toast');
-    //         toast.innerHTML = `
-    //             <div class="toast__item">
-    //                 <i class="fa-solid fa-circle-exclamation"></i>
-    //                 <span>Chức năng này đang được phát triển, bạn vui lòng thử lại sau !</span>
-    //             </div>
-    //         `;
-    //         toatMain.appendChild(toast);
-    //         setTimeout(function() {
-    //             toatMain.removeChild(toast);
-    //         }, 3000)
-    //     }
-    // },
-
     // THEME APPLY SKIN
     applyTheme: function() {
         themeItems.forEach((themeItem, index) => {

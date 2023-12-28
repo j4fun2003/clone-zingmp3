@@ -1,5 +1,6 @@
 package com.m2m.zing.controller;
 
+import com.m2m.zing.constant.ModelAttributes;
 import com.m2m.zing.repository.AlbumRepository;
 import com.m2m.zing.service.AlbumService;
 import com.m2m.zing.service.impl.AlbumServiceImpl;
@@ -27,6 +28,7 @@ public class HomeController {
     public String index(Model model) throws Exception {
         model.addAttribute("currentSongs",songService.getAllCurrent(PageRequest.of(0,6)));
         model.addAttribute("authors",userService.getAllUser());
+        model.addAttribute("session", ModelAttributes.CURRENT_USER);
 //        model.addAttribute("albums" ,albumService.findAll());
         return "user/index";
     }

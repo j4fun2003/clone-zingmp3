@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="admin(viewAdmin)">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>ZingMp3 - Management</title>
-  <!-- Favicon -->
-  <link rel="shortcut icon"  th:href="@{|/assets/admin/images/favicon.ico|}" />
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet"  th:href="@{|/assets/admin/css/bootstrap.min.css|}">
-  <!-- Typography CSS -->
-  <link rel="stylesheet"  th:href="@{|/assets/admin/css/typography.css|}">
-  <!-- Style CSS -->
-  <link rel="stylesheet"  th:href="@{|/assets/admin/css/style.css|}">
-  <!-- Responsive CSS -->
-  <link rel="stylesheet"  th:href="@{|/assets/admin/css/responsive.css|}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ZingMp3 - Management</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon"  th:href="@{|/assets/admin/images/favicon.ico|}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"  th:href="@{|/assets/admin/css/bootstrap.min.css|}">
+    <!-- Typography CSS -->
+    <link rel="stylesheet"  th:href="@{|/assets/admin/css/typography.css|}">
+    <!-- Style CSS -->
+    <link rel="stylesheet"  th:href="@{|/assets/admin/css/style.css|}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet"  th:href="@{|/assets/admin/css/responsive.css|}">
 </head>
 <body>
 <div id="loading">
-  <div id="loading-center">
-  </div>
+    <div id="loading-center">
+    </div>
 </div>
 <div class="wrapper">
-  <aside th:replace="~{/admin/common/_sidebar :: adminSideBar}"></aside>
-  <main th:replace="${viewAdmin}"></main>
+    <aside th:replace="~{/admin/common/_sidebar :: adminSideBar}"></aside>
+    <main th:replace="${viewAdmin}"></main>
 </div>
 
 <!-- color-customizer END -->
