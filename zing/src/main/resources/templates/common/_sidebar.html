@@ -1,113 +1,96 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-<!-- BEGIN SIDEBAR -->
-<div class="main-sidebar mobile-hiden" th:fragment="sidebar">
-    <a href="#"></a>
-    <div class="sidebar__logo"></div>
-    <div class="sidebar__persional">
-        <ul class="sidebar__list">
-            <!-- sidebar__item--active -->
-            <li class="sidebar__item js__sidebar-tabs js__main-color sidebar__item--active">
-                <i class="far fa-play-circle"></i>
-                Cá Nhân
-            </li>
-            <li class="sidebar__item js__sidebar-tabs js__main-color">
-                <i class="fas fa-compact-disc"></i>
-                Khám Phá
-            </li>
-            <li class="sidebar__item js__sidebar-tabs js__main-color">
-                <i class="fas fa-chart-line"></i>
-                #zingchart
-            </li>
-            <li class="sidebar__item js__main-color sidebar__item-radio js__toast">
-                <i class="fas fa-broadcast-tower"></i>
-                Radio
-                <span>Live</span>
-            </li>
-            <li class="sidebar__item js__main-color js__toast">
-                <i class="far fa-list-alt"></i>
-                Theo Dõi
-            </li>
-        </ul>
-    </div>
-    <div class="sidebar__line"></div>
-    <div class="sidebar__library">
-        <div class="sidebar__library-top">
-            <ul class="sidebar__library-top-list sidebar__list">
-                <!-- sidebar__item--active -->
-                <li class="sidebar__item js__main-color js__toast">
-                    <i class="fas fa-music"></i>
-                    Nhạc Mới
-                </li>
-                <li class="sidebar__item js__main-color js__toast">
-                    <i class="fab fa-buromobelexperte"></i>
-                    Thể Loại
-                </li>
-                <li class="sidebar__item js__main-color js__toast">
-                    <i class="fas fa-star"></i>
-                    Top 100
-                </li>
-                <li class="sidebar__item js__main-color js__toast">
-                    <i class="fas fa-photo-video"></i>
-                    MV
-                </li>
-            </ul>
-        </div>
-        <div class="sidebar__library-center">
-            <span class="sidebar__library-center-vip-heading">Nghe nhạc không quảng cáo cùng kho nhạc VIP</span>
-            <span class="sidebar__library-center-vip-body js__toast">Nâng cấp VIP</span>
-        </div>
-        <div class="sidebar__library-bot">
-            <div class="sidebar__library-bot-heading js__main-color">
-                Thư viện
-                <div class="sidebar__library-bot-heading-option">
-                    <i class="fas fa-pencil-alt"></i>
+
+<div th:fragment="adminSideBar" class="iq-sidebar">
+    <div class="iq-sidebar-logo d-flex justify-content-between">
+        <a href="index.html" class="header-logo">
+            <img src="images/logo.png" class="img-fluid rounded-normal" alt="">
+            <div class="logo-title">
+                <span class="text-primary text-uppercase">Muzik</span>
+            </div>
+        </a>
+        <div class="iq-menu-bt-sidebar">
+            <div class="iq-menu-bt align-self-center">
+                <div class="wrapper-menu">
+                    <div class="main-circle"><i class="las la-bars"></i></div>
                 </div>
             </div>
-            <ul class="sidebar__list">
-                <li class="sidebar__library-bot-item sidebar__item js__sub-color js__toast">
-                    <i class="fas fa-music"></i>
-                    Bài hát
-                </li>
-                <li class="sidebar__library-bot-item sidebar__item js__sub-color js__toast">
-                    <i class="far fa-file-audio"></i>
-                    Playlist
-                </li>
-                <li class="sidebar__library-bot-item sidebar__item js__sub-color js__toast">
-                    <i class="fas fa-clock"></i>
-                    Gần đây
-                </li>
-            </ul>
-            <div class="sidebar__library-bot-extra sidebar__item js__toast js__sub-color">
-                Replay
-                <span class="sidebar__library-bot-extra-option">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </span>
-            </div>
-            <div class="sidebar__library-bot-extra sidebar__item js__toast js__sub-color">
-                Nhạc xuân
-                <span class="sidebar__library-bot-extra-option">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </span>
-            </div>
-            <div class="sidebar__library-bot-extra sidebar__item js__toast js__sub-color">
-                Nhạc trung quốc
-                <span class="sidebar__library-bot-extra-option">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </span>
-            </div>
         </div>
     </div>
-    <div class="sidebar__add-playlist">
-        <i class="fas fa-plus js__main-color"></i>
-        <span class="js__main-color js__toast">Tạo playlist mới</span>
+    <div id="sidebar-scrollbar">
+        <nav class="iq-sidebar-menu">
+            <ul id="iq-sidebar-toggle" class="iq-menu">
+                <li class="active active-menu">
+                    <a href="#dashboard" class="iq-waves-effect" data-toggle="collapse" aria-expanded="true"><span
+                            class="ripple rippleEffect"></span><i
+                            class="las la-home iq-arrow-left"></i><span>Dashboard</span><i
+                            class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                    <ul id="dashboard" class="iq-submenu collapse show" data-parent="#iq-sidebar-toggle">
+                        <li class="active"><a href="/"><i class="las la-house-damage"></i>Home</a></li>
+                        <li><a href="/history"><i class="las la-headphones"></i>History</a></li>
+                        <li><a href="/favorite"><i class="lar la-file-audio"></i>Favorite</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#admin" class="iq-waves-effect" data-toggle="collapse" aria-expanded="false"><span
+                            class="ripple rippleEffect"></span><i
+                            class="ri-admin-line iq-arrow-left"></i><span>Admin</span><i
+                            class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                    <ul id="admin" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                        <li><a href="/admin/dashboard"><i class="las la-house-damage"></i>Dashboard</a></li>
+                        <li><a href="/admin/genre"><i class="ri-function-line"></i>Genre Management</a></li>
+                        <li><a href="/admin/user"><i class="las la-microphone-alt"></i>User Management</a></li>
+                        <li><a href="/admin/song"><i class="las la-play-circle"></i>Song Management</a></li>
+                    </ul>
+                </li>
+<!--                <li>-->
+<!--                    <a href="#pages" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i-->
+<!--                            class="las la-file-alt iq-arrow-left"></i><span>Pages</span><i-->
+<!--                            class="ri-arrow-right-s-line iq-arrow-right"></i></a>-->
+<!--                    <ul id="pages" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">-->
+<!--                        <li>-->
+<!--                            <a href="#authentication" class="iq-waves-effect collapsed" data-toggle="collapse"-->
+<!--                               aria-expanded="false"><i class="ri-pages-line"></i><span>Authentication</span><i-->
+<!--                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>-->
+<!--                            <ul id="authentication" class="iq-submenu collapse" data-parent="#pages">-->
+<!--                                <li><a href="sign-in.html"><i class="las la-sign-in-alt"></i>Login</a></li>-->
+<!--                                <li><a href="sign-up.html"><i class="ri-login-circle-line"></i>Register</a></li>-->
+<!--                                <li><a href="pages-recoverpw.html"><i class="ri-record-mail-line"></i>Recover-->
+<!--                                    Password</a></li>-->
+<!--                                <li><a href="pages-confirm-mail.html"><i class="ri-file-code-line"></i>Confirm Mail</a>-->
+<!--                                </li>-->
+<!--                                <li><a href="pages-lock-screen.html"><i class="ri-lock-line"></i>Lock Screen</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="#extra-pages" class="iq-waves-effect collapsed" data-toggle="collapse"-->
+<!--                               aria-expanded="false"><i class="ri-pantone-line"></i><span>Extra Pages</span><i-->
+<!--                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>-->
+<!--                            <ul id="extra-pages" class="iq-submenu collapse" data-parent="#pages">-->
+<!--                                <li><a href="pages-timeline.html"><i class="ri-map-pin-time-line"></i>Timeline</a></li>-->
+<!--                                <li><a href="pages-invoice.html"><i class="ri-question-answer-line"></i>Invoice</a></li>-->
+<!--                                <li><a href="blank-page.html"><i class="ri-invision-line"></i>Blank Page</a></li>-->
+<!--                                <li><a href="pages-error.html"><i class="ri-error-warning-line"></i>Error 404</a></li>-->
+<!--                                <li><a href="pages-error-500.html"><i class="ri-error-warning-line"></i>Error 500</a>-->
+<!--                                </li>-->
+<!--                                <li><a href="pages-pricing.html"><i class="ri-price-tag-line"></i>Pricing</a></li>-->
+<!--                                <li><a href="pages-maintenance.html"><i class="ri-archive-line"></i>Maintenance</a></li>-->
+<!--                                <li><a href="pages-comingsoon.html"><i class="ri-mastercard-line"></i>Coming Soon</a>-->
+<!--                                </li>-->
+<!--                                <li><a href="pages-faq.html"><i class="ri-compasses-line"></i>Faq</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+            </ul>
+        </nav>
     </div>
-
 </div>
-<!-- END SIDEBAR -->
 
 </body>
 </html>
