@@ -28,7 +28,6 @@ public class FireBaseServiceImpl implements FirebaseService {
             BlobId blobId = BlobId.of(bucketName, file.getOriginalFilename());
             BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
             Blob blob = storage.create(blobInfo, file.getBytes());
-
             return blob.getMediaLink(); // Trả về URL để tải xuống tệp vừa tải lên
         } catch (IOException e) {
             throw new IOException("Failed to upload file: " + e.getMessage());
