@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="admin(viewAdmin)">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,20 +14,16 @@
     <link rel="stylesheet"  th:href="@{|/assets/admin/css/style.css|}">
     <!-- Responsive CSS -->
     <link rel="stylesheet"  th:href="@{|/assets/admin/css/responsive.css|}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+<!-- loader Start -->
 <div id="loading">
     <div id="loading-center">
     </div>
 </div>
-<div class="wrapper">
-    <aside th:replace="~{/admin/common/_sidebar :: adminSideBar}"></aside>
-    <main th:replace="${viewAdmin}"></main>
-</div>
-
-<!-- color-customizer END -->
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- loader END -->
+<!-- Sign in Start -->
 <script  th:src="@{|/assets/admin/js/jquery.min.js|}"></script>
 <script th:src="@{|/assets/admin/js/popper.min.js|}"></script>
 <script th:src="@{|/assets/admin/js/bootstrap.min.js|}"></script>
@@ -84,5 +80,12 @@
 <script th:src="@{|/assets/admin/js/music-player-dashboard.js|}"></script>
 <!-- Custom JavaScript -->
 <script th:src="@{|/assets/admin/js/custom.js|}"></script>
+<script th:src="@{|/assets/javascript/UI/adminUI.js|}"></script>
+<script th:src="@{|/assets/javascript/CRUD/song_CRUD.js|}"></script>
+<script th:src="@{|/assets/javascript/api/songAPI.js|}"></script>
+<script th:src="@{|/assets/javascript/api/general.js|}"></script>
+<script th:src="@{|/assets/admin/js/dateUtil.js|}"></script>
+<script th:src="@{|/assets/admin/js/pageLoader.js|}"></script>
+<script th:src="@{|/assets/admin/js/data.js|}"></script>
 </body>
 </html>

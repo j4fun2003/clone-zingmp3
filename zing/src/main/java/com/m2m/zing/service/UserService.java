@@ -12,12 +12,7 @@ public interface UserService {
     User getUserById(Long userId) throws Exception;
     User updateUser(Long userId, User userDetails) throws Exception;
     void deleteUser(Long userId) throws Exception;
-
     User getByUserName(String username) throws Exception;
     User getByEmail(String email) throws Exception;
-
-
-
     List<User> getAllUser() throws Exception;
-
 }
