@@ -20,11 +20,14 @@ function handleLoginFormSubmit(event) {
                 showConfirmButton: false,
                 timer: 1500 // Tự động đóng thông báo sau 1.5 giây
             });
+            document.getElementById('registerModalBtn').style.display = 'none';
+            document.getElementById('loginModalBtn').style.display = 'none';
+
         } else {
             Swal.fire({
                 icon: 'fail',
-                title: 'Thành công!',
-                text: 'Dữ liệu đã được nhập thành công.',
+                title: 'Thất bại!',
+                text: 'Dữ liệu đã được nhập thất bại.',
                 showConfirmButton: false,
                 timer: 1500 // Tự động đóng thông báo sau 1.5 giây
             });
@@ -58,6 +61,7 @@ function handleRegisterFormSubmit(event) {
                 console.log('Đăng ký thành công:', response);
                 document.getElementById('registerModalBtn').style.display = 'none';
                 document.getElementById('loginModalBtn').style.display = 'none';
+
                 setSession(response.user);
             } else {
                 console.error('Đăng ký thất bại:', response);
@@ -99,7 +103,6 @@ function generateSingerHtml(data) {
         '<span class="profile__name js__main-color">' + authors.fullName + '</span>' +
         '<div class="grid row">';
 
-    // Thêm HTML cho mỗi bài hát
     songs.forEach(function (song) {
         authorHtml += '<div class="col l-4 m-6 s-6">' +
             '<div class="songs-item js__song-item1">' +
@@ -141,6 +144,44 @@ function changeUserImage(avatarUrl) {
 
 // Song
 
+function getHistoryByUserId(userId){
+    $.ajax({
+        url: "/api/history/"+userId,
+        method:"GET",
+        success: function (data) {
+            if(data.status == 'success'){
+                var histories =  data.data;
+                var historiesHtml = '<ul>';
+                histories.forEach(function(history){
+                    historiesHtml += ' <div class="nextsong__fist-item nextsong__item nextsong__fist-item-headding--active nextsong__fist-item-background--active">\n' +
+                        '            <div class="nextsong__item-img" style="background-image: url(${history.song.image});">\n' +
+                        '                <div class="nextsong__item-playbtn"><i class="fas fa-play"></i></div>\n' +
+                        '                <div class="songs-item-left-img-playing-box">\n' +
+                        '                    <img class="songs-item-left-img-playing" src="/assets/img/songs/icon-playing.gif" alt="playing">\n' +
+                        '                </div>\n' +
+                        '            </div>\n' +
+                        '            <div class="nextsong__item-body">\n' +
+                        '                <span class="nextsong__item-body-heading js__main-color">${history.song.title}</span>\n' +
+                        '                <!-- Kiểm tra xem có tác giả nào không trước khi truy cập thuộc tính -->\n' +
+                        '                <span class="nextsong__item-body-depsc js__sub-color">${authors ? authors.fullName : \'\'}</span>\n' +
+                        '            </div>\n' +
+                        '            <div class="nextsong__item-action">\n' +
+                        '                <span class="nextsong__item-action-heart">\n' +
+                        '                    <i class="fas fa-heart nextsong__item-action-heart-icon1"></i>\n' +
+                        '                    <i class="far fa-heart nextsong__item-action-heart-icon2"></i>\n' +
+                        '                </span>\n' +
+                        '                <span class="nextsong__item-action-dot">\n' +
+                        '                    <i class="fas fa-ellipsis-h "></i>\n' +
+                        '                </span>\n' +
+                        '            </div>\n' +
+                        '        </div>`;';
+                });
+                historiesHtml += '</ul>';
+            }
+        }
+    })
+}
+
 function getSongById(songId) {
     var url = '/api/songs/' + songId;
     var xhr = new XMLHttpRequest();
@@ -157,12 +198,9 @@ function getSongById(songId) {
 
 function updateHistory(data) {
     var nextSongFirstElements = document.getElementsByClassName('nextsong__fist');
-
-    // Kiểm tra xem có phần tử nào có class 'nextsong__fist' hay không
     if (nextSongFirstElements.length > 0) {
-        var nextSongFirst = nextSongFirstElements[0]; // Chọn phần tử đầu tiên nếu có nhiều phần tử cùng class
+        var nextSongFirst = nextSongFirstElements[0];
         var songHtml = generateSong(data);
-        console.log(songHtml);
         nextSongFirst.innerHTML = songHtml;
     } else {
         console.error("Element with class 'nextsong__fist' not found.");
@@ -173,9 +211,10 @@ function updateHistory(data) {
 function generateSong(data) {
     var song = data.data.songs;
     var authors = data.data.authors;
-
+    var historiesHtml = '';
+    getHistoryByUserId(current_user.userId);
+    console.log(current_user.userId);
     var songHtml = `
-        <!-- nextsong__fist-item-headding--active nextsong__fist-item-playbtn--active-->
         <div class="nextsong__fist-item nextsong__item nextsong__fist-item-headding--active nextsong__fist-item-background--active">
             <div class="nextsong__item-img" style="background-image: url(${song.image});">
                 <div class="nextsong__item-playbtn"><i class="fas fa-play"></i></div>
@@ -199,5 +238,8 @@ function generateSong(data) {
             </div>
         </div>`;
 
+    songHtml += historiesHtml;
+
     return songHtml;
+
 }

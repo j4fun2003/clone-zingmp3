@@ -12,6 +12,8 @@ import java.util.List;
 public interface HistoryService {
     History addToHistory(User user, Song song) throws Exception;
     List<History> getHistoryByUser(User user) throws Exception;
+
+    List<History> getHistoryByUserId(Long userId) throws Exception;
     void clearUserHistory(User user) throws Exception;
 }
 

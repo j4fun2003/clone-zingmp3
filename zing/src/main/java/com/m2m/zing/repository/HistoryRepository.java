@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface HistoryRepository extends JpaRepository<History, Long> {
     List<History> findAllByUserOrderByListenDateDesc(User user);
+
+    List<History> findAllByUserIdOrderByListenDateDesc(Long user);
 }

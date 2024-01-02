@@ -118,18 +118,19 @@
           </div>
           <div class="header__user">
             <ul class="header__user-list">
-              <li class="header__user-item">
+              <li class="header__user-item" id="profileBtn" th:when="${current_user != null}">
                 <i class="fas fa-ban"></i>
+                Thông tin
               </li>
-              <li class="header__user-item" id="registerModalBtn" >
+              <li class="header__user-item" id="registerModalBtn" th:when="${current_user == null}">
                 <i class="far fa-play-circle"></i>
                 Đăng ký
               </li>
-              <li id="loginModalBtn" class="header__user-item">
+              <li id="loginModalBtn" class="header__user-item" th:when="${current_user == null}">
                 <i class="fas fa-external-link-square-alt"></i>
                 Đăng nhập
               </li>
-              <li class="header__user-item" onclick="logout()">
+              <li class="header__user-item" onclick="logout()" id="logoutBtn" th:when="${current_user != null}">
                 <i class="fas fa-info-circle"></i>
                 Đăng xuất
               </li>
@@ -138,6 +139,8 @@
               <img alt="user" class="header__user-img" th:src="${current_user != null} ? '/assets/img/header/user/' + ${current_user.avatar} : '/assets/img/header/user/null.jpg'">
             </div>
           </div>
+
+
 
         </div>
       </div>

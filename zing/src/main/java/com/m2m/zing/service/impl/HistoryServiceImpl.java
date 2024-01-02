@@ -32,6 +32,11 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
+    public List<History> getHistoryByUserId(Long userId) throws Exception {
+        return historyRepository.findAllByUserIdOrderByListenDateDesc(userId);
+    }
+
+    @Override
     public void clearUserHistory(User user) throws Exception {
         List<History> userHistory = historyRepository.findAllByUserOrderByListenDateDesc(user);
         historyRepository.deleteAll(userHistory);

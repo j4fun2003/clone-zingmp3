@@ -56,7 +56,7 @@ public class HistoryAPI {
         try {
             // Gọi service để lấy lịch sử theo userId
             User user = (User) httpSession.getAttribute(ModelAttributes.CURRENT_USER);
-            List<History> userHistory = historyService.getHistoryByUser(user);
+            List<History> userHistory = historyService.getHistoryByUserId(userId);
             result.put("status", "Success");
             result.put("data", userHistory);
         } catch (Exception e) {
