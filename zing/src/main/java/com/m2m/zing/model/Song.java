@@ -32,15 +32,11 @@ public class Song {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    @JsonIgnore
     private User author;
 
     @ManyToOne
     @JoinColumn(name = "album_id")
     private Album album;
-
-
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)

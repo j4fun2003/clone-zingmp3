@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PlaylistSongServiceImpl implements PlaylistSongService {
+public class
+PlaylistSongServiceImpl implements PlaylistSongService {
 
     @Autowired
     private PlayListSongRepository playlistSongRepository;

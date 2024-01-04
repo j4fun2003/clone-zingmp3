@@ -64,6 +64,14 @@
 			<artifactId>firebase-admin</artifactId>
 			<version>8.2.0</version> <!-- Use the latest version -->
 		</dependency>
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-storage</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

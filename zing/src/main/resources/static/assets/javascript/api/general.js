@@ -14,6 +14,7 @@ function callAPI(endpoint, method, requestData) {
                     text: "please try with another?",
                     icon: "error"
                 });
+                reject(error);
             }
         });
     });

@@ -6,6 +6,7 @@ import com.m2m.zing.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +43,10 @@ public class GenreServiceImpl implements GenreService {
     public void deleteGenre(Long genreId) throws Exception {
         Optional<Genre> optionalGenre = genreRepository.findById(genreId);
         optionalGenre.ifPresent(genreRepository::delete);
+    }
+
+    @Override
+    public List<Genre> getAllGenre() throws Exception {
+        return genreRepository.findAll();
     }
 }

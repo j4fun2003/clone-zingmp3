@@ -71,21 +71,67 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <table id="song-list-table" class="table table-striped table-bordered mt-4"
-                                               role="grid" aria-describedby="user-list-page-info">
+                                        <table class="data-tables table table-striped table-bordered dataTable no-footer"
+                                               style="width: 100%;" id="DataTables_Table_0" role="grid"
+                                               aria-describedby="DataTables_Table_0_info">
                                             <thead>
-                                            <tr>
-                                                <th>Song Name</th>
-                                                <th>Duration</th>
-                                                <th>Create Date</th>
-                                                <th>Song Link</th>
-                                                <th>Image</th>
-                                                <th>Nation</th>
-                                                <th>Author</th>
-                                                <th>Action</th>
+                                            <tr role="row">
+                                                <th style="width: 24px;" class="sorting_asc" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-sort="ascending"
+                                                    aria-label="No: activate to sort column descending">No
+                                                </th>
+                                                <th style="width: 47px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Image: activate to sort column ascending">Image
+                                                </th>
+                                                <th style="width: 154px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Song Name: activate to sort column ascending">Song Name
+                                                </th>
+                                                <th style="width: 155px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Song Category: activate to sort column ascending">Song
+                                                    Category
+                                                </th>
+                                                <th style="width: 90px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Singer: activate to sort column ascending">Singer
+                                                </th>
+                                                <th style="width: 349px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Song Description: activate to sort column ascending">
+                                                    Song Description
+                                                </th>
+                                                <th style="width: 90px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Action: activate to sort column ascending">Action
+                                                </th>
                                             </tr>
                                             </thead>
-                                            <tbody id="song-list-table-body">
+                                            <tbody>
+                                            <tr role="row" class="odd" th:each="song, index : ${songs}">
+                                                <td th:text="${index.index +1}"></td>
+                                                <td>
+                                                    <img th:src="@{song.url}"
+                                                         class="img-fluid avatar-50 rounded" alt="author-profile">
+                                                </td>
+                                                <td th:text="${song.title}"></td>
+                                                <td>Thể Loại</td>
+                                                <td th:text="${song.author != null?song.author.fullName:'Undefine'}"></td>
+                                                <td th:text="${song.description}"></td>
+                                                <td>
+                                                    <div class="flex align-items-center list-user-action">
+                                                        <a class="bg-primary" data-toggle="tooltip" data-placement="top"
+                                                           title="" data-original-title="Edit"
+                                                           href=""><i class="ri-pencil-line"></i></a>
+                                                        <a class="bg-primary" data-toggle="tooltip" data-placement="top"
+                                                           title="" data-original-title="Delete" href="#"><i
+                                                                class="ri-delete-bin-line"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -124,34 +170,30 @@
                                 <div class="iq-card-body">
                                     <form>
                                         <div class="profile-img-edit">
-                                            <!--                                        <img th:src="@{/static/assets/img/placeholder/placeholder.png}" alt="song-picture">-->
-                                            <div class="p-image">
-                                                <label for="upload-song-image"> <i
-                                                        class="ri-pencil-line upload-button"></i></label>
-                                                <input id="upload-song-image" class="file-upload" type="file"
-                                                       accept="image/*">
-                                            </div>
+                                            <label for="song-image"><img id="image-preview" class="profile-pic"
+                                                                                src="/assets/img/placeholder/placeholderMusic.png"
+                                                                                alt="placeholder image"></label>
+                                            <input id="song-image" class="file-upload" type="file"
+                                                   accept="image/*" onchange="getImagePreview(event)">
                                         </div>
 
-                                        <div class=" form-group custom-file">
-                                            <input type="file" class="custom-file-input form-control"
-                                                   id="song-audio-file"
-                                                   accept="audio/*">
-                                            <label class="custom-file-label" for="song-audio-file">Song Audio</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="song-audio" accept="audio/*">
+                                            <label class="custom-file-label" for="song-audio">Choose Song File</label>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="song-name">Song Name:</label>
+                                            <label for="song-name">Name:</label>
                                             <input type="text" class="form-control" id="song-name" value="">
                                         </div>
                                         <div class="form-group">
-                                            <label for="song-des">Song description:</label>
+                                            <label for="song-des">Description:</label>
                                             <textarea class="form-control" id="song-des" value=""></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="song-nation">Nation</label>
                                             <select id="song-nation" class="form-control">
-                                                <option disabled value="">Chọn quốc gia</option>
+                                                <option selected disabled value="">Chọn quốc gia</option>
                                                 <option value="Việt Nam">Việt Nam</option>
                                                 <option value="United States">United States</option>
                                                 <option value="Canada">Canada</option>
@@ -159,6 +201,15 @@
                                                 <option value="France">France</option>
                                                 <option value="Germany">Germany</option>
                                                 <option value="Japan">Japan</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="song-genre">Genre</label>
+                                            <select id="song-genre" class="form-control">
+                                                <option selected disabled value="">Chọn Thể Loại</option>
+                                                <th:block th:each="genre : ${genres}">
+                                                    <option th:value="${genre}" th:text="${genre.title}">Thể Loại</option>
+                                                </th:block>
                                             </select>
                                         </div>
                                         <button onclick="addSong()" type="button" class="btn btn-primary mr-2">Add Song
@@ -182,7 +233,7 @@
                                 <div class="iq-card-body">
                                     <form>
                                         <div class="profile-img-edit">
-                                            <!--                                        <img th:src="@{/static/assets/img/placeholder/placeholder.png}" alt="song-picture">-->
+                                            <!--                                                                                    <img th:src="@{/static/assets/img/placeholder/placeholder.png}" alt="song-picture">-->
                                             <div class="p-image">
                                                 <label for="upload-song-image-edit"> <i
                                                         class="ri-pencil-line upload-button"></i></label>
@@ -239,3 +290,9 @@
 </div>
 </body>
 </html>
+<style>
+    .invalid-input {
+        border: 1px solid red;
+        /* You can adjust the style according to your UI needs */
+    }
+</style>
