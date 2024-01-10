@@ -11,275 +11,125 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="iq-card">
-                    <div class="iq-card-body p-0">
-                        <div class="iq-edit-list">
-                            <ul class="iq-edit-profile d-flex nav nav-pills">
-                                <li class="col-md-6 p-0">
-                                    <a class="nav-link active" data-toggle="pill" href="#song-list">
-                                        Song List
-                                    </a>
-                                </li>
-                                <li class="col-md-6 p-0">
-                                    <a class="nav-link" data-toggle="pill" href="#song-add">
-                                        Song Add
-                                    </a>
-                                </li>
-                                <li class="col-md-6 p-0" style="display: none">
-                                    <a class="nav-link" data-toggle="pill" href="#song-edit">
-                                        Song Edit
-                                    </a>
-                                </li>
-                            </ul>
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Song List</h4>
+                        </div>
+                        <div class="iq-header-title">
+                            <a href="/admin/song-add" class="btn btn-primary">Add New Song
+                            </a>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="iq-edit-list-data">
-                    <div class="tab-content">
-                        <div class="tab-pane fade active show" id="song-list" role="tabpanel">
-                            <div class="iq-card">
-                                <div class="iq-card-header d-flex justify-content-between">
-                                    <div class="iq-header-title">
-                                        <h4 class="card-title">Song List</h4>
+                    <div class="iq-card-body">
+                        <div class="table-responsive">
+                            <div class="row justify-content-between">
+                                <div class="col-sm-12 col-md-6">
+                                    <div id="user_list_datatable_info" class="dataTables_filter">
+                                        <form id="search-form" class="mr-3 position-relative">
+                                            <div class="form-group mb-0">
+                                                <input onkeydown="searchSong(this.value)" type="text"
+                                                       class="form-control" id="search-song-input"
+                                                       placeholder="Search" aria-controls="song-list-table">
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="iq-card-body">
-                                    <div class="table-responsive">
-                                        <div class="row justify-content-between">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div id="user_list_datatable_info" class="dataTables_filter">
-                                                    <form id="search-form" class="mr-3 position-relative">
-                                                        <div class="form-group mb-0">
-                                                            <input onkeydown="searchSong(this.value)" type="text"
-                                                                   class="form-control" id="search-song-input"
-                                                                   placeholder="Search" aria-controls="song-list-table">
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="user-list-files d-flex float-right">
-                                                    <a class="iq-bg-primary" onclick="">
-                                                        Export To Exel
-                                                    </a>
-                                                </div>
-                                                <div class="user-list-files d-flex float-right">
-                                                    <a class="iq-bg-primary" onclick="">
-                                                        Import By Exel
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <table class="data-tables table table-striped table-bordered dataTable no-footer"
-                                               style="width: 100%;" id="DataTables_Table_0" role="grid"
-                                               aria-describedby="DataTables_Table_0_info">
-                                            <thead>
-                                            <tr role="row">
-                                                <th style="width: 24px;" class="sorting_asc" tabindex="0"
-                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                    aria-sort="ascending"
-                                                    aria-label="No: activate to sort column descending">No
-                                                </th>
-                                                <th style="width: 47px;" class="sorting" tabindex="0"
-                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                    aria-label="Image: activate to sort column ascending">Image
-                                                </th>
-                                                <th style="width: 154px;" class="sorting" tabindex="0"
-                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                    aria-label="Song Name: activate to sort column ascending">Song Name
-                                                </th>
-                                                <th style="width: 155px;" class="sorting" tabindex="0"
-                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                    aria-label="Song Category: activate to sort column ascending">Song
-                                                    Category
-                                                </th>
-                                                <th style="width: 90px;" class="sorting" tabindex="0"
-                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                    aria-label="Singer: activate to sort column ascending">Singer
-                                                </th>
-                                                <th style="width: 349px;" class="sorting" tabindex="0"
-                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                    aria-label="Song Description: activate to sort column ascending">
-                                                    Song Description
-                                                </th>
-                                                <th style="width: 90px;" class="sorting" tabindex="0"
-                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                    aria-label="Action: activate to sort column ascending">Action
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr role="row" class="odd" th:each="song, index : ${songs}">
-                                                <td th:text="${index.index +1}"></td>
-                                                <td>
-                                                    <img th:src="@{song.url}"
-                                                         class="img-fluid avatar-50 rounded" alt="author-profile">
-                                                </td>
-                                                <td th:text="${song.title}"></td>
-                                                <td>Thể Loại</td>
-                                                <td th:text="${song.author != null?song.author.fullName:'Undefine'}"></td>
-                                                <td th:text="${song.description}"></td>
-                                                <td>
-                                                    <div class="flex align-items-center list-user-action">
-                                                        <a class="bg-primary" data-toggle="tooltip" data-placement="top"
-                                                           title="" data-original-title="Edit"
-                                                           href=""><i class="ri-pencil-line"></i></a>
-                                                        <a class="bg-primary" data-toggle="tooltip" data-placement="top"
-                                                           title="" data-original-title="Delete" href="#"><i
-                                                                class="ri-delete-bin-line"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="user-list-files d-flex float-right">
+                                        <a class="iq-bg-primary" onclick="">
+                                            Export To Exel
+                                        </a>
                                     </div>
-                                    <div class="row justify-content-between mt-3">
-                                        <div id="user-list-page-info" class="col-md-6">
-                                            <span>Showing 1 to 5 of 5 entries</span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <nav aria-label="Page navigation example">
-                                                <ul class="pagination justify-content-end mb-0">
-                                                    <li class="page-item disabled">
-                                                        <a class="page-link" href="#" tabindex="-1"
-                                                           aria-disabled="true">Previous</a>
-                                                    </li>
-                                                    <li class="page-item active"><a class="page-link" href="#">1</a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#">Next</a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
+                                    <div class="user-list-files d-flex float-right">
+                                        <a class="iq-bg-primary" onclick="">
+                                            Import By Exel
+                                        </a>
                                     </div>
                                 </div>
                             </div>
+                            <table class="data-tables table table-striped table-bordered dataTable no-footer"
+                                   style="width: 100%;" id="DataTables_Table_0" role="grid"
+                                   aria-describedby="DataTables_Table_0_info">
+                                <thead>
+                                <tr role="row">
+                                    <th style="width: 24px;" class="sorting_asc" tabindex="0"
+                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                        aria-sort="ascending"
+                                        aria-label="No: activate to sort column descending">No
+                                    </th>
+                                    <th style="width: 47px;" class="sorting" tabindex="0"
+                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                        aria-label="Image: activate to sort column ascending">Image
+                                    </th>
+                                    <th style="width: 154px;" class="sorting" tabindex="0"
+                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                        aria-label="Song Name: activate to sort column ascending">Song Name
+                                    </th>
+                                    <th style="width: 155px;" class="sorting" tabindex="0"
+                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                        aria-label="Song Category: activate to sort column ascending">Song
+                                        Category
+                                    </th>
+                                    <th style="width: 90px;" class="sorting" tabindex="0"
+                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                        aria-label="Singer: activate to sort column ascending">Singer
+                                    </th>
+                                    <th style="width: 349px;" class="sorting" tabindex="0"
+                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                        aria-label="Song Description: activate to sort column ascending">
+                                        Song Description
+                                    </th>
+                                    <th style="width: 90px;" class="sorting" tabindex="0"
+                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                        aria-label="Action: activate to sort column ascending">Action
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr role="row" class="odd" th:each="song, index : ${songs}">
+                                    <td th:text="${index.index +1}"></td>
+                                    <td>
+                                        <img th:src="${song.image}"
+                                             class="img-fluid avatar-50 rounded" alt="author-profile">
+                                    </td>
+                                    <td th:text="${song.title}"></td>
+                                    <td>Thể Loại</td>
+                                    <td th:text="${song.singer != null?song.singer.singerFullName:'Undefine'}"></td>
+                                    <td th:text="${song.description}"></td>
+                                    <td>
+                                        <div class="flex align-items-center list-user-action">
+                                            <a class="bg-primary" data-toggle="tooltip" data-placement="top"
+                                               title="" data-original-title="Edit" th:href="@{/admin/edit-song/{songId}(songId=${song.songId})}"><i class="ri-pencil-line"></i></a>
+                                            <a class="bg-primary" data-toggle="tooltip" data-placement="top"
+                                               title="" data-original-title="Delete" th:onclick="'deleteSongConfirm(\'' + ${song.songId} + '\', this)'"><i
+                                                    class="ri-delete-bin-line"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="tab-pane fade" id="song-add" role="tabpanel">
-                            <div class="iq-card">
-                                <div class="iq-card-header d-flex justify-content-between">
-                                    <div class="iq-header-title">
-                                        <h4 class="card-title">Song Add</h4>
-                                    </div>
-                                </div>
-                                <div class="iq-card-body">
-                                    <form>
-                                        <div class="profile-img-edit">
-                                            <label for="song-image"><img id="image-preview" class="profile-pic"
-                                                                                src="/assets/img/placeholder/placeholderMusic.png"
-                                                                                alt="placeholder image"></label>
-                                            <input id="song-image" class="file-upload" type="file"
-                                                   accept="image/*" onchange="getImagePreview(event)">
-                                        </div>
-
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="song-audio" accept="audio/*">
-                                            <label class="custom-file-label" for="song-audio">Choose Song File</label>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="song-name">Name:</label>
-                                            <input type="text" class="form-control" id="song-name" value="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="song-des">Description:</label>
-                                            <textarea class="form-control" id="song-des" value=""></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="song-nation">Nation</label>
-                                            <select id="song-nation" class="form-control">
-                                                <option selected disabled value="">Chọn quốc gia</option>
-                                                <option value="Việt Nam">Việt Nam</option>
-                                                <option value="United States">United States</option>
-                                                <option value="Canada">Canada</option>
-                                                <option value="United Kingdom">United Kingdom</option>
-                                                <option value="France">France</option>
-                                                <option value="Germany">Germany</option>
-                                                <option value="Japan">Japan</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="song-genre">Genre</label>
-                                            <select id="song-genre" class="form-control">
-                                                <option selected disabled value="">Chọn Thể Loại</option>
-                                                <th:block th:each="genre : ${genres}">
-                                                    <option th:value="${genre}" th:text="${genre.title}">Thể Loại</option>
-                                                </th:block>
-                                            </select>
-                                        </div>
-                                        <button onclick="addSong()" type="button" class="btn btn-primary mr-2">Add Song
-                                        </button>
-                                        <button type="reset" class="btn iq-bg-danger">Rest Form</button>
-                                    </form>
-                                </div>
+                        <div class="row justify-content-between mt-3">
+                            <div id="user-list-page-info" class="col-md-6">
+                                <span>Showing 1 to 5 of 5 entries</span>
                             </div>
-                        </div>
-                        <div class="tab-pane fade" id="song-edit" role="tabpanel">
-                            <div class="iq-card">
-                                <div class="iq-card-header d-flex justify-content-between">
-                                    <div class="iq-header-title">
-                                        <h4 class="card-title">Song Edit</h4>
-                                    </div>
-                                    <div class="iq-header-title">
-                                        <button onclick="backToListSong()" class="btn btn-primary">Back To List Song
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="iq-card-body">
-                                    <form>
-                                        <div class="profile-img-edit">
-                                            <!--                                                                                    <img th:src="@{/static/assets/img/placeholder/placeholder.png}" alt="song-picture">-->
-                                            <div class="p-image">
-                                                <label for="upload-song-image-edit"> <i
-                                                        class="ri-pencil-line upload-button"></i></label>
-                                                <input id="upload-song-image-edit" class="file-upload" type="file"
-                                                       accept="image/*">
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden="hidden">
-                                            <input disabled type="text" class="form-control" id="song-id-edit">
-                                            <label class="custom-file-label" for="song-audio-file-edit">Song
-                                                Audio</label>
-                                        </div>
-                                        <div class=" form-group custom-file">
-                                            <input type="file" class="custom-file-input form-control"
-                                                   id="song-audio-file-edit"
-                                                   accept="audio/*">
-                                            <label class="custom-file-label" for="song-audio-file-edit">Song
-                                                Audio</label>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="song-name-edit">Song Name:</label>
-                                            <input type="text" class="form-control" id="song-name-edit" value="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="song-des-edit">Song description:</label>
-                                            <textarea class="form-control" id="song-des-edit" value=""></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="song-nation-edit">Nation</label>
-                                            <select id="song-nation-edit" class="form-control">
-                                                <option disabled value="">Chọn quốc gia</option>
-                                                <option value="Việt Nam">Việt Nam</option>
-                                                <option value="United States">United States</option>
-                                                <option value="Canada">Canada</option>
-                                                <option value="United Kingdom">United Kingdom</option>
-                                                <option value="France">France</option>
-                                                <option value="Germany">Germany</option>
-                                                <option value="Japan">Japan</option>
-                                            </select>
-                                        </div>
-                                        <button onclick="updateSongConfirm()" type="button"
-                                                class="btn btn-primary mr-2">Save Change
-                                        </button>
-                                    </form>
-                                </div>
+                            <div class="col-md-6">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-end mb-0">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1"
+                                               aria-disabled="true">Previous</a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>

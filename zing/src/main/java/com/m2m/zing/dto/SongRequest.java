@@ -1,5 +1,6 @@
 package com.m2m.zing.dto;
 
+import com.m2m.zing.model.Singer;
 import com.m2m.zing.model.Song;
 import lombok.Data;
 
@@ -14,6 +15,6 @@ public class SongRequest {
     String image;
     Time duration;
     String nation;
-//    Long quantity;
+    Integer singerId;
 }
 

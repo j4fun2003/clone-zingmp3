@@ -4,6 +4,7 @@ import com.m2m.zing.constant.ModelAttributes;
 import com.m2m.zing.dto.SongRequest;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
+import com.m2m.zing.service.SingerService;
 import com.m2m.zing.service.SongService;
 import com.m2m.zing.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +28,9 @@ public class SongAPI {
     HttpSession httpSession;
     @Autowired
     UserService userService;
+
+    @Autowired
+    SingerService singerService;
 
     @GetMapping
     public ResponseEntity<?> getAllSongs() {
@@ -57,7 +61,8 @@ public class SongAPI {
 //            default value
             song.setCreateDate(LocalDateTime.now());
             song.setAuthor((User) httpSession.getAttribute(ModelAttributes.CURRENT_USER));
-            song.setDownload((long) 0 );
+            song.setDownload((long) 0);
+            song.setSinger(singerService.getSingerById(songRequest.getSingerId()));
 //          create song
             Song createdSong = songService.createSong(song);
 //            set result
@@ -131,13 +136,13 @@ public class SongAPI {
         Map<String, Object> result = new HashMap<>();
         try {
             User author = userService.getUserById(userId);
-            if(author != null){
+            if (author != null) {
                 List<Song> songs = songService.getSongByAuthor(author);
                 result.put("status", "success");
                 result.put("data", songs);
-            }else{
+            } else {
                 result.put("status", "failed");
-                result.put("detail", "not found author with id : " + userId );
+                result.put("detail", "not found author with id : " + userId);
             }
 
         } catch (Exception e) {

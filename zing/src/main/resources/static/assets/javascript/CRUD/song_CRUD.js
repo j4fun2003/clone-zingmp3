@@ -5,6 +5,7 @@ function getSongInfomationData() {
         let name = document.getElementById("song-name").value;
         let description = document.getElementById("song-des").value;
         let nation = document.getElementById("song-nation").value;
+        let singerId = document.getElementById("song-singer").value;
 
         uploadAudioFromFireBase(imageFile);
         uploadAudioFromFireBase(audioFile);
@@ -21,7 +22,8 @@ function getSongInfomationData() {
                     duration: formattedDuration,
                     nation: nation,
                     url: "https://storage.googleapis.com/zing-mp3-2118c.appspot.com/" + audioFile.name,
-                    image:"https://storage.googleapis.com/zing-mp3-2118c.appspot.com/" +  imageFile.name
+                    image: "https://storage.googleapis.com/zing-mp3-2118c.appspot.com/" + imageFile.name,
+                    singerId: singerId
                 };
                 resolve(newSong);
             };
@@ -52,8 +54,8 @@ function addSong() {
                     timer: 1500
                 });
                 setTimeout(function () {
-                    window.location.reload();
-                }, 1500);
+                    window.location.href = "/admin/song"
+                }, 700)
             }).catch(error => {
                 Swal.fire({
                     icon: "error",
@@ -69,6 +71,12 @@ function addSong() {
                 text: "Error When Select Data From Database !",
                 footer: '<a href="#">Why do I have this issue?</a>'
             });
+        })
+    } else {
+        Swal.fire({
+            title: 'Please Fill All Song Data',
+            icon: 'warning',
+            confirmButtonText: 'OK',
         })
     }
 }
@@ -103,9 +111,8 @@ function deleteSongConfirm(songId, button) {
             deleteSong(songId);
             setTimeout(function () {
                 window.location.reload();
-            },300)
+            }, 300)
         }
-
     });
 }
 
@@ -123,11 +130,11 @@ function editSongRender(songId) {
 }
 
 function renderSongsToEdit(song) {
-    // Hiển thị nội dung của tab "Song Edit"
     document.getElementById("song-name-edit").value = song.title;
     document.getElementById("song-des-edit").value = song.description;
     document.getElementById("song-nation-edit").value = song.nation;
     document.getElementById("song-id-edit").value = song.songId;
+    document.getElementById("image-preview-edit").src = song.url;
 }
 
 
@@ -172,6 +179,7 @@ function updateSongConfirm() {
                         confirmButtonText: 'OK',
                     })
                     console.log(error);
+                    console.log(error);
                 })
             }
         });
@@ -192,159 +200,33 @@ function validateSongDetails() {
     const songGenre = document.getElementById('song-genre');
     const imageFile = document.getElementById('song-image');
     const audioFile = document.getElementById('song-audio');
+    const singer = document.getElementById("song-singer");
 
-    let isValid = true;
-
-    if (!songName.value.trim()) {
-        songName.classList.add('invalid-field');
-        isValid = false;
-    } else {
-        songName.classList.remove('invalid-field');
+    if (!songName.value.trim() ||
+        !songDescription.value.trim() ||
+        !songNation.value.trim() ||
+        !songGenre.value.trim() ||
+        !imageFile.files[0] ||
+        !audioFile.files[0] ||
+        !singer.value) {
+        return false; // Trả về false nếu một trong các điều kiện không hợp lệ
     }
-
-    if (!songDescription.value.trim()) {
-        songDescription.classList.add('invalid-field');
-        isValid = false;
-    } else {
-        songDescription.classList.remove('invalid-field');
-    }
-
-    if (!songNation.value.trim()) {
-        songNation.classList.add('invalid-field');
-        isValid = false;
-    } else {
-        songNation.classList.remove('invalid-field');
-    }
-
-    if (!songGenre.value.trim()) {
-        songGenre.classList.add('invalid-field');
-        isValid = false;
-    } else {
-        songGenre.classList.remove('invalid-field');
-    }
-
-    if (!imageFile.files[0]) {
-        imageFile.classList.add('invalid-field');
-        isValid = false;
-    } else {
-        imageFile.classList.remove('invalid-field');
-    }
-
-    if (!audioFile.files[0]) {
-        audioFile.classList.add('invalid-field');
-        isValid = false;
-    } else {
-        audioFile.classList.remove('invalid-field');
-    }
-
-    if (!isValid) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Please fill in all required fields and upload an image.'
-        });
-    }
-
-    return isValid;
+    return true; // Trả về true nếu tất cả các trường đều hợp lệ
 }
 
 
-
 function validateSongUpdate() {
-    let songName = document.getElementById("song-name-edit").value;
-    let songDescription = document.getElementById("song-des-edit").value;
-    let songNation = document.getElementById("song-nation-edit").value;
-    if (!songName.trim() || !songDescription.trim() || !songNation) {
+    let songName = document.getElementById('song-name-edit').value;
+    let songDescription = document.getElementById('song-des-edit').value;
+    let songNation = document.getElementById('song-nation-edit').value;
+    let songGenre = document.getElementById('song-genre-edit').value;
+    let songSinger = document.getElementById('song-singer-edit').value;
+
+    if (songName === '' || songDescription === '' || songNation === '' || songGenre === '' || songSinger === '') {
         return false;
     }
     return true;
 }
-//
-// function uploadFileToFireBaseTest(file) {
-//     let audioFile = document.getElementById("song-audio-file").files[0];
-//     const formData = new FormData();
-//     formData.append("file", audioFile);
-//
-//     // Gửi formData lên server sử dụng AJAX
-//     $.ajax({
-//         url: "/api/firebase/upload",
-//         method: "POST",
-//         data: formData,
-//         contentType: false,
-//         processData: false,
-//         success: function(response) {
-//             // Hiển thị thông báo thành công bằng SweetAlert
-//             Swal.fire({
-//                 icon: 'success',
-//                 title: 'Upload thành công!',
-//                 text: 'File đã được tải lên thành công.'
-//             });
-//             console.log("File uploaded successfully:", response);
-//         },
-//         error: function(error) {
-//             // Hiển thị thông báo lỗi bằng SweetAlert
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Lỗi khi tải lên!',
-//                 text: 'Đã xảy ra lỗi khi tải file lên server.'
-//             });
-//             console.error("Error uploading file:", error);
-//         }
-//     });
-// }
-//
-//
-// function playAudioFromFirebase(fileName) {
-//     fetch(`/api/firebase/download/${fileName}`)
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error('Failed to fetch audio');
-//             }
-//             return response.arrayBuffer();
-//         })
-//         .then(arrayBuffer => {
-//             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-//             audioContext.decodeAudioData(arrayBuffer, function(audioBuffer) {
-//                 const audioSource = audioContext.createBufferSource();
-//                 audioSource.buffer = audioBuffer;
-//                 audioSource.connect(audioContext.destination);
-//                 audioSource.start();
-//             }, function(error) {
-//                 console.error('Failed to decode audio data:', error);
-//             });
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//         });
-// //
-// }
-
-
-function getFileFromFirebase(fileName) {
-    fetch(`/api/firebase/download/${fileName}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch audio');
-            }
-            return response.arrayBuffer();
-        })
-        .then(arrayBuffer => {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            audioContext.decodeAudioData(arrayBuffer, function(audioBuffer) {
-                const audioSource = audioContext.createBufferSource();
-                audioSource.buffer = audioBuffer;
-                audioSource.connect(audioContext.destination);
-                audioSource.start();
-            }, function(error) {
-                console.error('Failed to decode audio data:', error);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-
-
 
 function getImagePreview(event) {
     const input = event.target;
@@ -355,8 +237,56 @@ function getImagePreview(event) {
             imageTag.src = e.target.result;
         };
         reader.readAsDataURL(input.files[0]);
-    }else{
+    } else {
         const imageTag = document.getElementById("image-preview");
         imageTag.src = "/assets/img/placeholder/placeholderMusic.png";
+    }
+}
+
+function getSongUpdate() {
+    return new Promise((resolve, reject) => {
+        let songId = document.getElementById("song-id-edit").value;
+        getSongById(songId).then(data => {
+            if (data.status == `Success`) {
+                let song = data.data;
+                song.title = document.getElementById("song-name-edit").value;
+                song.description = document.getElementById("song-des-edit").value;
+                song.nation = document.getElementById("song-nation-edit").value;
+                song.singer.singerId = document.getElementById("song-singer-edit").value;
+                let audioFile = document.getElementById("song-audio-edit").files[0];
+                let imageFile = document.getElementById("song-image-edit").files[0];
+                if (audioFile) {
+                    uploadAudioFromFireBase(audioFile);
+                    song.url = firebaseUrl +  audioFile.name;
+                }
+                if (imageFile) {
+                    uploadAudioFromFireBase(imageFile);
+                    song.image = firebaseUrl + imageFile.name;
+                }
+                resolve(song);
+            } else {
+                reject(data.detail);
+            }
+        }).catch(error => {
+            reject(error);
+        });
+    })
+}
+
+function saveSong() {
+    if (validateSongUpdate()) {
+        getSongUpdate().then(result => {
+            updateSong(document.getElementById("song-id-edit").value, result)
+                .then(() => {
+                    alertSuccess("Update Success!");
+                })
+                .catch(error => {
+                    alertError("Have Some Error When Updating!", error);
+                });
+        }).catch(error => {
+            alertError("Have Some Error When Get Update Song Data!", error);
+        });
+    } else {
+        alertWarning("Please Fill All Field Needed!");
     }
 }

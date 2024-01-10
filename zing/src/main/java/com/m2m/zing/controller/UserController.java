@@ -1,6 +1,9 @@
 package com.m2m.zing.controller;
 
+import com.m2m.zing.model.Singer;
+import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
+import com.m2m.zing.service.SingerService;
 import com.m2m.zing.service.impl.SongServiceImpl;
 import com.m2m.zing.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -19,9 +23,13 @@ public class UserController {
 
     @Autowired
     UserServiceImpl userService;
+    @Autowired
+    SingerService singerService;
 
     @GetMapping()
-    public String doGetDashBoard() throws Exception {
+    public String doGetDashBoard(Model model) throws Exception {
+        model.addAttribute("songs", songService.getAllSong());
+        model.addAttribute("songNewRelease",songService.getTop5SongsNewRealease());
         return "user/dashboard";
     }
 

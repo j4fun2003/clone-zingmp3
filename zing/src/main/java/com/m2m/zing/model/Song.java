@@ -19,7 +19,6 @@ public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long songId;
-
     private String title;
     private String description;
     private String image;
@@ -37,6 +36,10 @@ public class Song {
     @ManyToOne
     @JoinColumn(name = "album_id")
     private Album album;
+
+    @ManyToOne
+    @JoinColumn(name = "singer_id")
+    private Singer singer;
 
     @JsonIgnore
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}"></html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainAdmin" id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Singer Lists</h4>
+                        </div>
+                        <div class="iq-card-header-toolbar d-flex align-items-center">
+                            <a href="/admin/add-singer" class="btn btn-primary">Add New Singer</a>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <div class="table-responsive">
+                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_length" id="DataTables_Table_0_length"><label>Show
+                                            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                                    class="custom-select custom-select-sm form-control form-control-sm">
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select> entries</label></div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                            <label>Search:<input type="search" class="form-control form-control-sm"
+                                                                 placeholder=""
+                                                                 aria-controls="DataTables_Table_0"></label></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="data-tables table table-striped table-bordered dataTable no-footer"
+                                               style="width: 100%;" id="DataTables_Table_0" role="grid"
+                                               aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                            <tr role="row">
+                                                <th style="width: 26px;" class="sorting_asc" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-sort="ascending"
+                                                    aria-label="No: activate to sort column descending">No
+                                                </th>
+                                                <th style="width: 50px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Profile: activate to sort column ascending">Profile
+                                                </th>
+                                                <th style="width: 159px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Singer Name: activate to sort column ascending">Singer
+                                                    Name
+                                                </th>
+                                                <th style="width: 161px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Email: activate to sort column ascending">Birthday
+                                                </th>
+                                                <th style="width: 161px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Email: activate to sort column ascending">Email
+                                                </th>
+                                                <th style="width: 624px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Singer Description: activate to sort column ascending">
+                                                    Singer Description
+                                                </th>
+                                                <th style="width: 93px;" class="sorting" tabindex="0"
+                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                    aria-label="Action: activate to sort column ascending">Action
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr role="row" th:class="${index.index % 2 == 0?'even':'odd'}" th:each="singer, index : ${singers}">
+                                                <td th:text="${index.index + 1}" class="sorting_1"></td>
+                                                <td>
+                                                    <img th:src="${singer.image == null?'/assets/img/placeholder/placeholder.png': singer.image}" class="img-fluid avatar-50 rounded"
+                                                         alt="author-profile">
+                                                </td>
+                                                <td th:text="${singer.singerFullName == null? 'undefine':singer.singerFullName}"></td>
+                                                <td th:text="${singer.singerBirthday != null? #dates.format(singer.singerBirthday, 'dd/MM/yyyy'):'undefine birthday date'}"></td>
+                                                <td th:text="${singer.singerEmail == null?'Undefine Email':singer.singerEmail}"></td>
+                                                <td>
+                                                    <p class="mb-0" th:text="${singer.singerDescription == null?'undefine singer description': singer.singerDescription}"></p>
+                                                </td>
+                                                <td>
+                                                    <div class="flex align-items-center list-user-action">
+                                                        <a class="bg-primary" data-toggle="tooltip" data-placement="top"
+                                                           title="" data-original-title="Edit"
+                                                           href=""><i class="ri-pencil-line"></i></a>
+                                                        <a class="bg-primary" data-toggle="tooltip" data-placement="top"
+                                                           title="" data-original-title="Delete" href="#"><i
+                                                                class="ri-delete-bin-line"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status"
+                                             aria-live="polite">Showing 1 to 10 of 10 entries
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="dataTables_paginate paging_simple_numbers"
+                                             id="DataTables_Table_0_paginate">
+                                            <ul class="pagination">
+                                                <li class="paginate_button page-item previous disabled"
+                                                    id="DataTables_Table_0_previous"><a href="#"
+                                                                                        aria-controls="DataTables_Table_0"
+                                                                                        data-dt-idx="0" tabindex="0"
+                                                                                        class="page-link">Previous</a>
+                                                </li>
+                                                <li class="paginate_button page-item active"><a href="#"
+                                                                                                aria-controls="DataTables_Table_0"
+                                                                                                data-dt-idx="1"
+                                                                                                tabindex="0"
+                                                                                                class="page-link">1</a>
+                                                </li>
+                                                <li class="paginate_button page-item next disabled"
+                                                    id="DataTables_Table_0_next"><a href="#"
+                                                                                    aria-controls="DataTables_Table_0"
+                                                                                    data-dt-idx="2" tabindex="0"
+                                                                                    class="page-link">Next</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

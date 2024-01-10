@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainAdmin" id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Song Add</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <form>
+                            <div class="profile-img-edit">
+                                <label for="song-image"><img id="image-preview" class="profile-pic"
+                                                             src="/assets/img/placeholder/placeholderMusic.png"
+                                                             alt="placeholder image"></label>
+                                <input id="song-image" class="file-upload" type="file"
+                                       accept="image/*" onchange="getImagePreview(event)">
+                            </div>
+
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="song-audio" accept="audio/*">
+                                <label class="custom-file-label" for="song-audio">Choose Song File</label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="song-name">Name:</label>
+                                <input type="text" class="form-control" id="song-name" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="song-des">Description:</label>
+                                <textarea class="form-control" id="song-des" value=""></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="song-nation">Nation</label>
+                                <select id="song-nation" class="form-control">
+                                    <option selected disabled value="">Select Nation</option>
+                                    <option value="Việt Nam">Việt Nam</option>
+                                    <option value="United States">United States</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="United Kingdom">United Kingdom</option>
+                                    <option value="France">France</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Japan">Japan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="song-genre">Genre</label>
+                                <select id="song-genre" class="form-control">
+                                    <option selected disabled value="">Select Genre</option>
+                                    <th:block th:each="genre : ${genres}">
+                                        <option th:value="${genre}" th:text="${genre.title}">Thể Loại</option>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="song-singer">Genre</label>
+                                <select id="song-singer" class="form-control">
+                                    <option selected disabled value="">Select Singer</option>
+                                    <th:block th:each="singer : ${singers}">
+                                        <option th:value="${singer.singerId}" th:text="${singer.singerFullName}">Thể Loại</option>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <button onclick="addSong()" type="button" class="btn btn-primary mr-2">Add Song
+                            </button>
+                            <button type="reset" class="btn iq-bg-danger">Rest Form</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

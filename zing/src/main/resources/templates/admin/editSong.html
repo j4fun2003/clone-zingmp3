@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainAdmin" id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Song Edit</h4>
+                        </div>
+                        <div class="iq-header-title">
+                            <a href="/admin/song" class="btn btn-primary">Back To List Song
+                            </a>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <form>
+                            <input th:value="${song.songId}" type="text" id="song-id-edit" hidden="hidden">
+                            <div class="profile-img-edit">
+                                <label for="song-image-edit">
+                                    <img id="image-preview-edit" class="profile-pic"
+                                         th:src="@{${song.image}}" alt="song-image">
+                                </label>
+                                <input id="song-image-edit" class="file-upload" type="file" accept="image/*"
+                                       onchange="getImagePreview(event)">
+                            </div>
+
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="song-audio-edit" accept="audio/*">
+                                <label class="custom-file-label" for="song-audio-edit">Choose Audio File</label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="song-name-edit">Name:</label>
+                                <input th:value="${song.title}" type="text" class="form-control" id="song-name-edit">
+                            </div>
+                            <div class="form-group">
+                                <label for="song-des-edit">Description:</label>
+                                <textarea th:text="${song.description}" class="form-control" id="song-des-edit"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="song-nation-edit">Nation:</label>
+                                <select id="song-nation-edit" class="form-control" name="nation">
+                                    <option th:selected="${song.nation == 'Vietnam'}" value="Vietnam">Vietnam</option>
+                                    <option th:selected="${song.nation == 'United States'}" value="United States">United States</option>
+                                    <option th:selected="${song.nation == 'Canada'}" value="Canada">Canada</option>
+                                    <option th:selected="${song.nation == 'United Kingdom'}" value="United Kingdom">United Kingdom</option>
+                                    <option th:selected="${song.nation == 'France'}" value="France">France</option>
+                                    <option th:selected="${song.nation == 'Germany'}" value="Germany">Germany</option>
+                                    <option th:selected="${song.nation == 'Japan'}" value="Japan">Japan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="song-genre-edit">Genre:</label>
+                                <select id="song-genre-edit" class="form-control">
+                                    <option disabled value="">Select Genre</option>
+                                    <th:block th:each="genre : ${genres}">
+                                        <option th:value="${genre}" th:text="${genre.title}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="song-singer-edit">Singer:</label>
+                                <select th:value="${song.singer.singerId}" id="song-singer-edit" class="form-control">
+                                    <option disabled value="">Select Singer</option>
+                                    <th:block th:each="singer : ${singers}">
+                                        <option th:selected="${song.singer == singer}" th:value="${singer.singerId}" th:text="${singer.singerFullName}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <button onclick="saveSong()" type="button" class="btn btn-primary mr-2">Update Song</button>
+                            <button type="reset" class="btn iq-bg-danger">Reset</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

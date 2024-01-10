@@ -1,5 +1,6 @@
 let audioContext;
 
+const firebaseUrl = "https://storage.googleapis.com/zing-mp3-2118c.appspot.com/";
 
 function uploadAudioFromFireBase(audioFile) {
     const formData = new FormData();
@@ -13,13 +14,7 @@ function uploadAudioFromFireBase(audioFile) {
         contentType: false,
         processData: false,
         error: function (error) {
-            // Hiển thị thông báo lỗi bằng SweetAlert
-            Swal.fire({
-                icon: 'error',
-                title: 'Lỗi khi tải lên!',
-                text: 'Đã xảy ra lỗi khi tải file lên server.'
-            });
-            console.error("Error uploading file:", error);
+            alertError("Upload To firebase Failed!", error);
         }
     });
 }
@@ -74,15 +69,4 @@ function playAudio(audioBuffer) {
         resumeAudioContext();
         playBuffer();
     }, { once: true });
-}
-
-// Usage:
-function playAudioFormFirebase(fileName) {
-    getAudioFromFirebase(fileName)
-        .then(audioBuffer => {
-            playAudio(audioBuffer);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
 }

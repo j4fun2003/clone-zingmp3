@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/common/layout :: admin(~{::mainAdmin})}"></html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainAdmin" id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Add Singer</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <form>
+                            <div class="profile-img-edit">
+                                <label for="singer-image"><img id="image-preview" class="profile-pic" src="/assets/img/placeholder/person-placeholder.jpg" alt="placeholder image"></label>
+                                <input id="singer-image" class="file-upload" type="file" accept="image/*" onchange="getSingerImagePreviews(event)">
+                            </div>
+                            <div class="form-group">
+                                <label for="singer-name">Singer Name:</label>
+                                <input id="singer-name" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="singer-email">Singer Email:</label>
+                                <input id="singer-email" type="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="singer-birthday">Singer Birthday:</label>
+                                <input id="singer-birthday" type="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="singer-des">Singer Description:</label>
+                                <textarea id="singer-des" class="form-control" rows="4"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="addSinger()">Submit</button>
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
