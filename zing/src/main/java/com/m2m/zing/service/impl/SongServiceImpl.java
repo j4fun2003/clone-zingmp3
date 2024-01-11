@@ -5,7 +5,6 @@ import com.m2m.zing.model.User;
 import com.m2m.zing.repository.SongRepository;
 import com.m2m.zing.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -76,8 +75,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public List<Song> getTop5SongsNewRealease() {
-        Pageable pageable = PageRequest.of(0, 5); // First page, limit to 5 results
-        return songRepository.findTop5ByOrderByCreateDateDesc(pageable);
+    public List<Song> getSongByAlbum(Long id) {
+        return songRepository.getSongByAlbum_AlbumId(id);
     }
 }

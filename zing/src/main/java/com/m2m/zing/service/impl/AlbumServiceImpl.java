@@ -52,4 +52,14 @@ public class AlbumServiceImpl implements AlbumService {
     public List<Album> getAlbumsByUser(User user) throws Exception {
         return albumRepository.findByAuthor(user);
     }
+
+    @Override
+    public List<Album> getAll() {
+        return albumRepository.findAll();
+    }
+
+    @Override
+    public Integer countSongByAlbumId(Long album) {
+        return albumRepository.countSongByAlbumId(album);
+    }
 }
