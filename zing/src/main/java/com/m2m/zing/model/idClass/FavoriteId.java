@@ -14,5 +14,4 @@ public class FavoriteId implements Serializable {
     private Long user;
     private Long song;
 
-    // Constructors, getters, setters và equals, hashCode
 }
