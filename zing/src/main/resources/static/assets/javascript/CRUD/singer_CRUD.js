@@ -133,7 +133,7 @@ function getInformationToUpdate() {
                 singer.singerEmail = singerEmail;
                 if (singerImage) {
                     uploadAudioFromFireBase(singerImage);
-                    singer.singerImage = firebaseUrl + singerImage.name;
+                    singer.image = firebaseUrl + singerImage.name;
                 }
                 resolve(singer);
             });
