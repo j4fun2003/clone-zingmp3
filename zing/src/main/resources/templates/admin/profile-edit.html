@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainAdmin" id="content-page" class="content-page">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="iq-card">
+          <div class="iq-card-body p-0">
+            <div class="iq-edit-list">
+              <ul class="iq-edit-profile d-flex nav nav-pills">
+                <li class="col-md-3 p-0">
+                  <a class="nav-link active" data-toggle="pill" href="#personal-information">
+                    Personal Information
+                  </a>
+                </li>
+                <li class="col-md-3 p-0">
+                  <a class="nav-link" data-toggle="pill" href="#chang-pwd">
+                    Change Password
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="iq-edit-list-data">
+          <div class="tab-content">
+            <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
+              <div class="iq-card">
+                <div class="iq-card-header d-flex justify-content-between">
+                  <div class="iq-header-title">
+                    <h4 class="card-title">Personal Information</h4>
+                  </div>
+                </div>
+                <div class="iq-card-body">
+                  <form th:action="@{/admin/user}" th:object="${user}" method="post" th:method="post">
+                    <div class="form-group row align-items-center">
+                      <div class="col-md-12">
+                        <div class="profile-img-edit">
+                          <img class="profile-pic" th:src="@{*{avatar}}" alt="profile-pic">
+                          <div class="p-image">
+                            <i class="ri-pencil-line upload-button"></i>
+                            <input class="file-upload" type="file" th:field="*{avatar}" accept="image/*"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class=" row align-items-center">
+                      <div class="form-group col-sm-6">
+                        <label for="fname">Full Name:</label>
+                        <input type="text" class="form-control" id="fname" th:field="*{fullName}">
+                      </div>
+                      <div class="form-group col-sm-6">
+                        <label for="lname">Username:</label>
+                        <input type="email" class="form-control" id="lname" th:field="*{email}">
+                      </div>
+                      <div class="form-group col-sm-6">
+                        <label for="pw">Password:</label>
+                        <input type="text" class="form-control" id="pw" th:field="*{password}">
+                      </div>
+                      <div class="form-group col-sm-6">
+                        <label for="cname">Provider:</label>
+                        <input type="text" class="form-control" id="cname" th:field="*{provider}">
+                     </div>
+                      <div class="form-group col-sm-6">
+                        <label>Role:</label>
+<!--                        <select class="form-control" id="exampleFormControlSelect1" name="selectedRoleId" th:each="userRole : ${userRoles}">-->
+<!--                          <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}" th:selected="${userRole != null and userRole.getRole().id == role.id}"></option>-->
+<!--                        </select>-->
+                        <!-- Nếu không có phần tử, hiển thị một select khác -->
+                        <select th:if="${#lists.isEmpty(userRoles)}" class="form-control" id="exampleFormControlSelect" name="selectedRoleIdInsert">
+                          <option   th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}"></option>
+                        </select>
+
+                        <!-- Nếu có phần tử, hiển thị select thông thường -->
+                        <select th:unless="${#lists.isEmpty(userRoles)}" class="form-control" id="exampleFormControlSelect1" name="selectedRoleId" th:each="userRole : ${userRoles}">
+                          <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}" th:selected="${userRole != null and userRole.getRole().id == role.id}"></option>
+                        </select>
+
+                      </div>
+
+                      <div class=" form-group col-sm-6">
+                        <label class="d-block">Gender:</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="customRadio6" class="custom-control-input" checked=""
+                                 th:field="*{genders}" th:value="true" >
+                          <label class="custom-control-label" for="customRadio6"> Male </label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="customRadio7" th:field="*{genders}" class="custom-control-input" th:value="false" >
+                          <label class="custom-control-label" for="customRadio7"> Female </label>
+                        </div>
+                        <div class="form-group col-sm-6">
+                        <label for="dob">Date Of Create:</label>
+                          <input type="text" class="form-control" id="dob" th:field="*{createDate}">
+                      </div>
+                        <span th:value="*{userId}"></span>
+                        <button type="submit" class="btn btn-primary mr-2" th:formaction="@{/admin/user/{userId}(userId=${user.userId})}">Update</button>
+                        <button type="submit" class="btn btn-success" th:formaction="@{/admin/user/insert}">Insert</button>
+                        <button type="reset" class="btn iq-bg-danger">Delete</button>
+                      </div>
+                    </div>
+                  </form>
+              </div>
+            </div>
+              </div>
+            <div class="tab-pane fade" id="chang-pwd" role="tabpanel">
+              <div class="iq-card">
+                <div class="iq-card-header d-flex justify-content-between">
+                  <div class="iq-header-title">
+                    <h4 class="card-title">Change Password</h4>
+                  </div>
+                </div>
+                <div class="iq-card-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="cpass">Current Password:</label>
+                      <a href="javascripe:void();" class="float-right">Forgot Password</a>
+                      <input type="Password" class="form-control" id="cpass" value="">
+                    </div>
+                    <div class="form-group">
+                      <label for="npass">New Password:</label>
+                      <input type="Password" class="form-control" id="npass" value="">
+                    </div>
+                    <div class="form-group">
+                      <label for="vpass">Verify Password:</label>
+                      <input type="Password" class="form-control" id="vpass" value="">
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button type="reset" class="btn iq-bg-danger">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,8 +8,8 @@
 
 <div th:fragment="adminSideBar" class="iq-sidebar">
     <div class="iq-sidebar-logo d-flex justify-content-between">
-        <a href="/" class="header-logo">
-            <img src="/assets/img/placeholder" class="img-fluid rounded-normal" alt="">
+        <a href="/admin" class="header-logo">
+            <img src="images/logo.png" class="img-fluid rounded-normal" alt="">
             <div class="logo-title">
                 <span class="text-primary text-uppercase">Muzik</span>
             </div>
@@ -28,26 +28,70 @@
                 <li class="active active-menu">
                     <a href="#dashboard" class="iq-waves-effect" data-toggle="collapse" aria-expanded="true"><span
                             class="ripple rippleEffect"></span><i
-                            class="las la-home iq-arrow-left"></i><span>Home</span><i
+                            class="las la-home iq-arrow-left"></i><span>Dashboard</span><i
                             class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                     <ul id="dashboard" class="iq-submenu collapse show" data-parent="#iq-sidebar-toggle">
-                        <li class="active"><a href="/"><i class="las la-house-damage"></i>DashBoard</a></li>
+                        <li class="active"><a href="/"><i class="las la-house-damage"></i>Home</a></li>
                         <li><a href="/history"><i class="las la-headphones"></i>History</a></li>
                         <li><a href="/favorite"><i class="lar la-file-audio"></i>Favorite</a></li>
+                        <li><a href="/album"><i class="lar la-file-audio"></i>Album</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#admin" class="iq-waves-effect" data-toggle="collapse" aria-expanded="false"><span
-                            class="ripple rippleEffect"></span><i
-                            class="ri-admin-line iq-arrow-left"></i><span>Admin</span><i
-                            class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                    <ul id="admin" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li><a href="/admin/dashboard"><i class="las la-house-damage"></i>Dashboard</a></li>
-                        <li><a href="/admin/singer"><i class="ri-function-line"></i>Singer Management</a></li>
-                        <li><a href="/admin/user"><i class="las la-microphone-alt"></i>User Management</a></li>
-                        <li><a href="/admin/song"><i class="las la-play-circle"></i>Song Management</a></li>
-                    </ul>
-                </li>
+
+                    <li sec:authorize="hasAuthority('ADMIN')">
+                        <a href="#admin" class="iq-waves-effect" data-toggle="collapse" aria-expanded="false"><span
+                                class="ripple rippleEffect"></span><i
+                                class="ri-admin-line iq-arrow-left"></i><span>Admin</span><i
+                                class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                        <ul id="admin" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                            <li><a href="/admin"><i class="las la-house-damage"></i>Dashboard</a></li>
+                            <li><a href="/admin/genre"><i class="ri-function-line"></i>Genre Management</a></li>
+                            <li><a href="/admin/user"><i class="las la-microphone-alt"></i>User Management</a></li>
+                            <li><a href="/admin/song"><i class="las la-play-circle"></i>Song Management</a></li>
+                            <li><a href="/admin/album"><i class="lar la-file-audio"></i>Album Management</a></li>
+                        </ul>
+                    </li>
+
+
+<!--                <li>-->
+<!--                    <a href="#pages" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i-->
+<!--                            class="las la-file-alt iq-arrow-left"></i><span>Pages</span><i-->
+<!--                            class="ri-arrow-right-s-line iq-arrow-right"></i></a>-->
+<!--                    <ul id="pages" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">-->
+<!--                        <li>-->
+<!--                            <a href="#authentication" class="iq-waves-effect collapsed" data-toggle="collapse"-->
+<!--                               aria-expanded="false"><i class="ri-pages-line"></i><span>Authentication</span><i-->
+<!--                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>-->
+<!--                            <ul id="authentication" class="iq-submenu collapse" data-parent="#pages">-->
+<!--                                <li><a href="sign-in.html"><i class="las la-sign-in-alt"></i>Login</a></li>-->
+<!--                                <li><a href="sign-up.html"><i class="ri-login-circle-line"></i>Register</a></li>-->
+<!--                                <li><a href="pages-recoverpw.html"><i class="ri-record-mail-line"></i>Recover-->
+<!--                                    Password</a></li>-->
+<!--                                <li><a href="pages-confirm-mail.html"><i class="ri-file-code-line"></i>Confirm Mail</a>-->
+<!--                                </li>-->
+<!--                                <li><a href="pages-lock-screen.html"><i class="ri-lock-line"></i>Lock Screen</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="#extra-pages" class="iq-waves-effect collapsed" data-toggle="collapse"-->
+<!--                               aria-expanded="false"><i class="ri-pantone-line"></i><span>Extra Pages</span><i-->
+<!--                                    class="ri-arrow-right-s-line iq-arrow-right"></i></a>-->
+<!--                            <ul id="extra-pages" class="iq-submenu collapse" data-parent="#pages">-->
+<!--                                <li><a href="pages-timeline.html"><i class="ri-map-pin-time-line"></i>Timeline</a></li>-->
+<!--                                <li><a href="pages-invoice.html"><i class="ri-question-answer-line"></i>Invoice</a></li>-->
+<!--                                <li><a href="blank-page.html"><i class="ri-invision-line"></i>Blank Page</a></li>-->
+<!--                                <li><a href="pages-error.html"><i class="ri-error-warning-line"></i>Error 404</a></li>-->
+<!--                                <li><a href="pages-error-500.html"><i class="ri-error-warning-line"></i>Error 500</a>-->
+<!--                                </li>-->
+<!--                                <li><a href="pages-pricing.html"><i class="ri-price-tag-line"></i>Pricing</a></li>-->
+<!--                                <li><a href="pages-maintenance.html"><i class="ri-archive-line"></i>Maintenance</a></li>-->
+<!--                                <li><a href="pages-comingsoon.html"><i class="ri-mastercard-line"></i>Coming Soon</a>-->
+<!--                                </li>-->
+<!--                                <li><a href="pages-faq.html"><i class="ri-compasses-line"></i>Faq</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </li>-->
             </ul>
         </nav>
     </div>
