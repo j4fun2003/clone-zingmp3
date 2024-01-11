@@ -21,12 +21,13 @@
                     <div class="iq-card-body">
                         <ul class="list-unstyled row iq-box-hover mb-0">
                             <li class="col-xl-2 col-lg-3 col-md-4 iq-music-box" th:each="song : ${songs}">
-                                <div class="iq-card" th:onclick="'loadTrack(' + ${song.songId} + ')'">
+                                <div class="iq-card">
                                     <div class="iq-card-body p-0">
-                                        <div class="iq-thumb">
+                                        <div class="iq-thumb" th:onclick="'loadTrack(' + ${song.songId} + ')'">
                                             <div class="iq-music-overlay"></div>
                                             <a>
-                                                <img th:src="@{${song.image}}" class="img-border-radius img-fluid w-100" alt="" />
+                                                <img th:src="@{${song.image}}" class="img-border-radius img-fluid w-100"
+                                                     alt=""/>
                                             </a>
                                             <div class="overlay-music-icon">
                                                 <a th:onclick="'loadTrack(' + ${song.songId} + ')'">
@@ -35,8 +36,16 @@
                                             </div>
                                         </div>
                                         <div class="feature-list text-center">
-                                            <h6 class="font-weight-600 mb-0" th:text="${song.title}"></h6>
-                                            <p class="mb-0" th:text="${song.singer == null?'undefine':song.singer.singerFullName}"></p>
+                                            <h6 class="font-weight-600 mb-0">
+                                                <a th:href="@{/song-detail/{songId}(songId=${song.songId})}"
+                                                   th:text="${song.title}">
+                                                </a>
+                                            </h6>
+                                            <p class="font-weight-100 mb-0">
+                                                <a th:href="@{/singer-detail/{singerId}(singerId=${song.singer.singerId})}"
+                                                   th:text="${song.singer.singerFullName}">
+                                                </a>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

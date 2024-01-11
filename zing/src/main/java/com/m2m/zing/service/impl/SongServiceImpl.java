@@ -76,6 +76,11 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    public List<Song> getSongByAlbum(Long id) {
+        return songRepository.getSongByAlbum_AlbumId(id);
+    }
+
+    @Override
     public List<Song> getTop5SongsNewRealease() {
         Pageable pageable = PageRequest.of(0, 5); // First page, limit to 5 results
         return songRepository.findTop5ByOrderByCreateDateDesc(pageable);

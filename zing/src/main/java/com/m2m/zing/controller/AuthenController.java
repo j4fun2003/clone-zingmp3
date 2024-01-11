@@ -1,11 +1,12 @@
 package com.m2m.zing.controller;
 
 import com.m2m.zing.constant.ModelAttributes;
+//import com.m2m.zing.service.AuthenticationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/auth")
@@ -13,28 +14,44 @@ public class AuthenController{
 
     @Autowired
     HttpSession httpSession;
-    @GetMapping("/login")
-    public String getSignIn(){
+
+    @RequestMapping("/login/form")
+    public String doGetLogin(){
+        return "user/login";
+    }
+
+
+    @RequestMapping("/login/success")
+    public String loginSuccess(Model model) {
+        model.addAttribute("message", "Đăng nhập thành công!");
+
+        return "redirect:/";
+    }
+
+    @RequestMapping("/login/error")
+    public String getError(Model model){
+        model.addAttribute("message","Incorrect usernamer or password");
         return "/user/login";
     }
 
-    @GetMapping("/register")
+    @RequestMapping("/register")
     public String getRegister(){
         return "/user/register";
     }
 
-    @GetMapping("/log-out")
-    public String getLogout(){
+    @RequestMapping("/log-out")
+    public String getLogout(Model model){
+        model.addAttribute("message","Logout success");
         httpSession.setAttribute(ModelAttributes.CURRENT_USER,"");
         return "redirect:/auth/login";
     }
-    @GetMapping("/forgot-password")
+    @RequestMapping("/forgot-password")
     public String getForgotPassword(){
         httpSession.setAttribute(ModelAttributes.CURRENT_USER,"");
         return "/user/forgotPassword";
     }
 
-    @GetMapping("/confirmed-mail")
+    @RequestMapping("/confirmed-mail")
     public String confirmedMail(){
         return "/user/pages-confirm-mail";
     }

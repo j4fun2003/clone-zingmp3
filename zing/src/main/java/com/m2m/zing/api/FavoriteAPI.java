@@ -1,13 +1,22 @@
 
 package com.m2m.zing.api;
 
+import com.m2m.zing.constant.ModelAttributes;
 import com.m2m.zing.model.Favorite;
+import com.m2m.zing.model.Song;
+import com.m2m.zing.model.User;
 import com.m2m.zing.model.idClass.FavoriteId;
 import com.m2m.zing.service.FavoriteService;
+import com.m2m.zing.service.SongService;
+import com.m2m.zing.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +27,16 @@ public class FavoriteAPI {
 
     @Autowired
     private FavoriteService favoriteService;
+
+    @Autowired
+    private SongService songService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private HttpSession httpSession;
+
 
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllFavorites() {
@@ -72,6 +91,28 @@ public class FavoriteAPI {
         Map<String, Object> result = new HashMap<>();
         try {
             favoriteService.deleteFavorite(favorite);
+            result.put("status", "Success");
+        } catch (Exception e) {
+            result.put("status", "Error");
+            result.put("detail", e.toString());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/{songId}")
+    public ResponseEntity<Map<String, Object>> createFavorite(@PathVariable Long songId) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Song song = songService.getSongById(songId);
+            User user = (User) httpSession.getAttribute(ModelAttributes.CURRENT_USER);
+            if (user == null) {
+                user = userService.getUserById((long) 1);
+            }
+            Favorite favorite = new Favorite();
+            favorite.setSong(song);
+            favorite.setUser(user);
+            favorite.setLikeDate(LocalDateTime.now());
+            favoriteService.updateFavorite(favorite);
             result.put("status", "Success");
         } catch (Exception e) {
             result.put("status", "Error");

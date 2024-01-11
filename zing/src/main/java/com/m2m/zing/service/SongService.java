@@ -19,5 +19,8 @@ public interface SongService {
     List<Song> getSongsByAuthorId(Long id,Pageable page);
 
     List<Song> getAllCurrent(Pageable page);
+
+    List<Song> getSongByAlbum(Long id);
+
     public List<Song> getTop5SongsNewRealease();
 }
