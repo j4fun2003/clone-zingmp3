@@ -62,4 +62,19 @@ public class SingerAPI {
         }
         return ResponseEntity.ok(result);
     }
+
+    @PutMapping
+    public ResponseEntity<?> updateSinger(@RequestBody Singer singer){
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Singer singerUpdate = singerService.updateSinger(singer);
+            result.put("status","success");
+            result.put("data",singerUpdate);
+        }catch (Exception e){
+            result.put("status","failed");
+            result.put("detail",e);
+            System.out.println(e);
+        }
+        return ResponseEntity.ok(result);
+    }
 }

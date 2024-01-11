@@ -29,7 +29,7 @@ public class UserController {
     @GetMapping()
     public String doGetDashBoard(Model model) throws Exception {
         model.addAttribute("songs", songService.getAllSong());
-        model.addAttribute("songNewRelease",songService.getTop5SongsNewRealease());
+        model.addAttribute("songNewRelease", songService.getTop5SongsNewRealease());
         return "user/dashboard";
     }
 
@@ -52,5 +52,12 @@ public class UserController {
     @GetMapping("/editProfile")
     public String doGetEditProfile() throws Exception {
         return "/user/editProfile";
+    }
+
+
+    @GetMapping("/song-detail/{id}")
+    public String doGetSongDetail(@PathVariable Long id, Model model) throws Exception {
+        model.addAttribute("song", songService.getSongById(id));
+        return "/user/songDetail";
     }
 }

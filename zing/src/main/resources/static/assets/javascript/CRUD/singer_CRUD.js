@@ -7,7 +7,7 @@ function addSinger() {
                         Swal.fire({
                             icon: 'success',
                             title: 'Success!',
-                            text:"Add Singer Successfully",
+                            text: "Add Singer Successfully",
                         });
                     } else {
                         Swal.fire({
@@ -65,10 +65,6 @@ function getInformationDetails() {
 }
 
 
-function updateSinger() {
-
-}
-
 function validateUpdateSingerForm() {
     let singerName = document.getElementById('singer-name').value;
     let singerEmail = document.getElementById('singer-email').value;
@@ -77,6 +73,7 @@ function validateUpdateSingerForm() {
     if (singerName === '' || singerEmail === '' || singerBirthday === '' || singerDes === '') {
         return false;
     }
+    return true;
 }
 
 function renderUpdateSinger() {
@@ -96,4 +93,52 @@ function getSingerImagePreviews() {
         const imageTag = document.getElementById("image-preview");
         imageTag.src = "/assets/img/placeholder/person-placeholder.jpg";
     }
+}
+
+function saveChangeSinger(singerId) {
+    if (validateUpdateSingerForm()) {
+        getInformationToUpdate().then(singer => {
+            console.log(singer);
+            updateSinger(singer).then(result => {
+                alertSuccess("Update Success");
+            }).catch(error => {
+                alertError("Have Some Error When Updating", error);
+            });
+        }).catch(error => {
+            console.log(error);
+            alertError("Have Some Error When Get Singer Data");
+        });
+    } else {
+        alertWarning("Please fill all field needed!!");
+    }
+}
+
+function getInformationToUpdate() {
+    return new Promise((resolve, reject) => {
+        try {
+            let singerName = document.getElementById('singer-name').value;
+            let singerEmail = document.getElementById('singer-email').value;
+            let singerBirthday = document.getElementById('singer-birthday').value;
+            let singerDes = document.getElementById('singer-des').value;
+            let singerImage = document.getElementById("singer-image").files[0];
+
+            getSingerById(document.getElementById("singer-id").value).then(result => {
+                let singer;
+                if (result.status == "success") {
+                    singer = result.data;
+                }
+                singer.singerFullName = singerName;
+                singer.singerDescription = singerDes;
+                singer.singerBirthday = singerBirthday;
+                singer.singerEmail = singerEmail;
+                if (singerImage) {
+                    uploadAudioFromFireBase(singerImage);
+                    singer.singerImage = firebaseUrl + singerImage.name;
+                }
+                resolve(singer);
+            });
+        } catch (e) {
+            reject(e);
+        }
+    })
 }

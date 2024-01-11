@@ -73,4 +73,9 @@ public class AdminController {
         model.addAttribute("singers", singerService.getAllSinger());
         return "admin/addSong";
     }
+    @GetMapping("/edit-singer/{id}" )
+    public String editSong(Model model, @PathVariable Integer id) throws  Exception{
+        model.addAttribute("singer", singerService.getSingerById(id));
+        return "admin/editSinger";
+    }
 }

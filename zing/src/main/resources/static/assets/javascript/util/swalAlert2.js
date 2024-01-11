@@ -22,3 +22,20 @@ function alertWarning(message) {
         text: message
     });
 }
+
+
+function confirmToDoAction(message, action) {
+    Swal.fire({
+        title: 'Confirm Action?',
+        text: `${message}`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            action();
+        }
+    });
+}

@@ -15,19 +15,19 @@
   <!-- Responsive CSS -->
   <link rel="stylesheet"  th:href="@{|/assets/admin/css/responsive.css|}">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script  src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<div id="loading">
-  <div id="loading-center">
+  <div id="loading">
+    <div id="loading-center">
+    </div>
   </div>
-</div>
-<div class="wrapper">
-  <aside th:replace="~{/common/_sidebar :: adminSideBar}"></aside>
-  <div th:replace="~{/common/_header :: adminHeader}"></div>
-  <main th:replace="${viewAdmin}"></main>
-  <div th:replace="~{/common/_footer :: footer}"></div>
-</div>
+  <div class="wrapper">
+    <aside th:replace="~{/common/_sidebar :: adminSideBar}"></aside>
+    <div th:replace="~{/common/_header :: adminHeader}"></div>
+    <main th:replace="${viewAdmin}"></main>
+    <div th:replace="~{/common/_footer :: footer}"></div>
+  </div>
+</body>
 
 <!-- color-customizer END -->
 <!-- Optional JavaScript -->
@@ -98,6 +98,4 @@
 <script th:src="@{|/assets/javascript/util/firebase.js|}"></script>
 <script th:src="@{|/assets/javascript/util/swalAlert2.js|}"></script>
 <script th:src="@{|/assets/admin/js/music-player.js|}"></script>
-
-</body>
 </html>
