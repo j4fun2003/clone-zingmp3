@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.lang.model.element.ModuleElement;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,5 +60,11 @@ public class UserController {
     public String doGetSongDetail(@PathVariable Long id, Model model) throws Exception {
         model.addAttribute("song", songService.getSongById(id));
         return "/user/songDetail";
+    }
+
+    @GetMapping("/singer-detail/{id}")
+    public String doGetSingerDetail(Model model, @PathVariable Integer id ) throws  Exception{
+        singerService.getSingerById(id);
+        return "/user/singerDetail";
     }
 }
