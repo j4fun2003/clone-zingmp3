@@ -58,6 +58,9 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<UserRole> userRoles;
 
+    private String otp;
+    private LocalDateTime otpGeneratedTime;
+
 
 
     private Collection<? extends GrantedAuthority> authorities;

@@ -52,7 +52,7 @@ public class UserController {
 
     @GetMapping("/editProfile")
     public String doGetEditProfile() throws Exception {
-        return "/user/editProfile";
+        return "/user/profile-edit";
     }
 
 
@@ -67,4 +67,5 @@ public class UserController {
         singerService.getSingerById(id);
         return "/user/singerDetail";
     }
+
 }

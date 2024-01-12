@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}"></html>
+<html lang="en" th:replace="~{/common/layout :: admin(~{::mainAdmin})}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>DashBoard</title>
 </head>
 <body>
-<div th:fragment="mainAdmin" id="content-page" class="content-page">
+<div class="content-page" id="content-page" th:fragment="mainAdmin">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
@@ -42,8 +42,8 @@
                                                 </a>
                                             </h6>
                                             <p class="font-weight-100 mb-0">
-                                                <a th:href="@{/singer-detail/{singerId}(singerId=${song.singer.singerId})}"
-                                                   th:text="${song.singer.singerFullName}">
+                                                <a th:href="@{/singer-detail/{singerId}(singerId=${song.author.getUserId()})}"
+                                                   th:text="${song.author.getFullName()}">
                                                 </a>
                                             </p>
                                         </div>

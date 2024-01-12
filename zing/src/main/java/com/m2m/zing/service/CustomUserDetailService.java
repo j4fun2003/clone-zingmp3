@@ -29,7 +29,7 @@ public class CustomUserDetailService implements UserDetailsService {
     }
 
     private UserDetails loadUser(String username){
-        User user = userRepository.findByEmail(username);
+        User user = userRepository.findByEmail(username).get();
 
         List<UserRole> roles = userRoleRepository.getUserRolesById(user.getUserId());
         if(user == null){
@@ -58,7 +58,10 @@ public class CustomUserDetailService implements UserDetailsService {
                 user.getFavorites(),
                 user.getHistories(),
                 user.getUserRoles(),
+                user.getOtp(),
+                user.getOtpGeneratedTime(),
                 grantedAuthoritiesSet
+
         );
     }
 }

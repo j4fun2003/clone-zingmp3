@@ -35,7 +35,7 @@ public class CustomerOAuth2Service extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
         System.out.println("CustomOAuth2Service is called");
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        User user  =  userRepository.findByEmail(oAuth2User.getName());
+        User user  =  userRepository.findByEmail(oAuth2User.getName()).get();
         System.out.println("Ten cua oauth2 la: "+oAuth2User.getName());
         List<UserRole> roles = userRoleRepository.getUserRolesById(user.getUserId());
         System.out.println(roles);

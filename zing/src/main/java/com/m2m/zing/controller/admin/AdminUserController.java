@@ -4,6 +4,7 @@ import com.m2m.zing.model.Role;
 import com.m2m.zing.model.User;
 import com.m2m.zing.repository.RoleRepository;
 import com.m2m.zing.repository.UserRoleRepository;
+import com.m2m.zing.service.UserService;
 import com.m2m.zing.service.impl.AlbumServiceImpl;
 import com.m2m.zing.service.impl.SongServiceImpl;
 import com.m2m.zing.service.impl.UserServiceImpl;
@@ -19,7 +20,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminUserController {
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
     private UserRoleRepository userRoleRepository;
@@ -27,8 +28,6 @@ public class AdminUserController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     @GetMapping("/user")
     public String getUserManagement(Model model){
         try {
@@ -107,7 +106,7 @@ public class AdminUserController {
         userTemp.setFullName(user.getFullName());
         userTemp.setAvatar(user.getAvatar());
         userTemp.setEmail(user.getEmail());
-        userTemp.setPassword(passwordEncoder.encode(user.getPassword()));
+        userTemp.setPassword(user.getPassword());
         System.out.println(roleId);
         Role roleTemp = roleRepository.findById(roleId).get();
         System.out.println(roleTemp);

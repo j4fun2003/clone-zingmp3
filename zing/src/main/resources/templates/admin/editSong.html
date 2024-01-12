@@ -67,10 +67,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="song-singer-edit">Singer:</label>
-                                <select th:value="${song.singer.singerId}" id="song-singer-edit" class="form-control">
+                                <select th:value="${song.author.getUserId()}" id="song-singer-edit" class="form-control">
                                     <option disabled value="">Select Singer</option>
                                     <th:block th:each="singer : ${singers}">
-                                        <option th:selected="${song.singer == singer}" th:value="${singer.singerId}" th:text="${singer.singerFullName}"></option>
+                                        <option th:selected="${song.author == singer}" th:value="${singer.userId}" th:text="${singer.fullName}"></option>
                                     </th:block>
                                 </select>
                             </div>
