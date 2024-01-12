@@ -10,6 +10,7 @@ import com.m2m.zing.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -36,7 +37,7 @@ public class HistoryAPI {
         Map<String, Object> result = new HashMap<>();
         try {
 
-            User user = (User) httpSession.getAttribute(ModelAttributes.CURRENT_USER);
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             Song song = songService.getSongById(songId);
             if (song == null || user == null) {
                 result.put("status", "Failed");
@@ -69,12 +70,11 @@ public class HistoryAPI {
         return ResponseEntity.ok(result);
     }
 
-    // Endpoint xóa lịch sử của user
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<Map<String, Object>> clearUserHistory(@PathVariable Long userId) {
+    @DeleteMapping("clear")
+    public ResponseEntity<Map<String, Object>> clearUserHistory() {
         Map<String, Object> result = new HashMap<>();
         try {
-            User user = (User) httpSession.getAttribute(ModelAttributes.CURRENT_USER);
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             // Gọi service để xóa lịch sử của userId
             historyService.clearUserHistory(user);
             result.put("status", "Success");
@@ -84,6 +84,7 @@ public class HistoryAPI {
         }
         return ResponseEntity.ok(result);
     }
+
 
     @PutMapping("{id}")
     public ResponseEntity<?> doPutHistory(@PathVariable Long id) throws Exception {

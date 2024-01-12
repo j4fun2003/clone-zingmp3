@@ -58,3 +58,19 @@ function changeHeart() {
         heartIcon.classList.remove(unFavoriteHeartClass);
     }
 }
+
+
+function clearHistoryConfirm() {
+    confirmToDoAction("Are you sure you want to delete your entire music listening history!!",
+        function () {
+            clearHistory().then(result=>{
+                alertSuccess("Clear your history successfully");
+                setTimeout(function () {
+                    location.reload();
+                }, 700);
+            }).catch(error =>{
+                alertError("Have some error when clear your history");
+            });
+        }
+    )
+}

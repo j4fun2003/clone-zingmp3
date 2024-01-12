@@ -58,6 +58,10 @@ function loadTrack(track_index) {
         currentSong = result.data;
         curr_track.src = result.data.url;
         curr_track.load();
+        createHistory(currentSong.songId).catch(error=>{
+            console.log(error);
+            alertError("Error when add song to your history");
+        });
         playTrack();
 
         track_art.style.backgroundImage = "url(" + currentSong.image + ")";
