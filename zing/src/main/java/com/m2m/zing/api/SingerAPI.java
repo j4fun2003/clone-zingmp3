@@ -19,15 +19,15 @@ public class SingerAPI {
 
     @GetMapping
     public ResponseEntity<?> getAllSinger() {
-            Map<String, Object> result = new HashMap<>();
-            try {
-                result.put("status","success");
-                result.put("data", singerService.getAllSinger());
-            }catch (Exception e){
-                result.put("status","failed");
-                result.put("detail",e);
-            }
-            return ResponseEntity.ok(result);
+        Map<String, Object> result = new HashMap<>();
+        try {
+            result.put("status", "success");
+            result.put("data", singerService.getAllSinger());
+        } catch (Exception e) {
+            result.put("status", "failed");
+            result.put("detail", e);
+        }
+        return ResponseEntity.ok(result);
     }
 
 
@@ -35,11 +35,11 @@ public class SingerAPI {
     public ResponseEntity<?> getSingerById(@PathVariable Integer id) {
         Map<String, Object> result = new HashMap<>();
         try {
-            result.put("status","success");
+            result.put("status", "success");
             result.put("data", singerService.getSingerById(id));
-        }catch (Exception e){
-            result.put("status","failed");
-            result.put("detail",e);
+        } catch (Exception e) {
+            result.put("status", "failed");
+            result.put("detail", e);
         }
         return ResponseEntity.ok(result);
     }
@@ -54,25 +54,46 @@ public class SingerAPI {
             singer.setSingerDescription(singerRequest.getSingerDescription());
             singer.setSingerEmail(singerRequest.getSingerEmail());
             singer.setSingerBirthday(singerRequest.getSingerBirthDay());
-            result.put("status","success");
+            result.put("status", "success");
             result.put("data", singerService.createSinger(singer));
-        }catch (Exception e){
-            result.put("status","failed");
-            result.put("detail",e);
+        } catch (Exception e) {
+            result.put("status", "failed");
+            result.put("detail", e);
         }
         return ResponseEntity.ok(result);
     }
 
     @PutMapping
-    public ResponseEntity<?> updateSinger(@RequestBody Singer singer){
+    public ResponseEntity<?> updateSinger(@RequestBody Singer singer) {
         Map<String, Object> result = new HashMap<>();
         try {
             Singer singerUpdate = singerService.updateSinger(singer);
-            result.put("status","success");
-            result.put("data",singerUpdate);
-        }catch (Exception e){
-            result.put("status","failed");
-            result.put("detail",e);
+            result.put("status", "success");
+            result.put("data", singerUpdate);
+        } catch (Exception e) {
+            result.put("status", "failed");
+            result.put("detail", e);
+            System.out.println(e);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+
+    @DeleteMapping("/{singerId}")
+    public ResponseEntity<?> deleteSinger(@PathVariable Integer singerId) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Singer singerDelete = singerService.getSingerById(singerId);
+            if (singerDelete != null) {
+                singerService.deleteSinger(singerId);
+                result.put("status", "success");
+            } else {
+                result.put("status", "failed");
+                result.put("detail", "not found singer with this id");
+            }
+        } catch (Exception e) {
+            result.put("status", "failed");
+            result.put("detail", e);
             System.out.println(e);
         }
         return ResponseEntity.ok(result);

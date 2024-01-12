@@ -98,7 +98,7 @@
                                                            title="" data-original-title="Edit"
                                                            th:href="@{/admin/edit-singer/{singerId}(singerId = ${singer.singerId})}"><i class="ri-pencil-line"></i></a>
                                                         <a class="bg-primary" data-toggle="tooltip" data-placement="top"
-                                                           title="" data-original-title="Delete" href="#"><i
+                                                           title="" data-original-title="Delete" th:singerId="${singer.singerId}" th:onclick="deleteSingerConfirm(this.getAttribute('singerId'))"><i
                                                                 class="ri-delete-bin-line"></i></a>
                                                     </div>
                                                 </td>
