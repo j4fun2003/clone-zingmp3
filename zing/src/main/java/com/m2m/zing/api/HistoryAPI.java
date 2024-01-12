@@ -27,6 +27,9 @@ public class HistoryAPI {
     @Autowired
     SongService songService;
 
+    @Autowired
+    UserService userService;
+
     // Endpoint thêm bản ghi vào lịch sử
     @PostMapping("/{songId}")
     public ResponseEntity<Map<String, Object>> addToHistory(@PathVariable Long songId) {
@@ -35,10 +38,10 @@ public class HistoryAPI {
 
             User user = (User) httpSession.getAttribute(ModelAttributes.CURRENT_USER);
             Song song = songService.getSongById(songId);
-            if(song == null || user == null){
+            if (song == null || user == null) {
                 result.put("status", "Failed");
                 result.put("detail", "Người Dùng Hoặc Bài Hát Không Tồn Tại ");
-            }else{
+            } else {
                 History addedHistory = historyService.addToHistory(user, song);
                 result.put("status", "Success");
                 result.put("data", addedHistory);
@@ -75,6 +78,28 @@ public class HistoryAPI {
             // Gọi service để xóa lịch sử của userId
             historyService.clearUserHistory(user);
             result.put("status", "Success");
+        } catch (Exception e) {
+            result.put("status", "Error");
+            result.put("detail", e.toString());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> doPutHistory(@PathVariable Long id) throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            User user = (User) httpSession.getAttribute(ModelAttributes.CURRENT_USER);
+            if (user == null) {
+                user = userService.getUserById((long) 1);
+            }
+            Song song = songService.getSongById(id);
+            if (song == null) {
+                result.put("status", "failed");
+                result.put("detail", "not found song with song id: = " + id);
+            } else {
+                result.put("status", "Success");
+            }
         } catch (Exception e) {
             result.put("status", "Error");
             result.put("detail", e.toString());
