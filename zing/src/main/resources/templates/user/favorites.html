@@ -1,91 +1,61 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}"></html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ZingMp3 - Management</title>
-    <!-- Favicon -->
-    <link rel="shortcut icon"  th:href="@{|/assets/admin/images/favicon.ico|}" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet"  th:href="@{|/assets/admin/css/bootstrap.min.css|}">
-    <!-- Typography CSS -->
-    <link rel="stylesheet"  th:href="@{|/assets/admin/css/typography.css|}">
-    <!-- Style CSS -->
-    <link rel="stylesheet"  th:href="@{|/assets/admin/css/style.css|}">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet"  th:href="@{|/assets/admin/css/responsive.css|}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta charset="UTF-8">
+    <title>DashBoard</title>
 </head>
 <body>
-<!-- loader Start -->
-<div id="loading">
-    <div id="loading-center">
+<div th:fragment="mainAdmin" id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Your Favorites Song</h4>
+                        </div>
+                        <div class="d-flex align-items-center iq-view">
+                            <b class="mb-0 text-primary"><a>View More <i class="las la-angle-right"></i></a></b>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <ul class="list-unstyled row iq-box-hover mb-0">
+                            <li class="col-xl-2 col-lg-3 col-md-4 iq-music-box" th:each="song : ${songs}">
+                                <div class="iq-card">
+                                    <div class="iq-card-body p-0">
+                                        <div class="iq-thumb" th:onclick="'loadTrack(' + ${song.songId} + ')'">
+                                            <div class="iq-music-overlay"></div>
+                                            <a>
+                                                <img th:src="@{${song.image}}" class="img-border-radius img-fluid w-100"
+                                                     alt=""/>
+                                            </a>
+                                            <div class="overlay-music-icon">
+                                                <a th:onclick="'loadTrack(' + ${song.songId} + ')'">
+                                                    <i class="las la-play-circle"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="feature-list text-center">
+                                            <h6 class="font-weight-600 mb-0">
+                                                <a th:href="@{/song-detail/{songId}(songId=${song.songId})}"
+                                                   th:text="${song.title}">
+                                                </a>
+                                            </h6>
+                                            <p class="font-weight-100 mb-0">
+                                                <a th:href="@{/singer-detail/{singerId}(singerId=${song.singer.singerId})}"
+                                                   th:text="${song.singer.singerFullName}">
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<!-- loader END -->
-<!-- Sign in Start -->
-<script  th:src="@{|/assets/admin/js/jquery.min.js|}"></script>
-<script th:src="@{|/assets/admin/js/popper.min.js|}"></script>
-<script th:src="@{|/assets/admin/js/bootstrap.min.js|}"></script>
-<!-- Appear JavaScript -->
-<script th:src="@{|/assets/admin/js/jquery.appear.js|}"></script>
-<!-- Countdown JavaScript -->
-<script th:src="@{|/assets/admin/js/countdown.min.js|}"></script>
-<!-- Counterup JavaScript -->
-<script th:src="@{|/assets/admin/js/waypoints.min.js|}"></script>
-<script th:src="@{|/assets/admin/js/jquery.counterup.min.js|}"></script>
-<!-- Wow JavaScript -->
-<script th:src="@{|/assets/admin/js/wow.min.js|}"></script>
-<!-- Apexcharts JavaScript -->
-<script th:src="@{|/assets/admin/js/apexcharts.js|}"></script>
-<!-- Slick JavaScript -->
-<script th:src="@{|/assets/admin/js/slick.min.js|}"></script>
-<!-- Select2 JavaScript -->
-<script th:src="@{|/assets/admin/js/select2.min.js|}"></script>
-<!-- Owl Carousel JavaScript -->
-<script th:src="@{|/assets/admin/js/owl.carousel.min.js|}"></script>
-<!-- Magnific Popup JavaScript -->
-<script th:src="@{|/assets/admin/js/jquery.magnific-popup.min.js|}"></script>
-<!-- Smooth Scrollbar JavaScript -->
-<script th:src="@{|/assets/admin/js/smooth-scrollbar.js|}"></script>
-<!-- lottie JavaScript -->
-<script th:src="@{|/assets/admin/js/lottie.js|}"></script>
-<!-- am core JavaScript -->
-<script th:src="@{|/assets/admin/js/core.js|}"></script>
-<!-- am charts JavaScript -->
-<script th:src="@{|/assets/admin/js/charts.js|}"></script>
-<!-- am animated JavaScript -->
-<script th:src="@{|/assets/admin/js/animated.js|}"></script>
-<!-- am kelly JavaScript -->
-<script th:src="@{|/assets/admin/js/kelly.js|}"></script>
-<!-- am maps JavaScript -->
-<script th:src="@{|/assets/admin/js/maps.js|}"></script>
-<!-- am worldLow JavaScript -->
-<script th:src="@{|/assets/admin/js/worldLow.js|}"></script>
-<!-- Raphael-min JavaScript -->
-<script th:src="@{|/assets/admin/js/raphael-min.js|}"></script>
-<!-- Morris JavaScript -->
-<script th:src="@{|/assets/admin/js/morris.js|}"></script>
-<!-- Morris min JavaScript -->
-<script th:src="@{|/assets/admin/js/morris.min.js|}"></script>
-<!-- Flatpicker Js -->
-<script th:src="@{|/assets/admin/js/flatpickr.js|}"></script>
-<!-- Style Customizer -->
-<script th:src="@{|/assets/admin/js/style-customizer.js|}"></script>
-<!-- Chart Custom JavaScript -->
-<script th:src="@{|/assets/admin/js/chart-custom.js|}"></script>
-<!-- Music js -->
-<script th:src="@{|/assets/admin/js/music-player.js|}"></script>
-<!-- Music-player js -->
-<script th:src="@{|/assets/admin/js/music-player-dashboard.js|}"></script>
-<!-- Custom JavaScript -->
-<script th:src="@{|/assets/admin/js/custom.js|}"></script>
-<script th:src="@{|/assets/javascript/UI/adminUI.js|}"></script>
-<script th:src="@{|/assets/javascript/CRUD/song_CRUD.js|}"></script>
-<script th:src="@{|/assets/javascript/api/songAPI.js|}"></script>
-<script th:src="@{|/assets/javascript/api/general.js|}"></script>
-<script th:src="@{|/assets/admin/js/dateUtil.js|}"></script>
-<script th:src="@{|/assets/admin/js/pageLoader.js|}"></script>
-<script th:src="@{|/assets/admin/js/data.js|}"></script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 package com.m2m.zing.controller;
 
+import com.google.api.Authentication;
 import com.google.api.Http;
 import com.m2m.zing.constant.ModelAttributes;
-import com.m2m.zing.model.History;
-import com.m2m.zing.model.Singer;
-import com.m2m.zing.model.Song;
-import com.m2m.zing.model.User;
+import com.m2m.zing.model.*;
+import com.m2m.zing.model.idClass.FavoriteId;
+import com.m2m.zing.service.FavoriteService;
 import com.m2m.zing.service.HistoryService;
 import com.m2m.zing.service.SingerService;
 import com.m2m.zing.service.impl.SongServiceImpl;
@@ -13,6 +13,8 @@ import com.m2m.zing.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.query.JSqlParserUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +43,9 @@ public class UserController {
     @Autowired
     HttpSession httpSession;
 
+    @Autowired
+    FavoriteService favoriteService;
+
     @GetMapping()
     public String doGetDashBoard(Model model) throws Exception {
         model.addAttribute("songs", songService.getAllSong());
@@ -50,27 +55,32 @@ public class UserController {
 
     @GetMapping("/history")
     public String doGetHistory(Model model) throws Exception {
-        User user = (User) httpSession.getAttribute(ModelAttributes.CURRENT_USER);
-        List<History> histories = new ArrayList<>();
-        if (user != null) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(user!=null){
+            List<History> histories = new ArrayList<>();
             histories = historyService.getHistoryByUser(user);
-        } else {
-            user = userService.getUserById((long) 2);
-            System.out.println("here");
+            List<Song> songs = new ArrayList<>();
+            histories.forEach(history -> {
+                songs.add(history.getSong());
+            });
+            model.addAttribute("songs", songs);
         }
-        histories = historyService.getHistoryByUser(user);
-        List<Song> songs = new ArrayList<>();
-        histories.forEach(history -> {
-            songs.add(history.getSong());
-        });
-        model.addAttribute("songs", songs);
         return "/user/history";
     }
 
 
     @GetMapping("/favorite")
-    public String doGetFavorite() throws Exception {
-        return "/user/history";
+    public String doGetFavorite(Model model) throws Exception {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Favorite> favorites = favoriteService.getByUser(user);
+        if (user != null) {
+            List<Song> songs = new ArrayList<>();
+            favorites.forEach(favorite -> {
+                songs.add(favorite.getSong());
+            });
+            model.addAttribute("songs", songs);
+        }
+        return "/user/favorites";
     }
 
     @GetMapping("/myProfile")
@@ -86,7 +96,20 @@ public class UserController {
 
     @GetMapping("/song-detail/{id}")
     public String doGetSongDetail(@PathVariable Long id, Model model) throws Exception {
-        model.addAttribute("song", songService.getSongById(id));
+        Song song = songService.getSongById(id);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Boolean isFavorite = false;
+        if (user != null) {
+            FavoriteId favoriteId = new FavoriteId();
+            favoriteId.setSong(id);
+            favoriteId.setUser(user.getUserId());
+            Favorite favorite = favoriteService.getByFavoriteId(favoriteId);
+            if (favorite != null) {
+                isFavorite = true;
+            }
+        }
+        model.addAttribute("isFavorite", isFavorite);
+        model.addAttribute("song", song);
         return "/user/songDetail";
     }
 
