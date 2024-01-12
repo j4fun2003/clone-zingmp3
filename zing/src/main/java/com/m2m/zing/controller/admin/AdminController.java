@@ -1,16 +1,16 @@
-package com.m2m.zing.controller.admin;
+package com.m2m.zing.controller;
 
-import com.m2m.zing.model.CustomUserDetails;
-import com.m2m.zing.model.Role;
-import com.m2m.zing.model.User;
-import com.m2m.zing.repository.RoleRepository;
-import com.m2m.zing.repository.UserRoleRepository;
-import com.m2m.zing.service.impl.UserServiceImpl;
+import com.m2m.zing.model.Genre;
+import com.m2m.zing.model.Song;
+import com.m2m.zing.service.GenreService;
+import com.m2m.zing.service.SingerService;
+import com.m2m.zing.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -18,27 +18,61 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
+    @Autowired
+    SongService songService;
+    @Autowired
+    GenreService genreService;
+    @Autowired
+    SingerService singerService;
 
-    @GetMapping
-    public String getDashboardManagement(Model model){
-        return "redirect:/admin/";
-    }
 
-    @GetMapping("/")
-    public String admin(){
+    @GetMapping("")
+    public String getDashboardManagement() {
         return "admin/dashboard";
     }
 
     @GetMapping("/song")
-    public String getSongManagement(){
+    public String getSongManagement(Model model) throws Exception {
+        model.addAttribute("songs", songService.getAllSong());
+
         return "admin/song";
     }
 
-
-
-    @GetMapping("/genre")
-    public String getGenreManagement(){
-        return "admin/genre";
+    @GetMapping("/albums")
+    public String getGenreManagement() {
+        return "admin/albums";
     }
 
+    @GetMapping("/singer")
+    public String getSingerManagement(Model model) throws Exception {
+        model.addAttribute("singers", singerService.getAllSinger());
+        return "admin/singer";
+    }
+
+    @GetMapping("/add-singer")
+    public String getAddSinger() {
+        return "admin/addSinger";
+    }
+
+    @GetMapping("/edit-song/{id}")
+    public String editSong(Model model, @PathVariable Long id) throws Exception {
+        model.addAttribute("songs", songService.getAllSong());
+        model.addAttribute("genres", genreService.getAllGenre());
+        model.addAttribute("singers", singerService.getAllSinger());
+        model.addAttribute("song", songService.getSongById(id));
+        return "admin/editSong";
+    }
+
+    @GetMapping("/song-add")
+    public String addSong(Model model) throws Exception {
+        model.addAttribute("genres", genreService.getAllGenre());
+        model.addAttribute("singers", singerService.getAllSinger());
+        return "admin/addSong";
+    }
+
+    @GetMapping("/edit-singer/{id}")
+    public String editSong(Model model, @PathVariable Integer id) throws Exception {
+        model.addAttribute("singer", singerService.getSingerById(id));
+        return "admin/editSinger";
+    }
 }
