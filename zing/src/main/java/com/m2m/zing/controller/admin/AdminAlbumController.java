@@ -1,26 +1,36 @@
 package com.m2m.zing.controller.admin;
 
 import com.m2m.zing.model.Album;
-import com.m2m.zing.service.impl.AlbumServiceImpl;
-import com.m2m.zing.service.impl.SongServiceImpl;
-import com.m2m.zing.service.impl.UserServiceImpl;
+import com.m2m.zing.model.Song;
+import com.m2m.zing.model.User;
+import com.m2m.zing.service.AlbumService;
+import com.m2m.zing.service.FirebaseService;
+import com.m2m.zing.service.SongService;
+import com.m2m.zing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminAlbumController {
 
     @Autowired
-    private AlbumServiceImpl albumService;
+    private AlbumService albumService;
 
     @Autowired
-    private SongServiceImpl songService;
+    private SongService songService;
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
+
+    @Autowired
+    private FirebaseService firebaseService;
 
     @GetMapping("/album")
     public String doGetAlbum(Model model){
@@ -55,6 +65,22 @@ public class AdminAlbumController {
         model.addAttribute("users",userService.getAllUser());
         model.addAttribute("album", new Album());
         return "admin/album-insert";
+    }
+
+    @PostMapping("/album/insert")
+    public String doPostAlbumDetail(Model model, @ModelAttribute("album") Album album, @RequestParam("selectImg") MultipartFile selectImg, @RequestParam("selectAuthor") Long id) throws Exception {
+        User user = userService.getUserById(id);
+        album.setImage(selectImg.getOriginalFilename());
+        firebaseService.uploadFileToFirebaseStorage(selectImg);
+        album.setAuthor(user);
+        try{
+            List<Song> song = songService.getSongsByAuthor_UserId(id);
+
+        }catch(Exception e){
+
+        }
+        albumService.createAlbum(album);
+        return "admin/album";
     }
 
 }

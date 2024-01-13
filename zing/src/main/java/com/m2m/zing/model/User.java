@@ -34,11 +34,11 @@ public class User implements UserDetails {
     private boolean active = true;
     private boolean genders;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Album> albums;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Song> songs;
 

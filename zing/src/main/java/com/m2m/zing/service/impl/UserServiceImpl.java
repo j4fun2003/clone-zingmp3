@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService /*,UserDetailsService*/ {
 
     @Override
     public User update(User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -76,7 +75,7 @@ public class UserServiceImpl implements UserService /*,UserDetailsService*/ {
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -87,7 +86,7 @@ public class UserServiceImpl implements UserService /*,UserDetailsService*/ {
 
     @Override
     public void addToUser(String username, String name) {
-        User user =  userRepository.findByEmail(username).orElseThrow(() -> new RuntimeException("User not found"));
+        User user =  userRepository.findByEmail(username);
         Role role = roleRepository.findByName(name);
         if (user != null) {
 
@@ -177,7 +176,8 @@ public class UserServiceImpl implements UserService /*,UserDetailsService*/ {
 
 @Override
     public String verifyAccount(String email, String otp) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
+        User user = userRepository.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
         if (user.getOtp().equals(otp) && Duration.between(user.getOtpGeneratedTime(),
                 LocalDateTime.now()).getSeconds() < (1 * 60)) {
             user.setActive(true);
@@ -189,8 +189,8 @@ public class UserServiceImpl implements UserService /*,UserDetailsService*/ {
 
 @Override
     public String regenerateOtp(String email) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
+        User user = userRepository.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
         String otp = otpUtil.generateOtp();
         try {
             emailUtil.sendOtpEmail(email, otp);
@@ -211,7 +211,8 @@ public class UserServiceImpl implements UserService /*,UserDetailsService*/ {
         } catch (MessagingException e) {
             throw new RuntimeException("Unable to send otp please try again");
         }
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email :"+email));
+        User user = userRepository.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User not found with this email :"+email));
         user.setOtp(otp);
         user.setOtpGeneratedTime(LocalDateTime.now());
         userRepository.save(user);

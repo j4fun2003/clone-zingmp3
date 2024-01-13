@@ -29,7 +29,7 @@ public class CustomUserDetailService implements UserDetailsService {
     }
 
     private UserDetails loadUser(String username){
-        User user = userRepository.findByEmail(username).get();
+        User user = userRepository.findByEmail(username);
 
         List<UserRole> roles = userRoleRepository.getUserRolesById(user.getUserId());
         if(user == null){

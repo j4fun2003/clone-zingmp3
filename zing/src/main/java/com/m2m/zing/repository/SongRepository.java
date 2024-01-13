@@ -22,4 +22,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     List<Song> findTop5ByOrderByCreateDateDesc(Pageable page);
 
     List<Song> getSongByAlbum_AlbumId(Long id);
+
+    List<Song> getSongsByAuthor_UserId(Long id);
 }

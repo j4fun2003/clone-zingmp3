@@ -8,6 +8,7 @@ import com.m2m.zing.repository.UserRepository;
 import com.m2m.zing.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -110,7 +111,7 @@ public class AuthenController{
 
     @GetMapping("/set-password")
     public String doGetSetPass(@RequestParam String email, @RequestParam String otp,Model model){
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
+        User user = userRepository.findByEmail(email);
         if (user.getOtp().equals(otp) && Duration.between(user.getOtpGeneratedTime(),
                 LocalDateTime.now()).getSeconds() < (1 * 60)) {
             model.addAttribute("email",email);
@@ -123,8 +124,9 @@ public class AuthenController{
 
     @PostMapping("/set-password")
     public String doPostSetPass(@RequestParam("email") String email, @RequestParam("password") String password,Model model){
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
-        user.setPassword(password);
+        User user = userRepository.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
+        user.setPassword( new BCryptPasswordEncoder().encode(password));
         userService.update(user);
         model.addAttribute("message","Your password was changed!");
         return "user/pages-confirm-mail";
