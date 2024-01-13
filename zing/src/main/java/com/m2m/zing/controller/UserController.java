@@ -104,9 +104,9 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated() && !authentication.getPrincipal().equals("anonymousUser")) {
             User userDetail = (User) authentication.getPrincipal();
-            model.addAttribute("user", userDetail);
-            model.addAttribute("userId",userDetail.getUserId());
-            model.addAttribute("userRole",userRoleRepository);
+            model.addAttribute("user", userService.getUserById(userDetail.getUserId()));
+            model.addAttribute("userId", userDetail.getUserId());
+            model.addAttribute("userRole", userRoleRepository);
             return "/user/profile-edit";
         } else {
             return "redirect:/auth/login/form";
@@ -114,15 +114,19 @@ public class UserController {
     }
 
     @PostMapping("/editProfile")
-    public String doPostEditProfile(Model model, @ModelAttribute("user") User user,@RequestParam("avatarInput") MultipartFile avatar){
+    public String doPostEditProfile(Model model, @ModelAttribute("user") User user, @RequestParam("avatarInput") MultipartFile avatar) {
         try {
             User userTemp = userService.getUserById(user.getUserId());
             userTemp.setFullName(user.getFullName());
             userTemp.setEmail(user.getEmail());
             userTemp.setPassword(user.getPassword());
             userTemp.setGenders(user.isGenders());
-            userTemp.setAvatar(avatar.getOriginalFilename());
-            firebaseService.uploadFileToFirebaseStorage(avatar);
+            if (avatar != null && !avatar.isEmpty()) {
+                firebaseService.uploadFileToFirebaseStorage(avatar);
+                userTemp.setAvatar(avatar.getOriginalFilename());
+            } else {
+                System.out.println("Null");
+            }
             userService.update(userTemp);
             System.out.println(userTemp);
         } catch (Exception e) {
@@ -162,7 +166,7 @@ public class UserController {
     }
 
     @GetMapping("/album-detail/{id}")
-    public String doGetAlbumDetail(@PathVariable Long id, Model model) throws  Exception{
+    public String doGetAlbumDetail(@PathVariable Long id, Model model) throws Exception {
         model.addAttribute("albums", albumService.getAlbumById(id));
         model.addAttribute("albumsSong", songService.getSongByAlbum(id));
         return "user/albumDetail";

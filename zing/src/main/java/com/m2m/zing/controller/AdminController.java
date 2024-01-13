@@ -30,7 +30,7 @@ public class AdminController {
     AlbumService albumService;
 
 
-    @GetMapping("/dashboard")
+    @GetMapping()
     public String getDashboardManagement(Model model) throws Exception {
         model.addAttribute("singers", singerService.getAllSinger());
         model.addAttribute("songs", songService.getAllSong());

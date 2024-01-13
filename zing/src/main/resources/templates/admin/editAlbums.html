@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/common/layout :: admin(~{::mainAdmin})}"><head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -50,7 +50,7 @@
                                                 </select>
                                             </div>
                                             <div id="album-song" class="form-group col-sm-12">
-                                                <label>Singer:</label>
+                                                <label>Songs:</label>
                                                 <div class="form-group" th:each="song : ${albumSongs}">
                                                     <div class="d-flex">
                                                         <select class="col-7 form-control my-1">

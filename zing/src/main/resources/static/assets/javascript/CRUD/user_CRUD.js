@@ -1,4 +1,3 @@
-
 function validateUserPassForm() {
     let password = document.getElementById('cpass').value;
     let newPassword = document.getElementById('npass').value;
@@ -8,6 +7,7 @@ function validateUserPassForm() {
     }
     return true;
 }
+
 function getPassToChange() {
     return new Promise((resolve, reject) => {
         try {
@@ -36,6 +36,7 @@ function getPassToChange() {
         }
     });
 }
+
 function saveChangeUser(userId) {
     if (validateUserPassForm()) {
         getPassToChange()
@@ -47,6 +48,24 @@ function saveChangeUser(userId) {
                 console.log(error);
                 alertError("Error: " + error);
             });
+    } else {
+        alertWarning("Please fill in all required fields!!");
+    }
+}
+
+function changePasswordConfirm() {
+    if (validateUserPassForm()) {
+        confirmToDoAction("Change Password ???", function () {
+            getPassToChange()
+                .then(user => {
+                    console.log(user);
+                    alertSuccess("Change Password Success");
+                })
+                .catch(error => {
+                    console.log(error);
+                    alertError("Error: " + error);
+                });
+        })
     } else {
         alertWarning("Please fill in all required fields!!");
     }

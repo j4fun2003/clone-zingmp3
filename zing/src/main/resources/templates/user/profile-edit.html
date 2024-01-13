@@ -102,7 +102,7 @@
                                     </div>
                                 </div>
                                 <div class="iq-card-body">
-                                    <form onsubmit="return saveChangeUser()">
+                                    <form>
                                         <div class="form-group">
                                             <label for="cpass">Current Password:</label>
                                             <a href="javascript:void(0);" class="float-right">Forgot Password</a>
@@ -118,7 +118,7 @@
                                         </div>
                                         <input type="text" id="user-id" th:value="${userId}">
                                         <input type="hidden" name="_method" value="PUT">
-                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                        <button type="button" onclick="changePasswordConfirm()" class="btn btn-primary mr-2">Submit</button>
                                     </form>
 
                                 </div>
