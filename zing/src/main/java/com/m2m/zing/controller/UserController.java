@@ -115,7 +115,10 @@ public class UserController {
 
     @GetMapping("/singer-detail/{id}")
     public String doGetSingerDetail(Model model, @PathVariable Integer id) throws Exception {
-        singerService.getSingerById(id);
+        Singer singer =  singerService.getSingerById(id);
+        List<Song> songs = songService.getSongBySinger(singer);
+        model.addAttribute("singer", singer);
+        model.addAttribute("songs", songs);
         return "/user/singerDetail";
     }
 }

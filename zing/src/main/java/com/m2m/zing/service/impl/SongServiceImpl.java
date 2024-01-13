@@ -1,5 +1,6 @@
 package com.m2m.zing.service.impl;
 
+import com.m2m.zing.model.Singer;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
 import com.m2m.zing.repository.SongRepository;
@@ -66,7 +67,7 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public List<Song> getSongsByAuthorId(Long id, Pageable page) {
-        return songRepository.getSongsByAuthor(id,page);
+        return songRepository.getSongsByAuthor(id, page);
     }
 
 
@@ -85,4 +86,11 @@ public class SongServiceImpl implements SongService {
         Pageable pageable = PageRequest.of(0, 5); // First page, limit to 5 results
         return songRepository.findTop5ByOrderByCreateDateDesc(pageable);
     }
+
+    @Override
+    public List<Song> getSongBySinger(Singer singer) {
+        return songRepository.getSOngBySinger(singer);
+    }
+
+
 }
