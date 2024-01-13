@@ -1,6 +1,6 @@
 package com.m2m.zing.service.impl;
 
-import com.m2m.zing.dto.SongDTO;
+import com.m2m.zing.model.Singer;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
 import com.m2m.zing.repository.AlbumRepository;
@@ -70,7 +70,7 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public List<Song> getSongsByAuthorId(Long id, Pageable page) {
-        return songRepository.getSongsByAuthor(id,page);
+        return songRepository.getSongsByAuthor(id, page);
     }
 
 
@@ -91,20 +91,9 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public List<Song> getSongsByAuthor_UserId(Long id) {
-        return songRepository.getSongsByAuthor_UserId(id);
+    public List<Song> getSongBySinger(Singer singer) {
+        return songRepository.getSOngBySinger(singer);
     }
 
-    @Override
-    public void updateSongsAlbumId(SongDTO songDTO) {
-        Long albumId = songDTO.getAlbumId();
-        List<Long> songIds = songDTO.getSongIds();
-        for (Long songId : songIds) {
-            Optional<Song> optionalSong = songRepository.findById(songId);
-            optionalSong.ifPresent(song -> {
-                song.setAlbum(albumRepository.findById(albumId).get());
-                songRepository.save(song);
-            });
-        }
-    }
+
 }

@@ -6,53 +6,58 @@
 </head>
 <body>
 <div class="content-page" id="content-page" th:fragment="mainAdmin">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="iq-card">
-          <div class="iq-card-header d-flex justify-content-between">
-            <div class="iq-header-title">
-              <h4 class="card-title">Album Lists</h4>
-            </div>
-            <div class="iq-card-header-toolbar d-flex align-items-center">
-              <a th:href="@{/admin/album/insert}" class="btn btn-primary">Add New Album</a>
-            </div>
-          </div>
-          <div class="iq-card-body">
-            <div class="table-responsive">
-              <table class="data-tables table table-striped table-bordered" style="width:100%">
-                <thead>
-                <tr>
-                  <th style="width: 5%;">No</th>
-                  <th style="width: 5%;">Image</th>
-                  <th style="width: 15%;">Album Name</th>
-                  <th style="width: 15%;">Singer</th>
-                  <th style="width: 10%;">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="album: ${albums}">
-                  <td th:text="${album.albumId}"></td>
-                  <td>
-                    <img th:src="@{|https://storage.googleapis.com/zing-mp3-2118c.appspot.com/${album.image}|}" class="img-fluid avatar-50 rounded" alt="author-profile">
-                  </td>
-                  <td th:text="${album.title}"></td>
-                  <td th:text="${album.author.fullName}"></td>
-                  <td>
-                    <div class="flex align-items-center list-user-action">
-                      <a class="bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" th:href="@{|/admin/album/${album.albumId}|}"><i class="ri-pencil-line"></i></a>
-                      <a class="bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" href="#"><i class="ri-delete-bin-line"></i></a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Album Lists</h4>
+                        </div>
+                        <div class="iq-card-header-toolbar d-flex align-items-center">
+                            <a th:href="@{/admin/add-album}" class="btn btn-primary">Add New Album</a>
+                        </div>
                     </div>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+                    <div class="iq-card-body">
+                        <div class="table-responsive">
+                            <table class="data-tables table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th style="width: 5%;">No</th>
+                                    <th style="width: 5%;">Image</th>
+                                    <th style="width: 15%;">Album Name</th>
+                                    <th style="width: 15%;">Singer</th>
+                                    <th style="width: 10%;">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="album, index:  ${albums}">
+                                    <td th:text="${index.index + 1}"></td>
+                                    <td>
+                                        <img th:src="@{|${album.image}|}" class="img-fluid avatar-50 rounded"
+                                             alt="author-profile">
+                                    </td>
+                                    <td th:text="${album.title}"></td>
+                                    <td th:text="${album.singer.singerFullName}"></td>
+                                    <td>
+                                        <div class="flex align-items-center list-user-action">
+                                            <a class="bg-primary" data-toggle="tooltip" data-placement="top" title=""
+                                               data-original-title="Edit"
+                                               th:href="@{|/admin/edit-album/${album.albumId}|}"><i
+                                                    class="ri-pencil-line"></i></a>
+                                            <a class="bg-primary" data-toggle="tooltip" data-placement="top" title=""
+                                               data-original-title="Delete" href="#"><i class="ri-delete-bin-line"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 </div>
 </body>

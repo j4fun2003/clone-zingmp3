@@ -58,6 +58,8 @@ function loadTrack(track_index) {
         currentSong = result.data;
         curr_track.src = result.data.url;
         curr_track.load();
+
+
         playTrack();
 
         track_art.style.backgroundImage = "url(" + currentSong.image + ")";
@@ -68,6 +70,16 @@ function loadTrack(track_index) {
         updateTimer = setInterval(seekUpdate, 1000);
         curr_track.addEventListener("ended", nextTrack);
         random_bg_color();
+        if (currentSong.songId) {
+            createHistory(currentSong.songId).catch(error => {
+                // alertError("Error when add song to your history", error);
+                console.log(error);
+            });
+            currentSong.quantity += 1;
+            updateSong(currentSong.songId, currentSong).catch(error=>{
+                console.log(error);
+            });
+        }
     })
 }
 
@@ -77,8 +89,6 @@ function resetValues() {
     seek_slider.value = 0;
 }
 
-// Load the first track in the tracklist
-loadTrack(track_index);
 
 function playpauseTrack() {
     if (!isPlaying) playTrack();
@@ -169,4 +179,7 @@ function seekUpdate() {
     }
 }
 
+
+// Load the first track in the tracklist
+loadTrack(track_index);
 

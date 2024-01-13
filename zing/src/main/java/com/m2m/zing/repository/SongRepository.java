@@ -1,5 +1,6 @@
 package com.m2m.zing.repository;
 
+import com.m2m.zing.model.Singer;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
 import org.springframework.data.domain.Pageable;
@@ -27,4 +28,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
   
     @Query("SELECT s FROM Song s ORDER BY s.createDate DESC")
     List<Song> findTop5ByOrderByCreateDateDesc(Pageable page);
+
+
+    List<Song> getSOngBySinger(Singer singer);
 }

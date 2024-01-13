@@ -1,7 +1,7 @@
 
 package com.m2m.zing.service;
 
-import com.m2m.zing.dto.SongDTO;
+import com.m2m.zing.model.Singer;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +25,5 @@ public interface SongService {
 
     public List<Song> getTop5SongsNewRealease();
 
-    List<Song> getSongsByAuthor_UserId(Long id);
-
-    void updateSongsAlbumId(SongDTO songDTO);
+    List<Song> getSongBySinger(Singer singer);
 }

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainAdmin" id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="iq-edit-list-data">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
+                            <div class="iq-card">
+                                <div class="iq-card-header d-flex justify-content-between">
+                                    <div class="iq-header-title">
+                                        <h4 class="card-title">New Album</h4>
+                                    </div>
+                                </div>
+                                <div class="iq-card-body">
+                                    <form method="post">
+                                        <input id="album-id" type="hidden" th:value="${album.albumId}">
+                                        <div class="form-group row align-items-center">
+                                            <div class="col-md-12">
+                                                <div class="profile-img-edit">
+                                                    <img class="profile-pic" alt="profile-pic"
+                                                         th:src="${album.image}">
+                                                    <div class="p-image">
+                                                        <i class="ri-pencil-line upload-button"></i>
+                                                        <input id="album-image" class="file-upload" type="file"
+                                                               accept="image/*"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class=" row align-items-center">
+                                            <div class="form-group col-sm-6">
+                                                <label for="album-name">Album Name: </label>
+                                                <input id="album-name" th:value="${album.title}" type="text" class="form-control" >
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label>Singer:</label>
+                                                <select  class="form-control" id="album-singer"
+                                                        name="selectAuthor">
+                                                    <option disabled selected>Select Singer</option>
+                                                    <option th:selected="${album.singer.singerId eq singer.singerId}" th:each="singer : ${singers}" th:value="${singer.singerId}"
+                                                            th:text="${singer.singerFullName}"></option>
+                                                </select>
+                                            </div>
+                                            <div id="album-song" class="form-group col-sm-12">
+                                                <label>Singer:</label>
+                                                <div class="form-group" th:each="song : ${albumSongs}">
+                                                    <div class="d-flex">
+                                                        <select class="col-7 form-control my-1">
+                                                            <option disabled>Select Songs</option>
+                                                            <option th:each="songOption : ${songs}" th:value="${songOption.songId}" th:text="${songOption.title}" th:selected="${song.songId eq songOption.songId}"></option>
+                                                        </select>
+                                                         <button type="button" class="btn btn-primary ml-2" th:attr="data-song-id=${song.songId}" th:onclick="removeSongFromAlbum(this.getAttribute('data-song-id'),this)">Remove This Song</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <button type="button" class="btn btn-primary"
+                                                        onclick="addSongToAlbums()">Add
+                                                    Another Song
+                                                </button>
+                                            </div>
+                                            <div class="form-group col-sm-12 text-center">
+                                                <button type="button" class="btn btn-primary"
+                                                        onclick="saveChangeConfirm()">Add Album
+                                                </button>
+                                                <button type="reset" class="btn iq-bg-danger">Reset</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

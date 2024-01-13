@@ -29,6 +29,11 @@ public class Album {
     @JsonIgnore
     private User author;
 
+    @ManyToOne
+    @JoinColumn(name = "singer_id")
+    @JsonIgnore
+    private Singer singer;
+
     @JsonIgnore
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
     private List<Song> songs;

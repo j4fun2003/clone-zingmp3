@@ -104,22 +104,22 @@ public class SongAPI {
     }
 
     @PutMapping("/{songId}")
-    public ResponseEntity<?> updateSong(@PathVariable("songId") Long songId, @RequestBody Song songDetails) {
-        Map<String, Object> result = new HashMap<>();
-        try {
-            Song updatedSong = songService.updateSong(songId, songDetails);
-            if (updatedSong != null) {
-                result.put("status", "Success");
-                result.put("data", updatedSong);
-            } else {
-                result.put("status", "Failed");
-                result.put("detail", "Song not found");
+        public ResponseEntity<?> updateSong(@PathVariable("songId") Long songId, @RequestBody Song songDetails) {
+            Map<String, Object> result = new HashMap<>();
+            try {
+                Song updatedSong = songService.updateSong(songId, songDetails);
+                if (updatedSong != null) {
+                    result.put("status", "Success");
+                    result.put("data", updatedSong);
+                } else {
+                    result.put("status", "Failed");
+                    result.put("detail", "Song not found");
+                }
+            } catch (Exception e) {
+                result.put("status", "Error");
+                result.put("detail", e.toString());
             }
-        } catch (Exception e) {
-            result.put("status", "Error");
-            result.put("detail", e.toString());
-        }
-        return ResponseEntity.ok(result);
+            return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{songId}")

@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha384-GLhlTQ8iSVPKgU99n3UJCEs5x9I8FqUKGCD8BPd2Q/6UJ1/6Z5aZ5Aiz+Kx4+pc4" crossorigin="anonymous">
 </head>
 <body>
 <div th:fragment="mainAdmin" id="content-page" class="content-page">
@@ -20,16 +22,21 @@
                                 <div class="music-detail">
                                     <h3 th:text="${song.title}"></h3>
                                     <span></span>
-                                    <p class="mb-0" th:text="${song.quantity} + ' View'"></p>
+                                    <p class="mb-0" th:text="${song.quantity} + ' Listen'"></p>
                                     <p class="mb-0" th:text="${song.download} + ' Download'"></p>
                                     <p th:text="${song.description}"></p>
                                 </div>
                                 <div class="music-right">
                                     <div class="d-flex align-items-center">
-                                        <div class="iq-circle mr-2"><a th:data-name="${song.songId}" th:onclick="favorite(this.getAttribute('data-name'))"><i
-                                                class="ri-heart-fill  text-primary"></i></a></div>
+
+                                        <div class="iq-circle mr-2"><a th:data-name="${song.songId}"
+                                                                       th:onclick="favorite(this.getAttribute('data-name'))"><i
+                                                style="color: red"
+                                                id="heart-icon"
+                                                th:class="${isFavorite?'ri-heart-fill':'ri-heart-line'} "></i></a></div>
                                         <div class="iq-circle">
-                                                <a th:data-name="${song.songId}" th:href="${song.getUrl()}" th:onclick="downloadSong(this.getAttribute('data-name'))">
+                                            <a th:data-name="${song.songId}" th:href="${song.getUrl()}"
+                                               th:onclick="downloadSong(this.getAttribute('data-name'))">
                                                 <i class="las la-download text-primary"></i>
                                             </a>
                                         </div>
