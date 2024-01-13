@@ -75,6 +75,10 @@ function loadTrack(track_index) {
                 // alertError("Error when add song to your history", error);
                 console.log(error);
             });
+            currentSong.quantity += 1;
+            updateSong(currentSong.songId, currentSong).catch(error=>{
+                console.log(error);
+            });
         }
     })
 }

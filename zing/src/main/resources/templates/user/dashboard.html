@@ -54,6 +54,42 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-12">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title">Singer</h4>
+                        </div>
+                        <div class="d-flex align-items-center iq-view">
+                            <b class="mb-0 text-primary"><a href="albums.html">View More <i
+                                    class="las la-angle-right"></i></a></b>
+                        </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <ul class="list-unstyled row  iq-box-hover mb-0">
+                            <li class="col-xl-2 col-lg-3 col-md-4 iq-music-box" th:each="singer : ${singers}">
+                                <div class="iq-card">
+                                    <div class="iq-card-body p-0">
+                                        <div class="iq-thumb">
+                                            <a th:href="@{/singer-detail/{singerId}(singerId=${singer.singerId})}">
+                                                <div class="iq-music-overlay"></div>
+                                                <img th:src="@{${singer.image}}" class="img-border-radius img-fluid w-100" alt=""/>
+                                            </a>
+                                        </div>
+                                        <div class="feature-list text-center">
+                                            <p class="font-weight-100 mb-0">
+                                                <a th:href="@{/singer-detail/{singerId}(singerId=${singer.singerId})}" th:text="${singer.singerFullName}">
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

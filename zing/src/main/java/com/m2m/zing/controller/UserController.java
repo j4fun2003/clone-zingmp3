@@ -50,6 +50,8 @@ public class UserController {
     public String doGetDashBoard(Model model) throws Exception {
         model.addAttribute("songs", songService.getAllSong());
         model.addAttribute("songNewRelease", songService.getTop5SongsNewRealease());
+        model.addAttribute("singers", singerService.getAllSinger());
+        System.out.println(singerService.getAllSinger().size());
         return "user/dashboard";
     }
 
