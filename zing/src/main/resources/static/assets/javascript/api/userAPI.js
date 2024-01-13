@@ -11,8 +11,8 @@ function registerUser(registerData) {
 }
 
 
-function updateUser(userId, updatedUserData) {
-    return callAPI(`/api/users/${userId}`, 'PUT', updatedUserData);
+function changePass(userId, changePassData) {
+    return callAPI(`/api/users/change-pass/${userId}`, 'PUT', changePassData);
 }
 
 

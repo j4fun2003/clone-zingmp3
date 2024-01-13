@@ -65,7 +65,7 @@
                                 <select id="song-singer" class="form-control">
                                     <option selected disabled value="">Select Singer</option>
                                     <th:block th:each="singer : ${singers}">
-                                        <option th:value="${singer.singerId}" th:text="${singer.singerFullName}">Thể Loại</option>
+                                        <option th:value="${singer.getUserId()}" th:text="${singer.getFullName()}">Thể Loại</option>
                                     </th:block>
                                 </select>
                             </div>

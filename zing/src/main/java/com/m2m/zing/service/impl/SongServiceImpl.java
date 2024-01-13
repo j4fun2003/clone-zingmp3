@@ -1,8 +1,10 @@
 package com.m2m.zing.service.impl;
 
 import com.m2m.zing.model.Singer;
+import com.m2m.zing.dto.SongDTO;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
+import com.m2m.zing.repository.AlbumRepository;
 import com.m2m.zing.repository.SongRepository;
 import com.m2m.zing.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.util.Optional;
 public class SongServiceImpl implements SongService {
 
     private final SongRepository songRepository;
+
+    AlbumRepository albumRepository;
 
     @Autowired
     public SongServiceImpl(SongRepository songRepository) {
@@ -92,5 +96,20 @@ public class SongServiceImpl implements SongService {
         return songRepository.getSOngBySinger(singer);
     }
 
+    public List<Song> getSongsByAuthor_UserId(Long id) {
+        return songRepository.getSongsByAuthor_UserId(id);
+    }
 
+    @Override
+    public void updateSongsAlbumId(SongDTO songDTO) {
+        Long albumId = songDTO.getAlbumId();
+        List<Long> songIds = songDTO.getSongIds();
+        for (Long songId : songIds) {
+            Optional<Song> optionalSong = songRepository.findById(songId);
+            optionalSong.ifPresent(song -> {
+                song.setAlbum(albumRepository.findById(albumId).get());
+                songRepository.save(song);
+            });
+        }
+    }
 }

@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="profile-img-edit">
-                  <img class="profile-pic" th:src="@{*{image}}" alt="profile-pic">
+                  <img class="profile-pic" th:src="@{|https://storage.googleapis.com/zing-mp3-2118c.appspot.com/*{image}|}" alt="profile-pic">
                   <div class="p-image">
                     <i class="ri-pencil-line upload-button"></i>
                     <input class="file-upload" type="file" th:field="*{image}" accept="image/*"/>
@@ -55,13 +55,14 @@
     </div>
     <div class="col-lg-12">
       <div class="iq-card">
+
         <div class="iq-card-body">
           <ul class="list-unstyled iq-music-slide mb-0" th:each="song : ${songs}">
             <li class="mb-3">
               <div class="d-flex justify-content-between align-items-center row">
                 <div class="media align-items-center col-10 col-md-5">
                   <div class="iq-realese-song ">
-                    <a href="javascript:void(0);"><img th:src="@{${song.getImage()}}" class="img-border-radius avatar-60 img-fluid" alt=""></a>
+                    <a href="javascript:void(0);"><img th:src="@{|https://storage.googleapis.com/zing-mp3-2118c.appspot.com/${song.getImage()}|}" class="img-border-radius avatar-60 img-fluid" alt=""></a>
                   </div>
                   <div class="media-body ml-3">
                     <p class="mb-0" th:text="${song.getTitle()}"></p>

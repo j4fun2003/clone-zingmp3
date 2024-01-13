@@ -37,24 +37,31 @@
                     <div class="sign-in-page-data">
                         <div class="sign-in-from w-100 m-auto pt-5">
                             <h1 class="mb-3 text-center">Sign Up</h1>
-                            <h3 class="mb-3 text-center text-white">It's quick and easy</h3>
-                            <form class="mt-4">
+                            <h3 class="mb-3 text-center text-white">[[${message}]]</h3>
+                            <form class="mt-4" th:action="@{/auth/register}" th:method="POST" method="POST" th:object="${user}">
                                 <div class="form-group">
                                     <label for="exampleInputEmail2">Your Full Name</label>
-                                    <input type="text" class="form-control mb-0" id="exampleInputEmail2" name="fullName" placeholder="Your Full Name">
+                                    <input type="text" class="form-control mb-0" id="exampleInputEmail2" th:field="*{fullName}" placeholder="Your Full Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail3">Email address</label>
-                                    <input type="email" class="form-control mb-0" id="exampleInputEmail3" name="email" placeholder="Enter email">
+                                    <input type="email" class="form-control mb-0" id="exampleInputEmail3" th:field="*{email}" placeholder="Enter email">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword2">Password</label>
-                                    <input type="password" class="form-control mb-0" id="exampleInputPassword2"  name="password" placeholder="Password">
+                                    <input type="password" class="form-control mb-0" id="exampleInputPassword2"  th:field="*{password}" placeholder="Password">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail2">Gender</label>
-                                    <input type="radio"  name="genders" value="true">Male
-                                    <input type="radio"  name="genders" value="false">Female
+                                    <label class="d-block">Gender:</label>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadio6" class="custom-control-input" checked=""
+                                               th:field="*{genders}" th:value="true" >
+                                        <label class="custom-control-label" for="customRadio6"> Male </label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadio7" th:field="*{genders}" class="custom-control-input" th:value="false" >
+                                        <label class="custom-control-label" for="customRadio7"> Female </label>
+                                    </div>
                                 </div>
                                 <div class="sign-info mt-3">
                                     <button type="submit" class="btn btn-primary mb-2">Sign Up</button>
@@ -65,7 +72,7 @@
                     </div>
                     <div class="mt-2">
                         <div class="d-flex justify-content-center links">
-                            Have an account? <a href="/auth/login" class="ml-2">Sign In</a>
+                            Have an account? <a href="/auth/login/form" class="ml-2">Sign In</a>
                         </div>
                         <div class="d-flex justify-content-center links">
                             <a href="/auth/forgot-password">Forgot your password?</a>

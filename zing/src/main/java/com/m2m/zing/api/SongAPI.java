@@ -4,6 +4,12 @@ import com.m2m.zing.constant.ModelAttributes;
 import com.m2m.zing.dto.SongRequest;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
+import com.m2m.zing.dto.SongDTO;
+import com.m2m.zing.dto.SongRequest;
+import com.m2m.zing.model.Album;
+import com.m2m.zing.model.Song;
+import com.m2m.zing.model.User;
+import com.m2m.zing.service.AlbumService;
 import com.m2m.zing.service.SingerService;
 import com.m2m.zing.service.SongService;
 import com.m2m.zing.service.UserService;
@@ -31,6 +37,9 @@ public class SongAPI {
 
     @Autowired
     SingerService singerService;
+
+    @Autowired
+    AlbumService albumService;
 
     @GetMapping
     public ResponseEntity<?> getAllSongs() {
@@ -111,6 +120,22 @@ public class SongAPI {
                 result.put("detail", e.toString());
             }
             return ResponseEntity.ok(result);
+    public ResponseEntity<?> updateSong(@PathVariable("songId") Long songId, @RequestBody Song songDetails) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Song updatedSong = songService.updateSong(songId, songDetails);
+            if (updatedSong != null) {
+                result.put("status", "Success");
+                result.put("data", updatedSong);
+            } else {
+                result.put("status", "Failed");
+                result.put("detail", "Song not found");
+            }
+        } catch (Exception e) {
+            result.put("status", "Error");
+            result.put("detail", e.toString());
+        }
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{songId}")
@@ -138,6 +163,13 @@ public class SongAPI {
             User author = userService.getUserById(userId);
             if (author != null) {
                 List<Song> songs = songService.getSongByAuthor(author);
+    @GetMapping("/byAuthor/{id}")
+    public ResponseEntity<?> getSongsByAuthor(@PathVariable("id") Long userId) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            List<Song> songs = songService.getSongsByAuthor_UserId(userId);
+            System.out.println(songs);
+            if (songs != null) {
                 result.put("status", "success");
                 result.put("data", songs);
             } else {
@@ -151,4 +183,34 @@ public class SongAPI {
         }
         return ResponseEntity.ok(result);
     }
+
+    @PutMapping("/update-album/{songId}")
+    public ResponseEntity<?> addToAlbum(@PathVariable Long songId, @RequestParam Long albumId) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Song song = songService.getSongById(songId);
+            if (song != null) {
+                Album album = albumService.getAlbumById(albumId);
+                song.setAlbum(album);
+                songService.updateSong(songId,song);
+                result.put("status", "success");
+            } else {
+                result.put("status", "failed");
+                result.put("detail", "not found song with id : " + songId);
+            }
+        } catch (Exception e) {
+            result.put("status", "error");
+            result.put("detail", e.toString());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/songs/updateAlbumId")
+    public ResponseEntity<?> doUpdateSongsAlbumId(@RequestBody SongDTO songDTO) {
+        songService.updateSongsAlbumId(songDTO);
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", "success");
+        return ResponseEntity.ok(result);
+    }
+
 }

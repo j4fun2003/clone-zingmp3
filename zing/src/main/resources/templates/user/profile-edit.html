@@ -39,7 +39,7 @@
                   </div>
                 </div>
                 <div class="iq-card-body">
-                  <form th:action="@{/admin/user}" th:object="${user}" enctype="multipart/form-data" method="post" th:method="post">
+                  <form th:action="@{/editProfile}" th:object="${user}" method="post" th:method="post" enctype="multipart/form-data">
                     <div class="form-group row align-items-center">
                       <div class="col-md-12">
                         <div class="profile-img-edit">
@@ -51,41 +51,25 @@
                         </div>
                       </div>
                     </div>
-
                     <div class=" row align-items-center">
                       <div class="form-group col-sm-6">
                         <label for="fname">Full Name:</label>
                         <input type="text" class="form-control" id="fname" th:field="*{fullName}">
+                        <input type="hidden" class="form-control" id="fname" th:field="*{password}">
+                        <input type="hidden" class="form-control" id="fname" th:field="*{userId}">
                       </div>
                       <div class="form-group col-sm-6">
                         <label for="lname">Username:</label>
                         <input type="email" class="form-control" id="lname" th:field="*{email}">
                       </div>
                       <div class="form-group col-sm-6">
-                        <label for="pw">Password:</label>
-                        <input type="text" class="form-control" id="pw" th:field="*{password}">
-                      </div>
-                      <div class="form-group col-sm-6">
                         <label for="cname">Provider:</label>
-                        <input type="text" class="form-control" id="cname" th:field="*{provider}">
+                        <input type="text" class="form-control" id="cname" th:field="*{provider}" readonly>
                      </div>
                       <div class="form-group col-sm-6">
                         <label>Role:</label>
-<!--                        <select class="form-control" id="exampleFormControlSelect1" name="selectedRoleId" th:each="userRole : ${userRoles}">-->
-<!--                          <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}" th:selected="${userRole != null and userRole.getRole().id == role.id}"></option>-->
-<!--                        </select>-->
-                        <!-- Nếu không có phần tử, hiển thị một select khác -->
-                        <select th:if="${#lists.isEmpty(userRoles)}" class="form-control" id="exampleFormControlSelect" name="selectedRoleIdInsert">
-                          <option   th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}"></option>
-                        </select>
-
-                        <!-- Nếu có phần tử, hiển thị select thông thường -->
-                        <select th:unless="${#lists.isEmpty(userRoles)}" class="form-control" id="exampleFormControlSelect1" name="selectedRoleId" th:each="userRole : ${userRoles}">
-                          <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}" th:selected="${userRole != null and userRole.getRole().id == role.id}"></option>
-                        </select>
-
+                        <span th:text="*{authorities.toString()}" style="font-size:20px;font-weight: bold;color:#ff4545"></span>
                       </div>
-
                       <div class=" form-group col-sm-6">
                         <label class="d-block">Gender:</label>
                         <div class="custom-control custom-radio custom-control-inline">
@@ -100,12 +84,10 @@
                         </div>
                         <div class="form-group col-sm-6">
                         <label for="dob">Date Of Create:</label>
-                          <input type="text" class="form-control" id="dob" th:field="*{createDate}">
+                          <input type="text" class="form-control" id="dob" th:field="*{createDate}" readonly>
                       </div>
                         <span th:value="*{userId}"></span>
-                        <button type="submit" class="btn btn-primary mr-2" th:formaction="@{/admin/user/{userId}(userId=${user.userId})}">Update</button>
-                        <button type="submit" class="btn btn-success" th:formaction="@{/admin/user/insert}">Insert</button>
-                        <button type="reset" class="btn iq-bg-danger">Delete</button>
+                        <button type="submit" class="btn btn-primary mr-2" >Update</button>
                       </div>
 
                   </form>
@@ -120,23 +102,25 @@
                   </div>
                 </div>
                 <div class="iq-card-body">
-                  <form>
+                  <form onsubmit="return saveChangeUser()">
                     <div class="form-group">
                       <label for="cpass">Current Password:</label>
-                      <a href="javascripe:void();" class="float-right">Forgot Password</a>
-                      <input type="Password" class="form-control" id="cpass" value="">
+                      <a href="javascript:void(0);" class="float-right">Forgot Password</a>
+                      <input type="password" class="form-control" id="cpass" name="password" required>
                     </div>
                     <div class="form-group">
                       <label for="npass">New Password:</label>
-                      <input type="Password" class="form-control" id="npass" value="">
+                      <input type="password" class="form-control" id="npass" name="newPassword" required>
                     </div>
                     <div class="form-group">
                       <label for="vpass">Verify Password:</label>
-                      <input type="Password" class="form-control" id="vpass" value="">
+                      <input type="password" class="form-control" id="vpass" name="confirmPassword" required>
                     </div>
+                    <input type="text" id="user-id" th:value="${userId}">
+                    <input type="hidden" name="_method" value="PUT">
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                    <button type="reset" class="btn iq-bg-danger">Cancel</button>
                   </form>
+
                 </div>
               </div>
             </div>

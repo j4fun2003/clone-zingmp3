@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "albums")
+@ToString(exclude = {"songs"})
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class Album {
     private String image;
     private String title;
 
-    @ManyToOne
+    @ManyToOne( cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
     @JsonIgnore
     private User author;

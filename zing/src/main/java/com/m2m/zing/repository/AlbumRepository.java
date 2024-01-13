@@ -16,4 +16,6 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 //    @Query("SELECT COUNT(s.songId) FROM Album a JOIN Song s WHERE a.albumId = :albumId")
 @Query("    SELECT COUNT(s.songId) FROM Album a JOIN Song s ON a.albumId = s.album.albumId WHERE a.albumId = :albumId")
     Integer countSongByAlbumId(@Param("albumId") Long albumId);
+
+
 }
