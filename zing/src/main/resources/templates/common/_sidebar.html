@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/extras/spring-security"><head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -22,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div id="sidebar-scrollbar">
+    <div id="sidebar-scrollbar" >
         <nav class="iq-sidebar-menu">
             <ul id="iq-sidebar-toggle" class="iq-menu">
                 <li class="active active-menu">
@@ -36,14 +35,14 @@
                         <li><a href="/favorite"><i class="lar la-file-audio"></i>Favorite</a></li>
                     </ul>
                 </li>
-                <li>
+                <li sec:authorize="hasAuthority('ADMIN')">
                     <a href="#admin" class="iq-waves-effect" data-toggle="collapse" aria-expanded="false"><span
                             class="ripple rippleEffect"></span><i
                             class="ri-admin-line iq-arrow-left"></i><span>Admin</span><i
                             class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                     <ul id="admin" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                        <li><a href="/admin/dashboard"><i class="las la-house-damage"></i>Dashboard</a></li>
-                        <li><a href="/admin/singer"><i class="ri-function-line"></i>Singer Management</a></li>
+                        <li><a href="/admin"><i class="las la-house-damage"></i>Dashboard</a></li>
+                        <li><a href="/admin/genre"><i class="ri-function-line"></i>Genre Management</a></li>
                         <li><a href="/admin/user"><i class="las la-microphone-alt"></i>User Management</a></li>
                         <li><a href="/admin/song"><i class="las la-play-circle"></i>Song Management</a></li>
                         <li><a href="/admin/album"><i class="lar la-file-audio"></i>Album Management</a></li>

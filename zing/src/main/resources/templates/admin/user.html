@@ -64,7 +64,7 @@
                                 <tr th:each="user: ${users}">
                                     <td class="text-center"><img alt="profile"
                                                                  class="rounded img-fluid avatar-40"
-                                                                 th:src="@{*{user.getAvatar()}}"></td>
+                                                                 th:src="@{|https://storage.googleapis.com/zing-mp3-2118c.appspot.com/${user.avatar}|}"></td>
                                     <td th:text="${user.getFullName()}"></td>
                                     <td th:text="${user.getEmail()}"></td>
                                     <td th:text="${user.getCreateDate()}"></td>

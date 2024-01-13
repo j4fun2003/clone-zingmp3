@@ -1,24 +1,23 @@
 package com.m2m.zing.controller;
 
-import com.google.api.Authentication;
 import com.google.api.Http;
 import com.m2m.zing.constant.ModelAttributes;
 import com.m2m.zing.model.*;
 import com.m2m.zing.model.idClass.FavoriteId;
-import com.m2m.zing.service.AlbumService;
-import com.m2m.zing.service.FavoriteService;
-import com.m2m.zing.service.HistoryService;
-import com.m2m.zing.service.SingerService;
+import com.m2m.zing.repository.UserRoleRepository;
+import com.m2m.zing.service.*;
 import com.m2m.zing.service.impl.SongServiceImpl;
 import com.m2m.zing.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.query.JSqlParserUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.lang.model.element.ModuleElement;
 import java.util.ArrayList;
@@ -49,6 +48,12 @@ public class UserController {
 
     @Autowired
     AlbumService albumService;
+
+    @Autowired
+    UserRoleRepository userRoleRepository;
+
+    @Autowired
+    FirebaseService firebaseService;
 
     @GetMapping()
     public String doGetDashBoard(Model model) throws Exception {
@@ -95,8 +100,36 @@ public class UserController {
     }
 
     @GetMapping("/editProfile")
-    public String doGetEditProfile() throws Exception {
-        return "/user/editProfile";
+    public String doGetEditProfile(Model model) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated() && !authentication.getPrincipal().equals("anonymousUser")) {
+            User userDetail = (User) authentication.getPrincipal();
+            model.addAttribute("user", userDetail);
+            model.addAttribute("userId",userDetail.getUserId());
+            model.addAttribute("userRole",userRoleRepository);
+            return "/user/profile-edit";
+        } else {
+            return "redirect:/auth/login/form";
+        }
+    }
+
+    @PostMapping("/editProfile")
+    public String doPostEditProfile(Model model, @ModelAttribute("user") User user,@RequestParam("avatarInput") MultipartFile avatar){
+        try {
+            User userTemp = userService.getUserById(user.getUserId());
+            userTemp.setFullName(user.getFullName());
+            userTemp.setEmail(user.getEmail());
+            userTemp.setPassword(user.getPassword());
+            userTemp.setGenders(user.isGenders());
+            userTemp.setAvatar(avatar.getOriginalFilename());
+            firebaseService.uploadFileToFirebaseStorage(avatar);
+            userService.update(userTemp);
+            System.out.println(userTemp);
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Loi khi thuc hien");
+        }
+        return "redirect:/editProfile";
     }
 
 

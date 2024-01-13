@@ -25,7 +25,7 @@ public class CustomUserDetailService implements UserDetailsService {
     private UserRoleRepository userRoleRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-      return loadUser(username);
+        return loadUser(username);
     }
 
     private UserDetails loadUser(String username){
@@ -58,7 +58,10 @@ public class CustomUserDetailService implements UserDetailsService {
                 user.getFavorites(),
                 user.getHistories(),
                 user.getUserRoles(),
+                user.getOtp(),
+                user.getOtpGeneratedTime(),
                 grantedAuthoritiesSet
+
         );
     }
 }

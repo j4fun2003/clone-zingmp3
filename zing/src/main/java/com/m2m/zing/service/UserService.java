@@ -2,6 +2,7 @@
 
 package com.m2m.zing.service;
 
+import com.m2m.zing.dto.RegisterRequest;
 import com.m2m.zing.model.Role;
 import com.m2m.zing.model.User;
 import com.m2m.zing.model.UserRole;
@@ -23,8 +24,17 @@ public interface UserService {
     User getUserById(Long userId) throws Exception;
     User updateUser(Long userId, User userDetails) throws Exception;
     void deleteUser(Long userId) throws Exception;
-//    User getByUserName(String username) throws Exception;
+    //    User getByUserName(String username) throws Exception;
     List<User> getAllUser() throws Exception;
 
+    String register(RegisterRequest registerRequest);
+
     List<UserRole> getUserRolesById( Long userId);
+
+    String verifyAccount(String email,String otp);
+
+    String regenerateOtp(String email);
+
+    String forgotPass(String email);
+
 }

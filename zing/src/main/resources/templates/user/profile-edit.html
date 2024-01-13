@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainAdmin" id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="iq-card">
+                    <div class="iq-card-body p-0">
+                        <div class="iq-edit-list">
+                            <ul class="iq-edit-profile d-flex nav nav-pills">
+                                <li class="col-md-3 p-0">
+                                    <a class="nav-link active" data-toggle="pill" href="#personal-information">
+                                        Personal Information
+                                    </a>
+                                </li>
+                                <li class="col-md-3 p-0">
+                                    <a class="nav-link" data-toggle="pill" href="#chang-pwd">
+                                        Change Password
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="iq-edit-list-data">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
+                            <div class="iq-card">
+                                <div class="iq-card-header d-flex justify-content-between">
+                                    <div class="iq-header-title">
+                                        <h4 class="card-title">Personal Information</h4>
+                                    </div>
+                                </div>
+                                <div class="iq-card-body">
+                                    <form th:action="@{/editProfile}" th:object="${user}" method="post" th:method="post" enctype="multipart/form-data">
+                                        <div class="form-group row align-items-center">
+                                            <div class="col-md-12">
+                                                <div class="profile-img-edit">
+                                                    <img class="profile-pic" th:src="@{|https://storage.googleapis.com/zing-mp3-2118c.appspot.com/*{avatar}|}" alt="profile-pic">
+                                                    <div class="p-image">
+                                                        <i class="ri-pencil-line upload-button"></i>
+                                                        <input class="file-upload" type="file" name="avatarInput" accept="image/*"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" row align-items-center">
+                                            <div class="form-group col-sm-6">
+                                                <label for="fname">Full Name:</label>
+                                                <input type="text" class="form-control" id="fname" th:field="*{fullName}">
+                                                <input type="hidden" class="form-control" id="fname" th:field="*{password}">
+                                                <input type="hidden" class="form-control" id="fname" th:field="*{userId}">
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label for="lname">Username:</label>
+                                                <input type="email" class="form-control" id="lname" th:field="*{email}">
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label for="cname">Provider:</label>
+                                                <input type="text" class="form-control" id="cname" th:field="*{provider}" readonly>
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label>Role:</label>
+                                                <span th:text="*{authorities.toString()}" style="font-size:20px;font-weight: bold;color:#ff4545"></span>
+                                            </div>
+                                            <div class=" form-group col-sm-6">
+                                                <label class="d-block">Gender:</label>
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="customRadio6" class="custom-control-input" checked=""
+                                                           th:field="*{genders}" th:value="true" >
+                                                    <label class="custom-control-label" for="customRadio6"> Male </label>
+                                                </div>
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="customRadio7" th:field="*{genders}" class="custom-control-input" th:value="false" >
+                                                    <label class="custom-control-label" for="customRadio7"> Female </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label for="dob">Date Of Create:</label>
+                                                <input type="text" class="form-control" id="dob" th:field="*{createDate}" readonly>
+                                            </div>
+                                            <span th:value="*{userId}"></span>
+                                            <button type="submit" class="btn btn-primary mr-2" >Update</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="chang-pwd" role="tabpanel">
+                            <div class="iq-card">
+                                <div class="iq-card-header d-flex justify-content-between">
+                                    <div class="iq-header-title">
+                                        <h4 class="card-title">Change Password</h4>
+                                    </div>
+                                </div>
+                                <div class="iq-card-body">
+                                    <form onsubmit="return saveChangeUser()">
+                                        <div class="form-group">
+                                            <label for="cpass">Current Password:</label>
+                                            <a href="javascript:void(0);" class="float-right">Forgot Password</a>
+                                            <input type="password" class="form-control" id="cpass" name="password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="npass">New Password:</label>
+                                            <input type="password" class="form-control" id="npass" name="newPassword" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="vpass">Verify Password:</label>
+                                            <input type="password" class="form-control" id="vpass" name="confirmPassword" required>
+                                        </div>
+                                        <input type="text" id="user-id" th:value="${userId}">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -86,11 +86,13 @@ public class SecurityConfig {
                                 (request, response,
                                  authentication) -> {
                                     var oidcUser = (DefaultOidcUser) authentication.getPrincipal();
+                                    System.out.println(oidcUser.getEmail());
                                     if (userService.findByEmail(oidcUser.getEmail()) == null) {
                                         User user = new User();
                                         user.setUsername(oidcUser.getEmail());
                                         user.setEmail(oidcUser.getEmail());
                                         user.setFullName(oidcUser.getFullName());
+                                        user.setAvatar(oidcUser.getPicture());
                                         user.setPassword(new BCryptPasswordEncoder().encode(oidcUser.getName()));
                                         user.setProvider(Provider.GOOGLE);
                                         userService.createUser(user);

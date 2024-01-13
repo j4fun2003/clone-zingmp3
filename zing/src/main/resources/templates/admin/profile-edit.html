@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
 <div th:fragment="mainAdmin" id="content-page" class="content-page">
@@ -39,14 +39,14 @@
                   </div>
                 </div>
                 <div class="iq-card-body">
-                  <form th:action="@{/admin/user}" th:object="${user}" method="post" th:method="post">
+                  <form th:action="@{/admin/user}" th:object="${user}" enctype="multipart/form-data" method="post" th:method="post">
                     <div class="form-group row align-items-center">
                       <div class="col-md-12">
                         <div class="profile-img-edit">
-                          <img class="profile-pic" th:src="@{*{avatar}}" alt="profile-pic">
+                          <img class="profile-pic" th:src="@{|https://storage.googleapis.com/zing-mp3-2118c.appspot.com/*{avatar}|}" alt="profile-pic">
                           <div class="p-image">
                             <i class="ri-pencil-line upload-button"></i>
-                            <input class="file-upload" type="file" th:field="*{avatar}" accept="image/*"/>
+                            <input class="file-upload" type="file" name="avatarInput" accept="image/*"/>
                           </div>
                         </div>
                       </div>
@@ -68,12 +68,12 @@
                       <div class="form-group col-sm-6">
                         <label for="cname">Provider:</label>
                         <input type="text" class="form-control" id="cname" th:field="*{provider}">
-                     </div>
+                      </div>
                       <div class="form-group col-sm-6">
                         <label>Role:</label>
-<!--                        <select class="form-control" id="exampleFormControlSelect1" name="selectedRoleId" th:each="userRole : ${userRoles}">-->
-<!--                          <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}" th:selected="${userRole != null and userRole.getRole().id == role.id}"></option>-->
-<!--                        </select>-->
+                        <!--                        <select class="form-control" id="exampleFormControlSelect1" name="selectedRoleId" th:each="userRole : ${userRoles}">-->
+                        <!--                          <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}" th:selected="${userRole != null and userRole.getRole().id == role.id}"></option>-->
+                        <!--                        </select>-->
                         <!-- Nếu không có phần tử, hiển thị một select khác -->
                         <select th:if="${#lists.isEmpty(userRoles)}" class="form-control" id="exampleFormControlSelect" name="selectedRoleIdInsert">
                           <option   th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}"></option>
@@ -97,20 +97,21 @@
                           <input type="radio" id="customRadio7" th:field="*{genders}" class="custom-control-input" th:value="false" >
                           <label class="custom-control-label" for="customRadio7"> Female </label>
                         </div>
-                        <div class="form-group col-sm-6">
+                      </div>
+                      <div class="form-group col-sm-6">
                         <label for="dob">Date Of Create:</label>
-                          <input type="text" class="form-control" id="dob" th:field="*{createDate}">
+                        <input type="text" class="form-control" id="dob" th:field="*{createDate}">
                       </div>
-                        <span th:value="*{userId}"></span>
-                        <button type="submit" class="btn btn-primary mr-2" th:formaction="@{/admin/user/{userId}(userId=${user.userId})}">Update</button>
-                        <button type="submit" class="btn btn-success" th:formaction="@{/admin/user/insert}">Insert</button>
-                        <button type="reset" class="btn iq-bg-danger">Delete</button>
-                      </div>
+                      <span th:value="*{userId}"></span>
+                      <button type="submit" class="btn btn-primary mr-2" th:formaction="@{/admin/user/{userId}(userId=${user.userId})}">Update</button>
+                      <button type="submit" class="btn btn-success" th:formaction="@{/admin/user/insert}">Insert</button>
+                      <button type="reset" class="btn iq-bg-danger">Delete</button>
                     </div>
+
                   </form>
+                </div>
               </div>
             </div>
-              </div>
             <div class="tab-pane fade" id="chang-pwd" role="tabpanel">
               <div class="iq-card">
                 <div class="iq-card-header d-flex justify-content-between">
