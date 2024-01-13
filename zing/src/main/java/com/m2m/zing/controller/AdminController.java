@@ -5,6 +5,7 @@ import com.m2m.zing.model.Song;
 import com.m2m.zing.service.GenreService;
 import com.m2m.zing.service.SingerService;
 import com.m2m.zing.service.SongService;
+import com.m2m.zing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +26,15 @@ public class AdminController {
     @Autowired
     SingerService singerService;
 
+    @Autowired
+    UserService userService;
 
-    @GetMapping("")
-    public String getDashboardManagement() {
+
+    @GetMapping("/dashboard")
+    public String getDashboardManagement(Model model) throws  Exception{
+        model.addAttribute("singers", singerService.getAllSinger());
+        model.addAttribute("songs",songService.getAllSong());
+        model.addAttribute("users", userService.getAllUser());
         return "admin/dashboard";
     }
 
