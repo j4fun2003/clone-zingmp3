@@ -5,6 +5,7 @@ import com.google.api.Http;
 import com.m2m.zing.constant.ModelAttributes;
 import com.m2m.zing.model.*;
 import com.m2m.zing.model.idClass.FavoriteId;
+import com.m2m.zing.service.AlbumService;
 import com.m2m.zing.service.FavoriteService;
 import com.m2m.zing.service.HistoryService;
 import com.m2m.zing.service.SingerService;
@@ -46,19 +47,22 @@ public class UserController {
     @Autowired
     FavoriteService favoriteService;
 
+    @Autowired
+    AlbumService albumService;
+
     @GetMapping()
     public String doGetDashBoard(Model model) throws Exception {
         model.addAttribute("songs", songService.getAllSong());
         model.addAttribute("songNewRelease", songService.getTop5SongsNewRealease());
         model.addAttribute("singers", singerService.getAllSinger());
-        System.out.println(singerService.getAllSinger().size());
+        model.addAttribute("albums", albumService.getAll());
         return "user/dashboard";
     }
 
     @GetMapping("/history")
     public String doGetHistory(Model model) throws Exception {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(user!=null){
+        if (user != null) {
             List<History> histories = new ArrayList<>();
             histories = historyService.getHistoryByUser(user);
             List<Song> songs = new ArrayList<>();
@@ -117,10 +121,17 @@ public class UserController {
 
     @GetMapping("/singer-detail/{id}")
     public String doGetSingerDetail(Model model, @PathVariable Integer id) throws Exception {
-        Singer singer =  singerService.getSingerById(id);
+        Singer singer = singerService.getSingerById(id);
         List<Song> songs = songService.getSongBySinger(singer);
         model.addAttribute("singer", singer);
         model.addAttribute("songs", songs);
         return "/user/singerDetail";
+    }
+
+    @GetMapping("/album-detail/{id}")
+    public String doGetAlbumDetail(@PathVariable Long id, Model model) throws  Exception{
+        model.addAttribute("albums", albumService.getAlbumById(id));
+        model.addAttribute("albumsSong", songService.getSongByAlbum(id));
+        return "user/albumDetail";
     }
 }
