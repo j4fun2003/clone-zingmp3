@@ -26,11 +26,7 @@ public interface SongService {
 
     public List<Song> getTop5SongsNewRealease();
 
-
-    List<Song> getSongBySinger(Singer singer);
-
     List<Song> getSongsByAuthor_UserId(Long id);
 
     void updateSongsAlbumId(SongDTO songDTO);
-
 }
