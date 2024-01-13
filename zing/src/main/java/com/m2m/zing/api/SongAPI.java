@@ -1,6 +1,12 @@
 package com.m2m.zing.api;
 
 import com.m2m.zing.constant.ModelAttributes;
+import com.m2m.zing.dto.SongDTO;
+import com.m2m.zing.dto.SongRequest;
+import com.m2m.zing.model.Album;
+import com.m2m.zing.model.Song;
+import com.m2m.zing.model.User;
+import com.m2m.zing.service.AlbumService;
 import com.m2m.zing.dto.SongRequest;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
@@ -31,6 +37,9 @@ public class SongAPI {
 
     @Autowired
     SingerService singerService;
+
+    @Autowired
+    AlbumService albumService;
 
     @GetMapping
     public ResponseEntity<?> getAllSongs() {
@@ -131,6 +140,13 @@ public class SongAPI {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/byAuthor/{id}")
+    public ResponseEntity<?> getSongsByAuthor(@PathVariable("id") Long userId) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            List<Song> songs = songService.getSongsByAuthor_UserId(userId);
+            System.out.println(songs);
+            if (songs != null) {
     @GetMapping("/byAuthor")
     public ResponseEntity<?> getSongsByAuthor(@RequestParam Long userId) {
         Map<String, Object> result = new HashMap<>();
@@ -151,4 +167,34 @@ public class SongAPI {
         }
         return ResponseEntity.ok(result);
     }
+
+    @PutMapping("/update-album/{songId}")
+    public ResponseEntity<?> addToAlbum(@PathVariable Long songId, @RequestParam Long albumId) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Song song = songService.getSongById(songId);
+            if (song != null) {
+                Album album = albumService.getAlbumById(albumId);
+                song.setAlbum(album);
+                songService.updateSong(songId,song);
+                result.put("status", "success");
+            } else {
+                result.put("status", "failed");
+                result.put("detail", "not found song with id : " + songId);
+            }
+        } catch (Exception e) {
+            result.put("status", "error");
+            result.put("detail", e.toString());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/songs/updateAlbumId")
+    public ResponseEntity<?> doUpdateSongsAlbumId(@RequestBody SongDTO songDTO) {
+        songService.updateSongsAlbumId(songDTO);
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", "success");
+        return ResponseEntity.ok(result);
+    }
+
 }

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{/common/layout :: admin(~{::mainAdmin})}"></html>
+<html lang="en" th:replace="~{/common/layout :: admin(~{::mainAdmin})}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>DashBoard</title>
 </head>
 <body>
-<div th:fragment="mainAdmin" id="content-page" class="content-page">
+<div class="content-page" id="content-page" th:fragment="mainAdmin">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
@@ -94,7 +93,7 @@
                                     </td>
                                     <td th:text="${song.title}"></td>
                                     <td>Thể Loại</td>
-                                    <td th:text="${song.singer != null?song.singer.singerFullName:'Undefine'}"></td>
+                                    <td th:text="${song.author != null?song.author.fullName:'Undefine'}"></td>
                                     <td th:text="${song.description}"></td>
                                     <td>
                                         <div class="flex align-items-center list-user-action">

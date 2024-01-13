@@ -34,7 +34,7 @@
                 <tr th:each="album: ${albums}">
                   <td th:text="${album.albumId}"></td>
                   <td>
-                    <img th:src="@{|${album.image}|}" class="img-fluid avatar-50 rounded" alt="author-profile">
+                    <img th:src="@{|https://storage.googleapis.com/zing-mp3-2118c.appspot.com/${album.image}|}" class="img-fluid avatar-50 rounded" alt="author-profile">
                   </td>
                   <td th:text="${album.title}"></td>
                   <td th:text="${album.author.fullName}"></td>

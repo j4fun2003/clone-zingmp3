@@ -58,7 +58,10 @@ public class CustomUserDetailService implements UserDetailsService {
                 user.getFavorites(),
                 user.getHistories(),
                 user.getUserRoles(),
+                user.getOtp(),
+                user.getOtpGeneratedTime(),
                 grantedAuthoritiesSet
+
         );
     }
 }

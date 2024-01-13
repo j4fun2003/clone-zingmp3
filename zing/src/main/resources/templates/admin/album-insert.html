@@ -19,66 +19,110 @@
                   </div>
                 </div>
                 <div class="iq-card-body">
-                  <form th:action="@{/admin/album/insert}" th:object="${album}" method="post" th:method="post">
+<!--                  <form th:object="${album}">-->
+<!--                    <div class="form-group row align-items-center">-->
+<!--                      <div class="col-md-12">-->
+<!--                        <div class="profile-img-edit">-->
+<!--                          <img class="profile-pic" th:src="@{|https://storage.googleapis.com/zing-mp3-2118c.appspot.com/*{image}|}" alt="profile-pic">-->
+<!--                          <div class="p-image">-->
+<!--                            <i class="ri-pencil-line upload-button"></i>-->
+<!--                            <input class="file-upload" type="file" name="selectImg" accept="image/*"/>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+
+<!--                    <div class=" row align-items-center">-->
+<!--                      <div class="form-group col-sm-6">-->
+<!--                        <label for="title">Title of Album:</label>-->
+<!--                        <input type="text" class="form-control" id="title" th:field="*{title}">-->
+<!--                      </div>-->
+<!--                      <div class="form-group col-sm-6">-->
+<!--                        <label>Author:</label>-->
+<!--                        <select class="form-control" id="exampleFormControlSelect" name="selectAuthor" onchange="getSongsByAuthorId()">-->
+<!--                          <option  th:each="author : ${users}" th:value="${author.userId}" th:text="${author.fullName}"></option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+<!--                        <button type="submit" class="btn btn-primary">Insert</button>-->
+<!--                        <a type="reset" href="/admin/album/insert" class="btn iq-bg-danger">Delete</a>-->
+<!--                      </div>-->
+<!--                  -->
+<!--                <div class="iq-card-body">-->
+<!--                  <div id="songListContainer">-->
+<!--                    <table class="table">-->
+<!--                      <thead>-->
+<!--                      <tr>-->
+<!--                        <th>Title</th>-->
+<!--                        <th>Image</th>-->
+<!--                        <th>Duration</th>-->
+<!--                        <th>Description</th>-->
+<!--                        <th>Check</th>-->
+<!--                      </tr>-->
+<!--                      </thead>-->
+<!--                      <tbody id="songListBody">-->
+<!--                      &lt;!&ndash; Dữ liệu từ Spring Boot sẽ được hiển thị ở đây &ndash;&gt;-->
+<!--                      </tbody>-->
+<!--                    </table>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                </form>-->
+
+                  <form th:object="${album}" enctype="multipart/form-data">
                     <div class="form-group row align-items-center">
                       <div class="col-md-12">
                         <div class="profile-img-edit">
-                          <img class="profile-pic" th:src="@{*{image}}" alt="profile-pic">
+                          <img class="profile-pic" th:src="@{|https://storage.googleapis.com/zing-mp3-2118c.appspot.com/${album.image}|}" alt="profile-pic">
                           <div class="p-image">
                             <i class="ri-pencil-line upload-button"></i>
-                            <input class="file-upload" type="file" th:field="*{image}" accept="image/*"/>
+                            <input class="file-upload" type="file" name="selectImg" accept="image/*"/>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div class=" row align-items-center">
+                    <div class="row align-items-center">
                       <div class="form-group col-sm-6">
-                        <label for="fname">Title of Album:</label>
-                        <input type="text" class="form-control" id="fname" th:field="*{title}">
+                        <label for="title">Title of Album:</label>
+                        <input type="text" class="form-control" id="title" th:field="*{title}">
                       </div>
                       <div class="form-group col-sm-6">
                         <label>Author:</label>
-                        <select class="form-control" id="exampleFormControlSelect" name="selectAuthor"  >
-                          <option  th:each="author : ${users}" th:value="${author.userId}" th:text="${author.fullName}"></option>
+                        <select class="form-control" id="exampleFormControlSelect" name="selectAuthor" onchange="getSongsByAuthorId()">
+                          <option th:each="author : ${users}" th:value="${author.userId}" th:text="${author.fullName}"></option>
                         </select>
                       </div>
-                        <button type="submit" class="btn btn-primary" th:formaction="@{/admin/user/insert}">Insert</button>
-                        <a type="reset" href="/admin/album/insert" class="btn iq-bg-danger">Delete</a>
+                    </div>
+
+                    <div class="row align-items-center">
+                      <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">Insert</button>
+                        <a type="reset" class="btn iq-bg-danger">Delete</a>
+                      </div>
+                    </div>
+
+                    <div class="iq-card-body">
+                      <div id="songListContainer">
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th>Image</th>
+                            <th>Duration</th>
+                            <th>Description</th>
+                            <th>Check</th>
+                          </tr>
+                          </thead>
+                          <tbody id="songListBody">
+                          <!-- Dữ liệu từ Spring Boot sẽ được hiển thị ở đây -->
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </form>
-              </div>
+
+                </div>
             </div>
               </div>
-            <div class="tab-pane fade" id="chang-pwd" role="tabpanel">
-              <div class="iq-card">
-                <div class="iq-card-header d-flex justify-content-between">
-                  <div class="iq-header-title">
-                    <h4 class="card-title">Change Password</h4>
-                  </div>
-                </div>
-                <div class="iq-card-body">
-                  <form>
-                    <div class="form-group">
-                      <label for="cpass">Current Password:</label>
-                      <a href="javascripe:void();" class="float-right">Forgot Password</a>
-                      <input type="Password" class="form-control" id="cpass" value="">
-                    </div>
-                    <div class="form-group">
-                      <label for="npass">New Password:</label>
-                      <input type="Password" class="form-control" id="npass" value="">
-                    </div>
-                    <div class="form-group">
-                      <label for="vpass">Verify Password:</label>
-                      <input type="Password" class="form-control" id="vpass" value="">
-                    </div>
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                    <button type="reset" class="btn iq-bg-danger">Cancel</button>
-                  </form>
-                </div>
-              </div>
-            </div>
 
           </div>
         </div>

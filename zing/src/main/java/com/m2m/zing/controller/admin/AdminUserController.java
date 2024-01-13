@@ -4,6 +4,8 @@ import com.m2m.zing.model.Role;
 import com.m2m.zing.model.User;
 import com.m2m.zing.repository.RoleRepository;
 import com.m2m.zing.repository.UserRoleRepository;
+import com.m2m.zing.service.FirebaseService;
+import com.m2m.zing.service.UserService;
 import com.m2m.zing.service.impl.AlbumServiceImpl;
 import com.m2m.zing.service.impl.SongServiceImpl;
 import com.m2m.zing.service.impl.UserServiceImpl;
@@ -12,14 +14,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminUserController {
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
     private UserRoleRepository userRoleRepository;
@@ -28,7 +32,8 @@ public class AdminUserController {
     private RoleRepository roleRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private FirebaseService firebaseService;
+
     @GetMapping("/user")
     public String getUserManagement(Model model){
         try {
@@ -56,7 +61,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/user/{id}")
-    public String postEditUser(@PathVariable("id") Long id, @ModelAttribute("user") User user, @RequestParam("selectedRoleId") Long roleId) {
+    public String postEditUser(@PathVariable("id") Long id, @ModelAttribute("user") User user, @RequestParam("selectedRoleId") Long roleId, @RequestParam("avatarInput")MultipartFile avatar) {
         User userTemp = null;
         try {
             userTemp = userService.getUserById(id);
@@ -65,12 +70,8 @@ public class AdminUserController {
             userTemp.setPassword(user.getPassword());
             userTemp.setGenders(user.isGenders());
             userTemp.setActive(user.isActive());
-            userTemp.setAvatar(user.getAvatar());
-//            if(roleId == null){
-//                System.out.println(roleId);
-//                System.out.println(roleIdforNoRoles);
-//                roleId = roleIdforNoRoles;
-//            }
+            userTemp.setAvatar(avatar.getOriginalFilename());
+            firebaseService.uploadFileToFirebaseStorage(avatar);
             Role role = roleRepository.findById(roleId).get();
             userService.addToUser(user.getEmail(),role.getName());
             System.out.println(user.getEmail()+" | "+role.getName());
@@ -99,21 +100,19 @@ public class AdminUserController {
     }
 
     @PostMapping("/user/insert")
-    public String postInsert(@ModelAttribute("user") User user, @RequestParam("selectedRoleIdInsert") Long roleId){
+    public String postInsert(@ModelAttribute("user") User user, @RequestParam("selectedRoleIdInsert") Long roleId,@RequestParam("avatarInput") MultipartFile avatar) throws IOException {
         User userTemp = new User();
         userTemp.setProvider(user.getProvider());
         userTemp.setUsername(user.getUsername());
         userTemp.setGenders(user.isGenders());
         userTemp.setFullName(user.getFullName());
-        userTemp.setAvatar(user.getAvatar());
+        userTemp.setAvatar(avatar.getOriginalFilename());
+        firebaseService.uploadFileToFirebaseStorage(avatar);
         userTemp.setEmail(user.getEmail());
-        userTemp.setPassword(passwordEncoder.encode(user.getPassword()));
-        System.out.println(roleId);
+        userTemp.setPassword(user.getPassword());
         Role roleTemp = roleRepository.findById(roleId).get();
-        System.out.println(roleTemp);
         userService.createUser(userTemp);
         userService.addToUser(user.getEmail(),roleTemp.getName());
-
         return "redirect:/admin/user";
     }
 
