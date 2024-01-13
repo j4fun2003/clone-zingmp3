@@ -15,3 +15,7 @@ function updateSinger(singer) {
 function deleteSinger(singerId) {
     return callAPI(`/api/singers/${singerId}`,"DELETE");
 }
+
+function getAllSinger() {
+    return callAPI("/api/singers", "GET");
+}

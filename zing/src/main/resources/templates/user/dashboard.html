@@ -73,12 +73,14 @@
                                         <div class="iq-thumb">
                                             <a th:href="@{/singer-detail/{singerId}(singerId=${singer.singerId})}">
                                                 <div class="iq-music-overlay"></div>
-                                                <img th:src="@{${singer.image}}" class="img-border-radius img-fluid w-100" alt=""/>
+                                                <img th:src="@{${singer.image}}"
+                                                     class="img-border-radius img-fluid w-100" alt=""/>
                                             </a>
                                         </div>
                                         <div class="feature-list text-center">
                                             <p class="font-weight-100 mb-0">
-                                                <a th:href="@{/singer-detail/{singerId}(singerId=${singer.singerId})}" th:text="${singer.singerFullName}">
+                                                <a th:href="@{/singer-detail/{singerId}(singerId=${singer.singerId})}"
+                                                   th:text="${singer.singerFullName}">
                                                 </a>
                                             </p>
                                         </div>

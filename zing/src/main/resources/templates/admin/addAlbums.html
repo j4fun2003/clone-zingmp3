@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: admin(~{::mainAdmin})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mainAdmin" id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="iq-edit-list-data">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
+                            <div class="iq-card">
+                                <div class="iq-card-header d-flex justify-content-between">
+                                    <div class="iq-header-title">
+                                        <h4 class="card-title">New Album</h4>
+                                    </div>
+                                </div>
+                                <div class="iq-card-body">
+                                    <form method="post">
+                                        <div class="form-group row align-items-center">
+                                            <div class="col-md-12">
+                                                <div class="profile-img-edit">
+                                                    <img class="profile-pic" alt="profile-pic"
+                                                         src="/assets/img/placeholder/albumPlaceholderjpg.jpg">
+                                                    <div class="p-image">
+                                                        <i class="ri-pencil-line upload-button"></i>
+                                                        <input id="album-image" class="file-upload" type="file"
+                                                               accept="image/*"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class=" row align-items-center">
+                                            <div class="form-group col-sm-6">
+                                                <label for="album-name">Album Name: </label>
+                                                <input  type="text" class="form-control" id="album-name">
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label>Singer:</label>
+                                                <select id="album-singer"  class="form-control"
+                                                        name="selectAuthor">
+                                                    <option disabled selected>Select Singer</option>
+                                                    <option th:each="singer : ${singers}" th:value="${singer.singerId}"
+                                                            th:text="${singer.singerFullName}"></option>
+                                                </select>
+                                            </div>
+                                            <div id="album-song" class="form-group col-sm-12">
+                                                <label>Singer:</label>
+                                                <div class="form-group">
+                                                    <div class="d-flex">
+                                                        <select  class="album-songs col-7 form-control my-1">
+                                                            <option value="" disabled selected>Select Song</option>
+                                                            <option th:each="song : ${songs}" th:value="${song.songId}" th:text="${song.title}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <button type="button" class="btn btn-primary"
+                                                        onclick="addSongToAlbums()">Add
+                                                    Another Song
+                                                </button>
+                                            </div>
+                                            <div class="form-group col-sm-12 text-center">
+                                                <button type="button" class="btn btn-primary"
+                                                        onclick="addAlbumsConfirm()">Add Album
+                                                </button>
+                                                <button type="reset" class="btn iq-bg-danger">Reset</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

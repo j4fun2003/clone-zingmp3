@@ -17,11 +17,11 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-  <div id="loading">
-    <div id="loading-center">
-    </div>
+<div id="loading">
+  <div id="loading-center">
   </div>
-  <div class="wrapper">
+</div>
+<div class="wra pper">
     <aside th:replace="~{/common/_sidebar :: adminSideBar}"></aside>
     <div th:replace="~{/common/_header :: adminHeader}"></div>
     <main th:replace="${viewAdmin}"></main>
@@ -90,7 +90,9 @@
 <script th:src="@{|/assets/javascript/user/userAction.js|}"></script>
 <script th:src="@{|/assets/javascript/CRUD/song_CRUD.js|}"></script>
 <script th:src="@{|/assets/javascript/CRUD/singer_CRUD.js|}"></script>
+<script th:src="@{|/assets/javascript/CRUD/albums_CRUD.js|}"></script>
 <script th:src="@{|/assets/javascript/api/songAPI.js|}"></script>
+<script th:src="@{|/assets/javascript/api/albumAPI.js|}"></script>
 <script th:src="@{|/assets/javascript/api/singerAPI.js|}"></script>
 <script th:src="@{|/assets/javascript/api/historyAPI.js|}"></script>
 <script th:src="@{|/assets/javascript/api/general.js|}"></script>
