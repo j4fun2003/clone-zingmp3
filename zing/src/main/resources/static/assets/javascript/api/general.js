@@ -9,11 +9,11 @@ function callAPI(endpoint, method, requestData) {
                 resolve(data); // Trả về dữ liệu khi thành công
             },
             error: function (xhr, status, error) {
-                Swal.fire({
-                    title: "Error when connect to database?",
-                    text: "please try with another?",
-                    icon: "error"
-                });
+                // Swal.fire({
+                //     title: "Error when connect to database?",
+                //     text: "please try with another?",
+                //     icon: "error"
+                // });
                 reject(error);
             }
         });
