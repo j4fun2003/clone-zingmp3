@@ -7,9 +7,6 @@ import com.m2m.zing.model.Album;
 import com.m2m.zing.model.Song;
 import com.m2m.zing.model.User;
 import com.m2m.zing.service.AlbumService;
-import com.m2m.zing.dto.SongRequest;
-import com.m2m.zing.model.Song;
-import com.m2m.zing.model.User;
 import com.m2m.zing.service.SingerService;
 import com.m2m.zing.service.SongService;
 import com.m2m.zing.service.UserService;
@@ -147,13 +144,6 @@ public class SongAPI {
             List<Song> songs = songService.getSongsByAuthor_UserId(userId);
             System.out.println(songs);
             if (songs != null) {
-    @GetMapping("/byAuthor")
-    public ResponseEntity<?> getSongsByAuthor(@RequestParam Long userId) {
-        Map<String, Object> result = new HashMap<>();
-        try {
-            User author = userService.getUserById(userId);
-            if (author != null) {
-                List<Song> songs = songService.getSongByAuthor(author);
                 result.put("status", "success");
                 result.put("data", songs);
             } else {
