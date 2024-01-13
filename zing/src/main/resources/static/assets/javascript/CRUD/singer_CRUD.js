@@ -142,3 +142,18 @@ function getInformationToUpdate() {
         }
     })
 }
+
+
+function deleteSingerConfirm(singerId) {
+    confirmToDoAction("Do you want to delete this singer?", function () {
+        deleteSinger(singerId).then(result => {
+            alertSuccess("Delete Singer Success");
+            setTimeout(function () {
+                location.reload();
+            }, 3000);
+        }).catch(error => {
+            console.log(error);
+            alertError("Delete Singer Error");
+        });
+    })
+}

@@ -15,17 +15,14 @@
                     <div class="iq-card-body">
                         <div class="row">
                             <div class="col-lg-4">
-                                <img th:src="${singer == null?'/assets/img/placeholder/placeholderMusic.png':singer.image}"
+                                <img th:src="${albums == null?'/assets/img/placeholder/placeholderMusic.png':albums.image}"
                                      class="img-fluid w-100" alt="">
                             </div>
                             <div class="d-flex align-items-top justify-content-between iq-music-play-detail">
                                 <div class="music-detail">
-                                    <h3 th:text="${singer.singerFullName}"></h3>
+                                    <h3 th:text="${albums.title}"></h3>
                                     <span></span>
-                                    <p class="mb-0"
-                                       th:text="${ 'Birthday : ' +#dates.format(singer.singerBirthday,'yyyy-MM-dd')} "></p>
-                                    <p th:text="${ 'singer email :' +  singer.singerEmail}"></p>
-                                    <p class="mb-0" th:text="${'Description : ' +  singer.singerDescription}"></p>
+                                    <p class="mb-0" th:text="${'Singer : ' +  albums.singer.singerFullName}"></p>
                                 </div>
                                 <div class="music-right">
                                     <div class="d-flex align-items-center">
@@ -52,7 +49,7 @@
                 <div class="iq-card">
                     <div class="iq-card-body">
                         <ul class="list-unstyled iq-music-slide mb-0">
-                            <li class="mb-3" th:each="song: ${songs}">
+                            <li class="mb-3" th:each="song: ${albumsSong}">
                                 <div class="d-flex justify-content-between align-items-center row">
                                     <div class="media align-items-center col-10 col-md-5">
                                         <div class="iq-realese-song ">

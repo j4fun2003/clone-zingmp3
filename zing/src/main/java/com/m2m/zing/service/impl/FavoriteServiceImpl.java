@@ -1,6 +1,7 @@
 package com.m2m.zing.service.impl;
 
 import com.m2m.zing.model.Favorite;
+import com.m2m.zing.model.User;
 import com.m2m.zing.model.idClass.FavoriteId;
 import com.m2m.zing.repository.FavoriteRepository;
 import com.m2m.zing.service.FavoriteService;
@@ -37,5 +38,10 @@ public class FavoriteServiceImpl implements FavoriteService {
     public Favorite deleteFavorite(Favorite favorite) throws Exception {
         favoriteRepository.delete(favorite);
         return favorite;
+    }
+
+    @Override
+    public List<Favorite> getByUser(User user) throws Exception {
+        return favoriteRepository.findByUser(user);
     }
 }

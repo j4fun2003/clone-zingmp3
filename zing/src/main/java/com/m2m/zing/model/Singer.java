@@ -39,4 +39,8 @@ public class Singer {
     @OneToMany(mappedBy = "singer")
     @JsonIgnore
     List<Song> songs;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "singer")
+    List<Album> albums;
 }
