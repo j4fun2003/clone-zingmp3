@@ -45,7 +45,7 @@
                                                data-original-title="Edit"
                                                th:href="@{|/admin/edit-album/${album.albumId}|}"><i
                                                     class="ri-pencil-line"></i></a>
-                                            <a class="bg-primary" data-toggle="tooltip" data-placement="top" title=""
+                                            <a th:albumId="${album.albumId}" onclick="confirmDeleteAlbum(this.getAttribute('albumId'))" class="bg-primary" data-toggle="tooltip" data-placement="top" title=""
                                                data-original-title="Delete" href="#"><i class="ri-delete-bin-line"></i></a>
                                         </div>
                                     </td>

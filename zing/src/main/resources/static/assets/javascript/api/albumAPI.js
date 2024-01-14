@@ -5,3 +5,9 @@ function createAlbum(albumRequest) {
 function getAlbumById(albumId) {
     return callAPI(`/api/albums/${albumId}`, "GET");
 }
+
+
+
+function deleteAlbum(albumId) {
+    return callAPI(`/api/albums/${albumId}`, "DELETE");
+}

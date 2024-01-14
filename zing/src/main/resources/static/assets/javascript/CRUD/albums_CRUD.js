@@ -5,7 +5,7 @@ function addAlbumsConfirm() {
                 createAlbum(albumRequest).then(result => {
                     if (result.status == "Success") {
                         alertSuccess("Add Album success");
-                        location.href="/admin/album";
+                        location.href = "/admin/album";
                     } else {
                         alertError("Having Some Error When Adding albums" + result.detail);
                     }
@@ -204,5 +204,18 @@ async function getUpdateAlbumInformation() {
         console.error("Lỗi trong getUpdateAlbumInformation:", error);
         throw error;
     }
+}
+
+function confirmDeleteAlbum(albumId) {
+    confirmToDoAction("Are you sure to delete this Album", function () {
+        deleteAlbum(albumId).then(result => {
+                alertSuccess("Delete this album success");
+                location.reload();
+            }
+        ).catch(error => {
+            console.log(error);
+            alertError("Have got some error when delete album");
+        });
+    });
 }
 
