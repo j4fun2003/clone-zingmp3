@@ -31,8 +31,8 @@
                             class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                     <ul id="dashboard" class="iq-submenu collapse show" data-parent="#iq-sidebar-toggle">
                         <li class="active"><a href="/"><i class="las la-house-damage"></i>DashBoard</a></li>
-                        <li><a href="/history"><i class="las la-headphones"></i>History</a></li>
-                        <li><a href="/favorite"><i class="lar la-file-audio"></i>Favorite</a></li>
+                        <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/history"><i class="las la-headphones"></i>History</a></li>
+                        <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/favorite"><i class="lar la-file-audio"></i>Favorite</a></li>
                     </ul>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')">
